@@ -29,7 +29,7 @@ export default function TwoDoorCTA() {
                 For Founders
               </h3>
               <p className="text-lg md:text-xl text-muted mb-4 leading-[1.6] font-light tracking-tight-1">
-                You're building fast, but design is lagging behind growth.
+                You&apos;re building fast, but design is lagging behind growth.
               </p>
               <p className="text-lg md:text-xl text-muted leading-[1.6] font-light tracking-tight-1">
                 Get design clarity, speed, and investor-grade polish — without hiring a

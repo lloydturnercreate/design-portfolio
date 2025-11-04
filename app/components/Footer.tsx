@@ -17,7 +17,7 @@ export default function Footer() {
 
           {/* Subline */}
           <p className="text-lg md:text-xl lg:text-2xl text-muted mb-12 md:mb-14 max-w-2xl mx-auto leading-[1.6] font-light tracking-tight-1">
-            Let's make sure your design scales with it.
+            Let&apos;s make sure your design scales with it.
           </p>
 
           {/* Primary CTA */}
