@@ -1,0 +1,69 @@
+import Section from './Section';
+
+/**
+ * About
+ * About section with personal background and CV download
+ * Clean, approachable layout
+ */
+export default function About() {
+  return (
+    <Section className="py-20 md:py-32 lg:py-40 bg-secondary border-y border-border">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Label */}
+        <div className="text-center mb-4">
+          <span className="text-xs md:text-sm font-semibold tracking-[0.12em] uppercase text-muted-dark">Background</span>
+        </div>
+
+        {/* Section header */}
+        <div className="text-center mb-16 md:mb-20">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter-1 text-foreground mb-4 md:mb-5 text-balance">
+            About
+          </h2>
+        </div>
+
+        {/* Content with headshot */}
+        <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-start md:items-start">
+          {/* Headshot placeholder */}
+          <div className="flex-shrink-0 w-56 md:w-64 mx-auto md:mx-0">
+            <div className="w-full aspect-square bg-card border border-border rounded-3xl flex items-center justify-center overflow-hidden">
+              <span className="text-sm md:text-base text-muted-dark font-medium uppercase tracking-[0.12em]">
+                Photo
+              </span>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="flex-1 space-y-6 md:space-y-7">
+            <p className="text-lg md:text-xl lg:text-2xl text-muted leading-[1.6] font-light tracking-tight-1">
+              I'm Lloyd Turner — a Senior Product & Visual Designer with over a
+              decade of experience at Google, Amazon, and MoonPay.
+            </p>
+
+            <p className="text-lg md:text-xl lg:text-2xl text-muted leading-[1.6] font-light tracking-tight-1">
+              I now help fast-moving startups and agencies build fintech and Web3
+              products that stand out for clarity, usability, and scale.
+            </p>
+
+            <p className="text-lg md:text-xl lg:text-2xl text-muted leading-[1.6] font-light tracking-tight-1">
+              My background lets me work both strategically and hands-on — from
+              early-stage discovery through to developer handoff.
+            </p>
+
+            {/* CV Download button */}
+            <div className="pt-4">
+              <a
+                href="/cv.pdf"
+                download
+                className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 min-h-[60px] shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02] tracking-tight-1"
+                aria-label="Download 1-page CV"
+              >
+                Download CV
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
