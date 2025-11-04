@@ -1,12 +1,77 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import FuturisticGrid from './FuturisticGrid';
+
 /**
  * Hero
  * Main hero section with headline, credential bar, and CTAs
  * Centered, outcome-focused design that fits all screen sizes
+ * Content moves in 3D space with cursor, aligned with grid
  */
 export default function Hero() {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [pulseCount, setPulseCount] = useState(0);
+
+  // Increment counter when pulse is caught
+  const handlePulseIntercepted = () => {
+    setPulseCount(prev => prev + 1);
+  };
+
+  useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+    
+    const handleChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // Mouse tracking for 3D tilt - same as grid
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth) * 2 - 1; // -1 to 1
+      const y = (e.clientY / window.innerHeight) * 2 - 1; // -1 to 1
+
+      if (contentRef.current && !reducedMotion) {
+        // Apply same 3D tilt as grid for aligned movement
+        const tiltX = y * 2; // Tilt up/down
+        const tiltY = x * -2; // Tilt left/right
+        contentRef.current.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [reducedMotion]);
+
   return (
-    <div className="relative w-full min-h-[90vh] flex items-center justify-center bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
+    <div className="relative w-full min-h-[90vh] flex items-center justify-center bg-background overflow-hidden">
+      {/* Futuristic grid background */}
+      <FuturisticGrid onPulseIntercepted={handlePulseIntercepted} />
+      
+      <div 
+        ref={contentRef}
+        className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40 transition-transform duration-200 ease-out"
+        style={{ transformStyle: 'preserve-3d' }}
+      >
+        {/* Pulse counter - hidden until first intercept */}
+        {pulseCount > 0 && (
+          <div className="absolute bottom-0 right-0 font-mono animate-fade-in">
+            <div className="flex flex-col items-end gap-1">
+              <span className="text-green-500/60 text-xs uppercase tracking-widest">Intercepted</span>
+              <span className="text-green-400 text-3xl md:text-4xl font-bold tracking-wider tabular-nums">
+                {pulseCount.toString().padStart(3, '0')}
+              </span>
+            </div>
+          </div>
+        )}
         <div className="max-w-6xl mx-auto text-center">
           {/* Credential Bar */}
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-5 mb-10 md:mb-12">
