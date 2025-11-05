@@ -1,6 +1,26 @@
-import Section from './Section';
+'use client';
+
+import { useRef, useEffect, useState } from 'react';
 
 const caseStudies = [
+  {
+    company: 'Project One',
+    title: 'SaaS Platform Redesign',
+    description:
+      'Transformed user experience through systematic design improvements, resulting in increased engagement and user satisfaction.',
+  },
+  {
+    company: 'Project Two',
+    title: 'Fintech Mobile App',
+    description:
+      'Designed and built a comprehensive mobile experience that streamlined complex financial workflows for end users.',
+  },
+  {
+    company: 'Project Three',
+    title: 'Design System Implementation',
+    description:
+      'Created a scalable design system that accelerated development cycles and ensured consistent experiences across products.',
+  },
   {
     company: 'Phuture',
     title: 'Launch-Ready Investment App',
@@ -23,44 +43,202 @@ const caseStudies = [
 
 /**
  * CaseStudies
- * Three case study cards showcasing real outcomes
- * Clean grid layout with clear hierarchy
+ * Six case study cards (three placeholders + three real projects)
+ * Horizontal scroll layout with navigation controls
  */
 export default function CaseStudies() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollInnerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Update current index based on scroll position
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    const inner = scrollInnerRef.current;
+    if (!container || !inner) return;
+
+    const updateCurrentIndex = () => {
+      const scrollLeft = container.scrollLeft;
+      const containerWidth = container.clientWidth;
+      
+      // Get all card elements
+      const cards = inner.children;
+      if (cards.length === 0) return;
+
+      // Calculate which card is most visible
+      let closestIndex = 0;
+      let closestDistance = Infinity;
+
+      for (let i = 0; i < cards.length; i++) {
+        const card = cards[i] as HTMLElement;
+        const cardLeft = card.offsetLeft - container.scrollLeft;
+        const cardCenter = cardLeft + card.offsetWidth / 2;
+        const containerCenter = containerWidth / 2;
+        const distance = Math.abs(cardCenter - containerCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = i;
+        }
+      }
+
+      setCurrentIndex(closestIndex);
+    };
+
+    container.addEventListener('scroll', updateCurrentIndex);
+    updateCurrentIndex(); // Initial call
+
+    // Also update on resize
+    window.addEventListener('resize', updateCurrentIndex);
+
+    return () => {
+      container.removeEventListener('scroll', updateCurrentIndex);
+      window.removeEventListener('resize', updateCurrentIndex);
+    };
+  }, []);
+
+  const scrollToIndex = (index: number) => {
+    const container = scrollContainerRef.current;
+    const inner = scrollInnerRef.current;
+    if (!container || !inner) return;
+
+    const cards = inner.children;
+    if (index < 0 || index >= cards.length) return;
+
+    const targetCard = cards[index] as HTMLElement;
+    const containerWidth = container.clientWidth;
+    const cardWidth = targetCard.offsetWidth;
+    const cardLeft = targetCard.offsetLeft;
+    const scrollLeft = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+    
+    container.scrollTo({
+      left: Math.max(0, scrollLeft),
+      behavior: 'smooth',
+    });
+  };
+
+  const handlePrevious = () => {
+    if (currentIndex > 0) {
+      scrollToIndex(currentIndex - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentIndex < caseStudies.length - 1) {
+      scrollToIndex(currentIndex + 1);
+    }
+  };
+
   return (
-    <Section className="py-20 md:py-32 lg:py-40 bg-secondary border-y border-border">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Label */}
-        <div className="text-center mb-4">
-          <span className="text-xs md:text-sm font-semibold tracking-[0.12em] uppercase text-muted-dark">Work</span>
-        </div>
+    <section className="py-20 md:py-32 lg:py-40 bg-secondary border-y border-border w-full">
+      {/* Header container - centered with padding */}
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Label */}
+          <div className="text-center mb-4">
+            <span className="text-xs md:text-sm font-semibold tracking-[0.12em] uppercase text-muted-dark">Work</span>
+          </div>
 
-        {/* Section header */}
-        <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter-1 text-foreground mb-4 md:mb-5 text-balance">
-            Selected Work
-          </h2>
-        </div>
-
-        {/* Case study cards grid - Equal weight */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-16 md:mb-20">
-          {caseStudies.map((study, index) => (
-            <CaseStudyCard key={index} study={study} />
-          ))}
-        </div>
-
-        {/* View Case Studies CTA */}
-        <div className="text-center">
-          <a
-            href="#case-studies"
-            className="inline-flex items-center justify-center px-10 py-5 bg-card border border-border text-foreground font-semibold rounded-2xl hover:border-muted-dark hover:bg-background transition-all duration-300 text-base min-h-[60px] hover:scale-[1.02] tracking-tight-1"
-            aria-label="View all case studies"
-          >
-            View Full Case Studies
-          </a>
+          {/* Section header */}
+          <div className="text-center mb-16 md:mb-20">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter-1 text-foreground mb-4 md:mb-5 text-balance">
+              Selected Work
+            </h2>
+          </div>
         </div>
       </div>
-    </Section>
+
+      {/* Case study cards horizontal scroll - Full viewport width, edge to edge */}
+      <div className="mb-16 md:mb-20 w-full">
+        <div 
+          ref={scrollContainerRef}
+          className="overflow-x-auto scrollbar-hide scroll-smooth"
+        >
+          <div 
+            ref={scrollInnerRef}
+            className="flex gap-6 md:gap-8 pl-6 sm:pl-8 lg:pl-12 pr-6 sm:pr-8 lg:pr-12 py-8"
+          >
+            {caseStudies.map((study, index) => (
+              <div 
+                key={index} 
+                className="flex-shrink-0 w-[92vw] md:w-[85vw] lg:w-[80vw] first:pl-0 px-4"
+              >
+                <CaseStudyCard study={study} />
+              </div>
+            ))}
+            {/* Spacer after last card to allow centering */}
+            <div className="flex-shrink-0 w-[45vw] sm:w-[50vw] md:w-[50vw] lg:w-[50vw]" aria-hidden="true" />
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation Controls */}
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-center gap-8 md:gap-12">
+            {/* Previous Button */}
+            <button
+              onClick={handlePrevious}
+              disabled={currentIndex === 0}
+              className="p-2 hover:opacity-60 transition-opacity duration-300 disabled:opacity-20 disabled:cursor-not-allowed"
+              aria-label="Previous project"
+            >
+              <svg
+                className="w-5 h-5 md:w-6 md:h-6 text-foreground"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
+            {/* Navigation Dots */}
+            <div className="flex items-center gap-4 md:gap-5">
+              {caseStudies.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollToIndex(index)}
+                  className={`transition-all duration-300 rounded-full ${
+                    index === currentIndex
+                      ? 'w-2.5 h-2.5 md:w-3 md:h-3 bg-foreground'
+                      : 'w-2 h-2 md:w-2.5 md:h-2.5 bg-muted-dark hover:bg-muted'
+                  }`}
+                  aria-label={`Go to project ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Next Button */}
+            <button
+              onClick={handleNext}
+              disabled={currentIndex === caseStudies.length - 1}
+              className="p-2 hover:opacity-60 transition-opacity duration-300 disabled:opacity-20 disabled:cursor-not-allowed"
+              aria-label="Next project"
+            >
+              <svg
+                className="w-5 h-5 md:w-6 md:h-6 text-foreground"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -73,28 +251,88 @@ interface CaseStudyCardProps {
 }
 
 function CaseStudyCard({ study }: CaseStudyCardProps) {
-  return (
-    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-muted-dark hover:shadow-premium transition-all duration-300 cursor-pointer group h-full flex flex-col">
-      {/* Image placeholder */}
-      <div className="w-full h-64 bg-background border-b border-border flex items-center justify-center group-hover:bg-secondary transition-colors">
-        <span className="text-sm md:text-base text-muted-dark font-medium uppercase tracking-[0.12em]">
-          {study.company}
-        </span>
-      </div>
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
-      {/* Content */}
-      <div className="p-8 md:p-10 flex-1 flex flex-col">
-        <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3 tracking-tight-1">
-          {study.company}
-        </h3>
-        <p className="text-sm md:text-base font-semibold text-primary uppercase tracking-[0.08em] mb-4">
-          {study.title}
-        </p>
-        <p className="text-base md:text-lg text-muted leading-[1.6] flex-1 font-light">
-          {study.description}
-        </p>
+  useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+    
+    const handleChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // Mouse tracking for 3D tilt - same as hero section
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (reducedMotion) return;
+
+      // Get card bounds
+      const rect = card.getBoundingClientRect();
+      
+      // Calculate mouse position relative to card center (-1 to 1)
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+
+      // Apply subtle 3D tilt - more gentle than hero section
+      const tiltX = y * 3; // Subtle tilt for cards
+      const tiltY = x * -3;
+      card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+    };
+
+    const handleMouseLeave = () => {
+      if (card && !reducedMotion) {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      }
+    };
+
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+    
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [reducedMotion]);
+
+  return (
+    <div 
+      ref={cardRef}
+      className="relative h-[60vh] md:h-[65vh] lg:h-[70vh] transition-transform duration-200 ease-out"
+      style={{ transformStyle: 'preserve-3d' }}
+    >
+      <div className="relative w-full h-full bg-card border border-border rounded-3xl overflow-hidden hover:border-muted-dark hover:shadow-premium transition-all duration-300 cursor-pointer group">
+        {/* Image placeholder - full card background */}
+        <div className="absolute inset-0 bg-background group-hover:bg-secondary transition-colors flex items-center justify-center">
+          <span className="text-sm md:text-base text-muted-dark font-medium uppercase tracking-[0.12em]">
+            {study.company}
+          </span>
+        </div>
+
+        {/* Gradient overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+        {/* Content overlaid at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 lg:p-12 xl:p-14">
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4 tracking-tight-1">
+            {study.company}
+          </h3>
+          <p className="text-sm md:text-base lg:text-lg font-semibold text-blue-400 uppercase tracking-[0.08em] mb-4 md:mb-5">
+            {study.title}
+          </p>
+          <p className="text-base md:text-lg lg:text-xl text-gray-200 leading-[1.6] font-light max-w-3xl">
+            {study.description}
+          </p>
+        </div>
       </div>
     </div>
   );
 }
+
 

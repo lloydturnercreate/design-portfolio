@@ -23,8 +23,8 @@ export default function TwoDoorCTA() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
           {/* For Founders */}
-          <div className="bg-card border border-border p-10 md:p-12 rounded-3xl hover:border-muted-dark hover:shadow-premium transition-all duration-300 group">
-            <div className="mb-10">
+          <div className="bg-card border border-border p-10 md:p-12 rounded-3xl hover:border-muted-dark hover:shadow-premium transition-all duration-300 group flex flex-col">
+            <div className="flex-grow mb-10">
               <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6 tracking-tight-1">
                 For Founders
               </h3>
@@ -46,8 +46,8 @@ export default function TwoDoorCTA() {
           </div>
 
           {/* For Agencies */}
-          <div className="bg-card border border-border p-10 md:p-12 rounded-3xl hover:border-muted-dark hover:shadow-premium transition-all duration-300 group">
-            <div className="mb-10">
+          <div className="bg-card border border-border p-10 md:p-12 rounded-3xl hover:border-muted-dark hover:shadow-premium transition-all duration-300 group flex flex-col">
+            <div className="flex-grow mb-10">
               <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6 tracking-tight-1">
                 For Agencies
               </h3>

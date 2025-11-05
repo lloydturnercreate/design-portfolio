@@ -102,7 +102,7 @@ export default function Hero() {
               className="group w-full sm:w-auto px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] flex items-center justify-center shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02]"
               aria-label="Book a 15-minute diagnostic call for founders"
             >
-              <span className="tracking-tight-1">For Founders – Book 15-min Call</span>
+              <span className="tracking-tight-1 whitespace-nowrap">For Founders – Book 15-min Call</span>
             </a>
 
             {/* For Agencies CTA - Secondary */}
@@ -111,7 +111,7 @@ export default function Hero() {
               className="group w-full sm:w-auto px-10 py-5 bg-card border border-border text-foreground font-semibold rounded-2xl hover:border-muted-dark hover:bg-secondary transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] flex items-center justify-center hover:scale-[1.02]"
               aria-label="Check availability for agencies"
             >
-              <span className="tracking-tight-1">For Agencies – Check Availability</span>
+              <span className="tracking-tight-1 whitespace-nowrap">For Agencies – Check Availability</span>
             </a>
           </div>
         </div>

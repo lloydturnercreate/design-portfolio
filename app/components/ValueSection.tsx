@@ -1,4 +1,9 @@
+'use client';
+
+import { motion, useReducedMotion } from 'framer-motion';
 import Section from './Section';
+import CursorRevealGrid from './CursorRevealGrid';
+import { cardLoopBounceVariants, cardReducedMotionVariants } from '@/lib/animationConfig';
 
 const valuePoints = [
   {
@@ -19,11 +24,18 @@ const valuePoints = [
  * ValueSection
  * Explains why people hire Lloyd - value proposition section
  * Clean, scannable layout focused on outcomes
+ * Features continuous looping bounce animation for added life
+ * Background grid revealed by cursor
  */
 export default function ValueSection() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <Section className="py-20 md:py-32 lg:py-40">
-      <div className="max-w-7xl mx-auto">
+    <Section className="relative py-20 md:py-32 lg:py-40 overflow-hidden">
+      {/* Cursor-revealed grid background */}
+      <CursorRevealGrid />
+      
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Section Label */}
         <div className="text-center mb-4">
           <span className="text-xs md:text-sm font-semibold tracking-[0.12em] uppercase text-muted-dark">How I Work</span>
@@ -39,11 +51,14 @@ export default function ValueSection() {
           Design shouldn&apos;t slow you down. I work with ambitious teams who need a senior partner to:
         </p>
 
-        {/* Value points - Horizontal cards */}
+        {/* Value points - Horizontal cards with looping bounce animation */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-16 md:mb-20">
           {valuePoints.map((point, index) => (
-            <div
+            <motion.div
               key={index}
+              variants={shouldReduceMotion ? cardReducedMotionVariants : cardLoopBounceVariants}
+              animate="animate"
+              custom={index}
               className="bg-card border border-border rounded-2xl p-8 md:p-10 hover:border-muted-dark hover:shadow-premium transition-all duration-300 group"
             >
               {/* Number Badge */}
@@ -57,7 +72,7 @@ export default function ValueSection() {
               <p className="text-base md:text-lg text-muted leading-[1.6] font-light">
                 {point.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 

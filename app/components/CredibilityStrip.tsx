@@ -11,13 +11,12 @@ interface CompanyLogo {
 }
 
 const companies: CompanyLogo[] = [
-  { name: 'Google', logoPath: '/client-assets/client-logos/google.png', alt: 'Google' },
-  { name: 'Amazon', logoPath: '/client-assets/client-logos/amazon.png', alt: 'Amazon' },
-  { name: 'MoonPay', logoPath: '/client-assets/client-logos/Moonpay.png', alt: 'MoonPay' },
-  { name: 'Phuture', logoPath: '/client-assets/client-logos/phuture.png', alt: 'Phuture' },
-  { name: 'City Index', logoPath: '/client-assets/client-logos/city index.png', alt: 'City Index' },
-  { name: 'Helio', logoPath: '/client-assets/client-logos/helio.png', alt: 'Helio' },
-  { name: 'Android', logoPath: '/client-assets/client-logos/android.png', alt: 'Android' },
+  { name: 'Google', logoPath: '/client-assets/client-logos/google-logo.png', alt: 'Google' },
+  { name: 'Amazon', logoPath: '/client-assets/client-logos/amazon-logo.png', alt: 'Amazon' },
+  { name: 'MoonPay', logoPath: '/client-assets/client-logos/moonpay-logo.png', alt: 'MoonPay' },
+  { name: 'Phuture', logoPath: '/client-assets/client-logos/phuture-logo.png', alt: 'Phuture' },
+  { name: 'City Index', logoPath: '/client-assets/client-logos/cityindex-logo.png', alt: 'City Index' },
+  { name: 'Android', logoPath: '/client-assets/client-logos/android-logo.png', alt: 'Android' },
 ];
 
 /**
@@ -28,7 +27,6 @@ const companies: CompanyLogo[] = [
  */
 export default function CredibilityStrip() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const isScrollingRef = useRef(false);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -44,7 +42,7 @@ export default function CredibilityStrip() {
     let isPaused = false;
 
     const autoScroll = () => {
-      if (isPaused || isScrollingRef.current) {
+      if (isPaused) {
         animationFrameId = requestAnimationFrame(autoScroll);
         return;
       }
@@ -73,17 +71,6 @@ export default function CredibilityStrip() {
 
     container.addEventListener('mouseenter', handleMouseEnter);
     container.addEventListener('mouseleave', handleMouseLeave);
-
-    // Pause when the page is scrolling to reduce jank
-    let scrollTimeout: NodeJS.Timeout;
-    const onWindowScroll = () => {
-      isScrollingRef.current = true;
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isScrollingRef.current = false;
-      }, 180);
-    };
-    window.addEventListener('scroll', onWindowScroll, { passive: true });
     
     // Start auto-scroll after a brief delay to ensure layout is complete
     const startTimeout = setTimeout(() => {
@@ -97,7 +84,6 @@ export default function CredibilityStrip() {
       }
       container.removeEventListener('mouseenter', handleMouseEnter);
       container.removeEventListener('mouseleave', handleMouseLeave);
-      window.removeEventListener('scroll', onWindowScroll);
     };
   }, []);
 
@@ -110,30 +96,39 @@ export default function CredibilityStrip() {
 
         {/* Scrolling logo strip */}
         <div className="relative overflow-hidden">
+          {/* Left fade gradient */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-32 bg-gradient-to-r from-secondary to-transparent z-10 pointer-events-none" />
+          
+          {/* Right fade gradient */}
+          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-32 bg-gradient-to-l from-secondary to-transparent z-10 pointer-events-none" />
+          
           {/* Scrolling container */}
           <div
             ref={scrollContainerRef}
-            className="flex gap-12 md:gap-16 overflow-x-auto scrollbar-hide md:overflow-x-hidden"
+            className="flex gap-16 md:gap-20 overflow-x-auto scrollbar-hide md:overflow-x-hidden"
           >
             {/* Duplicate set for seamless loop */}
-            {[...companies, ...companies].map((company, index) => (
-              <div
-                key={`${company.name}-${index}`}
-                className="flex-shrink-0 flex items-center justify-center"
-              >
-                {/* Logo image */}
-                <div className="w-32 h-16 md:w-40 md:h-20 relative flex items-center justify-center hover:opacity-70 transition-all duration-300 grayscale hover:grayscale-0">
-                  <Image
-                    src={company.logoPath}
-                    alt={company.alt}
-                    fill
-                    className="object-contain p-2"
-                    sizes="(max-width: 768px) 128px, 160px"
-                    priority={index < companies.length}
-                  />
+            {[...companies, ...companies].map((company, index) => {
+              const isSmaller = company.name === 'Amazon' || company.name === 'Google';
+              return (
+                <div
+                  key={`${company.name}-${index}`}
+                  className="flex-shrink-0 flex items-center justify-center"
+                >
+                  {/* Logo image */}
+                  <div className={`${isSmaller ? 'w-20 h-10 md:w-28 md:h-14' : 'w-24 h-12 md:w-32 md:h-16'} relative flex items-center justify-center hover:opacity-70 transition-all duration-300`}>
+                    <Image
+                      src={company.logoPath}
+                      alt={company.alt}
+                      fill
+                      className="object-contain p-2"
+                      sizes="(max-width: 768px) 128px, 160px"
+                      priority={index < companies.length}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

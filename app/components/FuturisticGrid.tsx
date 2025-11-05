@@ -196,10 +196,10 @@ export default function FuturisticGrid({
         if (attempts < 50) {
           usedLines.add(lineKey);
           
-          // More varied speed range: 0.004 to 0.024
-          const speed = 0.004 + Math.random() * 0.02;
+          // More varied speed range: 0.006 to 0.036 (faster)
+          const speed = 0.006 + Math.random() * 0.03;
           // Fast pulses (top 25%) are gold, others are random colors
-          const isFast = speed > 0.018;
+          const isFast = speed > 0.027;
           const baseColor = isFast ? '#FFD700' : pulseColors[Math.floor(Math.random() * pulseColors.length)];
           
           pulses.push({
@@ -517,10 +517,10 @@ export default function FuturisticGrid({
             attempts++;
           } while (activeLinesSet.has(lineKey) && attempts < 50);
           
-          // More varied speed range: 0.004 to 0.024
-          const speed = 0.004 + Math.random() * 0.02;
+          // More varied speed range: 0.006 to 0.036 (faster)
+          const speed = 0.006 + Math.random() * 0.03;
           // Fast pulses (top 25%) are gold, others are random colors
-          const isFast = speed > 0.018;
+          const isFast = speed > 0.027;
           const baseColor = isFast ? '#FFD700' : pulseColors[Math.floor(Math.random() * pulseColors.length)];
           
           pulsesRef.current[index] = {

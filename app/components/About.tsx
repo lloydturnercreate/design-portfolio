@@ -23,12 +23,14 @@ export default function About() {
 
         {/* Content with headshot */}
         <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-start md:items-start">
-          {/* Headshot placeholder */}
+          {/* Headshot */}
           <div className="flex-shrink-0 w-56 md:w-64 mx-auto md:mx-0">
-            <div className="w-full aspect-square bg-card border border-border rounded-3xl flex items-center justify-center overflow-hidden">
-              <span className="text-sm md:text-base text-muted-dark font-medium uppercase tracking-[0.12em]">
-                Photo
-              </span>
+            <div className="w-full aspect-square bg-card border border-border rounded-3xl overflow-hidden">
+              <img 
+                src="/client-assets/client-logos/lloyd.png" 
+                alt="Lloyd Turner"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
