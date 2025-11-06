@@ -16,9 +16,22 @@ export default function Footer() {
           </h2>
 
           {/* Subline */}
-          <p className="text-lg md:text-xl lg:text-2xl text-muted mb-16 md:mb-20 max-w-2xl mx-auto leading-[1.6] font-light tracking-tight-1">
+          <p className="text-lg md:text-xl lg:text-2xl text-muted mb-12 md:mb-14 max-w-2xl mx-auto leading-[1.6] font-light tracking-tight-1">
             Let&apos;s make sure your design scales with it.
           </p>
+
+          {/* Book a Call Button */}
+          <div className="mb-16 md:mb-20">
+            <a
+              href="https://calendly.com/lloydturner"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02]"
+              aria-label="Book a call with Lloyd Turner"
+            >
+              <span className="tracking-tight-1 whitespace-nowrap">Book a Call</span>
+            </a>
+          </div>
 
           {/* Contact Icons */}
           <div className="flex gap-6 md:gap-8 justify-center items-center mb-16 md:mb-20">

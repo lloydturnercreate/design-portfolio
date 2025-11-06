@@ -110,13 +110,22 @@ export default function CredibilityStrip() {
             {/* Duplicate set for seamless loop */}
             {[...companies, ...companies].map((company, index) => {
               const isSmaller = company.name === 'Amazon' || company.name === 'Google';
+              const isLarger = company.name === 'MoonPay' || company.name === 'Phuture';
+              
+              let logoSize = 'w-24 h-12 md:w-32 md:h-16'; // Default size
+              if (isSmaller) {
+                logoSize = 'w-20 h-10 md:w-28 md:h-14';
+              } else if (isLarger) {
+                logoSize = 'w-28 h-14 md:w-40 md:h-20'; // Bigger for MoonPay and Phuture
+              }
+              
               return (
                 <div
                   key={`${company.name}-${index}`}
                   className="flex-shrink-0 flex items-center justify-center"
                 >
                   {/* Logo image */}
-                  <div className={`${isSmaller ? 'w-20 h-10 md:w-28 md:h-14' : 'w-24 h-12 md:w-32 md:h-16'} relative flex items-center justify-center hover:opacity-70 transition-all duration-300`}>
+                  <div className={`${logoSize} relative flex items-center justify-center hover:opacity-70 transition-all duration-300`}>
                     <Image
                       src={company.logoPath}
                       alt={company.alt}

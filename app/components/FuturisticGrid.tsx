@@ -113,6 +113,13 @@ export default function FuturisticGrid({
     // Generate animated noise
     const animateNoise = () => {
       const rect = noiseCanvas.getBoundingClientRect();
+      
+      // Skip if canvas has no dimensions yet
+      if (rect.width === 0 || rect.height === 0) {
+        noiseAnimationRef.current = requestAnimationFrame(animateNoise);
+        return;
+      }
+      
       const imageData = noiseCtx.createImageData(rect.width, rect.height);
       const data = imageData.data;
 

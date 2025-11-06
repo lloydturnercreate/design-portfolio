@@ -1,49 +1,62 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const caseStudies = [
-  {
-    company: 'Project One',
-    title: 'SaaS Platform Redesign',
-    description:
-      'Transformed user experience through systematic design improvements, resulting in increased engagement and user satisfaction.',
-  },
-  {
-    company: 'Project Two',
-    title: 'Fintech Mobile App',
-    description:
-      'Designed and built a comprehensive mobile experience that streamlined complex financial workflows for end users.',
-  },
-  {
-    company: 'Project Three',
-    title: 'Design System Implementation',
-    description:
-      'Created a scalable design system that accelerated development cycles and ensured consistent experiences across products.',
-  },
   {
     company: 'Phuture',
     title: 'Launch-Ready Investment App',
     description:
       "Built Phuture's trading interface and design system, reducing onboarding friction and enabling faster product rollouts post-Series A.",
+    slug: 'phuture-finance',
+    color: '#3e1fff',
   },
   {
     company: 'Raptor',
-    title: 'Design System for Fintech API Platform',
+    title: 'Minimalist UI for Clarity & Trust',
     description:
-      'Created a unified design system that cut design-to-dev handoff time by 40% and improved cross-product consistency.',
+      'A modern crypto wallet designed for simplicity and security — personal project exploring refined UI patterns in the fintech space.',
+    slug: 'raptor',
+    color: '#FFD226',
   },
   {
     company: 'MoonPay',
     title: 'Scale Through Systemisation',
     description:
       "Contributed to MoonPay's product ecosystem during high-growth, helping unify design language across multiple user flows.",
+    slug: 'moonpay',
+    color: '#7B3FF2',
+  },
+  {
+    company: 'Sukiyaki',
+    title: 'Cultural Authenticity Meets Modern Design',
+    description:
+      'A refined digital experience for a Japanese fine-dining restaurant, blending traditional aesthetics with modern design.',
+    slug: 'sukiyaki',
+    color: '#626f70',
+  },
+  {
+    company: 'TBC',
+    title: 'TBC',
+    description:
+      'Details coming soon.',
+    slug: null,
+    color: '#4ECDC4',
+  },
+  {
+    company: 'TBC',
+    title: 'TBC',
+    description:
+      'Details coming soon.',
+    slug: null,
+    color: '#95E1D3',
   },
 ];
 
 /**
  * CaseStudies
- * Six case study cards (three placeholders + three real projects)
+ * Six case study cards (Phuture, Raptor, MoonPay, Sukiyaki, TBC, TBC)
  * Horizontal scroll layout with navigation controls
  */
 export default function CaseStudies() {
@@ -130,7 +143,7 @@ export default function CaseStudies() {
   };
 
   return (
-    <section className="py-20 md:py-32 lg:py-40 bg-secondary border-y border-border w-full">
+    <section id="work" className="py-20 md:py-32 lg:py-40 bg-secondary border-y border-border w-full">
       {/* Header container - centered with padding */}
       <div className="container mx-auto px-6 sm:px-8 lg:px-12">
         <div className="max-w-7xl mx-auto">
@@ -167,7 +180,7 @@ export default function CaseStudies() {
               </div>
             ))}
             {/* Spacer after last card to allow centering */}
-            <div className="flex-shrink-0 w-[45vw] sm:w-[50vw] md:w-[50vw] lg:w-[50vw]" aria-hidden="true" />
+            <div className="flex-shrink-0 w-[4vw]" aria-hidden="true" />
           </div>
         </div>
       </div>
@@ -247,12 +260,15 @@ interface CaseStudyCardProps {
     company: string;
     title: string;
     description: string;
+    slug: string | null;
+    color: string;
   };
 }
 
 function CaseStudyCard({ study }: CaseStudyCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     // Check for reduced motion preference
@@ -265,10 +281,14 @@ function CaseStudyCard({ study }: CaseStudyCardProps) {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  // Mouse tracking for 3D tilt - same as hero section
+  // Mouse tracking for 3D tilt
   useEffect(() => {
     const card = cardRef.current;
     if (!card) return;
+
+    const handleMouseEnter = () => {
+      setIsHovered(true);
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
       if (reducedMotion) return;
@@ -281,25 +301,62 @@ function CaseStudyCard({ study }: CaseStudyCardProps) {
       const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
 
       // Apply subtle 3D tilt - more gentle than hero section
-      const tiltX = y * 3; // Subtle tilt for cards
-      const tiltY = x * -3;
-      card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+      const tiltX = y * 2; // Very subtle tilt for cards
+      const tiltY = x * -2;
+      card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.01, 1.01, 1.01)`;
     };
 
     const handleMouseLeave = () => {
+      setIsHovered(false);
       if (card && !reducedMotion) {
         card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
       }
     };
 
+    card.addEventListener('mouseenter', handleMouseEnter);
     card.addEventListener('mousemove', handleMouseMove);
     card.addEventListener('mouseleave', handleMouseLeave);
     
     return () => {
+      card.removeEventListener('mouseenter', handleMouseEnter);
       card.removeEventListener('mousemove', handleMouseMove);
       card.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, [reducedMotion]);
+
+  const cardContent = (
+    <div 
+      className={`relative w-full h-full bg-card border rounded-3xl overflow-hidden shadow-premium transition-all duration-300 cursor-pointer group ${
+        isHovered ? 'border-muted-dark' : 'border-border'
+      }`}
+    >
+      {/* Image placeholder - full card background */}
+      <div className="absolute inset-0 bg-background group-hover:bg-secondary transition-colors flex items-center justify-center">
+        <span className="text-sm md:text-base text-muted-dark font-medium uppercase tracking-[0.12em]">
+          {study.company}
+        </span>
+      </div>
+
+      {/* Gradient overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
+
+      {/* Content overlaid at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 lg:p-12 xl:p-14 pointer-events-none">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4 tracking-tight-1">
+          {study.company}
+        </h3>
+        <p 
+          className="text-sm md:text-base lg:text-lg font-semibold uppercase tracking-[0.08em] mb-4 md:mb-5"
+          style={{ color: study.color }}
+        >
+          {study.title}
+        </p>
+        <p className="text-base md:text-lg lg:text-xl text-gray-200 leading-[1.6] font-light max-w-3xl">
+          {study.description}
+        </p>
+      </div>
+    </div>
+  );
 
   return (
     <div 
@@ -307,30 +364,13 @@ function CaseStudyCard({ study }: CaseStudyCardProps) {
       className="relative h-[60vh] md:h-[65vh] lg:h-[70vh] transition-transform duration-200 ease-out"
       style={{ transformStyle: 'preserve-3d' }}
     >
-      <div className="relative w-full h-full bg-card border border-border rounded-3xl overflow-hidden hover:border-muted-dark hover:shadow-premium transition-all duration-300 cursor-pointer group">
-        {/* Image placeholder - full card background */}
-        <div className="absolute inset-0 bg-background group-hover:bg-secondary transition-colors flex items-center justify-center">
-          <span className="text-sm md:text-base text-muted-dark font-medium uppercase tracking-[0.12em]">
-            {study.company}
-          </span>
-        </div>
-
-        {/* Gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-
-        {/* Content overlaid at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 lg:p-12 xl:p-14">
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4 tracking-tight-1">
-            {study.company}
-          </h3>
-          <p className="text-sm md:text-base lg:text-lg font-semibold text-blue-400 uppercase tracking-[0.08em] mb-4 md:mb-5">
-            {study.title}
-          </p>
-          <p className="text-base md:text-lg lg:text-xl text-gray-200 leading-[1.6] font-light max-w-3xl">
-            {study.description}
-          </p>
-        </div>
-      </div>
+      {study.slug ? (
+        <Link href={`/${study.slug}`} aria-label={`View ${study.company} case study`} className="block h-full">
+          {cardContent}
+        </Link>
+      ) : (
+        cardContent
+      )}
     </div>
   );
 }
