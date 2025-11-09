@@ -1,6 +1,7 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
+import { useHorizontalScroll } from '@/lib/hooks/useHorizontalScroll';
 
 export interface GalleryImage {
   src: string;
@@ -21,98 +22,39 @@ interface ProjectGalleryProps {
 export default function ProjectGallery({ images }: ProjectGalleryProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const scrollInnerRef = useRef<HTMLDivElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Update current index based on scroll position
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    const inner = scrollInnerRef.current;
-    if (!container || !inner) return;
-
-    const updateCurrentIndex = () => {
-      const scrollLeft = container.scrollLeft;
-      const containerWidth = container.clientWidth;
-      
-      // Constrain scroll position to prevent last image from going too far right
-      // The padding-right of 100px on the inner container naturally limits scroll
-      // But we add an extra constraint as a safety measure
-      const maxScrollPosition = container.scrollWidth - container.clientWidth;
-      if (scrollLeft > maxScrollPosition) {
-        requestAnimationFrame(() => {
-          container.scrollLeft = maxScrollPosition;
-        });
-      }
-      
-      // Get all image elements
-      const items = inner.children;
-      if (items.length === 0) return;
-
-      // Calculate which image is most visible
-      let closestIndex = 0;
-      let closestDistance = Infinity;
-
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i] as HTMLElement;
-        const itemLeft = item.offsetLeft - scrollLeft;
-        const itemCenter = itemLeft + item.offsetWidth / 2;
-        const containerCenter = containerWidth / 2;
-        const distance = Math.abs(itemCenter - containerCenter);
-
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestIndex = i;
+  // Use horizontal scroll hook with custom logic for last item
+  const { currentIndex, scrollToIndex } = useHorizontalScroll(
+    scrollContainerRef,
+    scrollInnerRef,
+    {
+      itemCount: images.length,
+      customScrollLogic: (index, container, items) => {
+        const targetItem = items[index] as HTMLElement;
+        const containerWidth = container.clientWidth;
+        const itemWidth = targetItem.offsetWidth;
+        const itemLeft = targetItem.offsetLeft;
+        
+        // For the last image, position it so its right edge is 100px from the container's right edge
+        // For all other images, center them
+        const isLastImage = index === images.length - 1;
+        let scrollLeft: number;
+        
+        if (isLastImage) {
+          // Position last image so its right edge is 100px from container's right edge
+          scrollLeft = itemLeft + itemWidth - containerWidth + 100;
+        } else {
+          // Center all other images
+          scrollLeft = itemLeft - (containerWidth / 2) + (itemWidth / 2);
         }
-      }
-
-      setCurrentIndex(closestIndex);
-    };
-
-    container.addEventListener('scroll', updateCurrentIndex);
-    updateCurrentIndex(); // Initial call
-
-    // Also update on resize
-    window.addEventListener('resize', updateCurrentIndex);
-
-    return () => {
-      container.removeEventListener('scroll', updateCurrentIndex);
-      window.removeEventListener('resize', updateCurrentIndex);
-    };
-  }, []);
-
-  const scrollToIndex = (index: number) => {
-    const container = scrollContainerRef.current;
-    const inner = scrollInnerRef.current;
-    if (!container || !inner) return;
-
-    const items = inner.children;
-    if (index < 0 || index >= items.length) return;
-
-    const targetItem = items[index] as HTMLElement;
-    const containerWidth = container.clientWidth;
-    const itemWidth = targetItem.offsetWidth;
-    const itemLeft = targetItem.offsetLeft;
-    
-    // For the last image, position it so its right edge is 100px from the container's right edge
-    // For all other images, center them
-    const isLastImage = index === images.length - 1;
-    let scrollLeft: number;
-    
-    if (isLastImage) {
-      // Position last image so its right edge is 100px from container's right edge
-      scrollLeft = itemLeft + itemWidth - containerWidth + 100;
-    } else {
-      // Center all other images
-      scrollLeft = itemLeft - (containerWidth / 2) + (itemWidth / 2);
+        
+        // Calculate max scroll position (accounting for 100px padding-right on inner container)
+        const maxScrollPosition = container.scrollWidth - container.clientWidth;
+        
+        return Math.min(scrollLeft, maxScrollPosition);
+      },
     }
-    
-    // Calculate max scroll position (accounting for 100px padding-right on inner container)
-    const maxScrollPosition = container.scrollWidth - container.clientWidth;
-    
-    container.scrollTo({
-      left: Math.max(0, Math.min(scrollLeft, maxScrollPosition)),
-      behavior: 'smooth',
-    });
-  };
+  );
 
 
   if (!images || images.length === 0) return null;

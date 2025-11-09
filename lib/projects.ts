@@ -90,8 +90,15 @@ export interface ProjectMetadata {
   keywords?: string[];
 }
 
+export interface ProjectCard {
+  title: string; // Short tagline for case study card
+  description: string; // Brief description for card preview
+  coverImage: string; // Path to cover image
+}
+
 export interface Project {
   metadata: ProjectMetadata;
+  card: ProjectCard; // Card preview data for case studies listing
   hero: ProjectHero;
   color: string; // Brand color for the project (hex code)
   gallery?: GalleryImage[]; // Image gallery shown after hero
@@ -118,6 +125,11 @@ export const phutureFinance: Project = {
       'design system',
       'UX design',
     ],
+  },
+  card: {
+    title: 'Launch-Ready Investment App',
+    description: "Built Phuture's trading interface and design system, reducing onboarding friction and enabling faster product rollouts post-Series A.",
+    coverImage: '/project-covers/phuture.png',
   },
   color: '#3e1fff',
   hero: {
@@ -272,6 +284,11 @@ export const raptor: Project = {
       'Web3',
     ],
   },
+  card: {
+    title: 'Minimalist UI for Clarity & Trust',
+    description: 'A modern crypto wallet designed for simplicity and security — personal project exploring refined UI patterns in the fintech space.',
+    coverImage: '/project-covers/raptor.png',
+  },
   color: '#FFD226',
   hero: {
     company: 'Raptor',
@@ -369,6 +386,11 @@ export const moonpay: Project = {
       'animation',
       'MoonPay',
     ],
+  },
+  card: {
+    title: 'Scale Through Systemisation',
+    description: "Contributed to MoonPay's product ecosystem during high-growth, helping unify design language across multiple user flows.",
+    coverImage: '/project-covers/moonpay.png',
   },
   color: '#7B3FF2',
   hero: {
@@ -540,6 +562,11 @@ export const sukiyaki: Project = {
       'booking system',
       'immersive design',
     ],
+  },
+  card: {
+    title: 'TBC',
+    description: 'Details coming soon.',
+    coverImage: '/project-covers/sukiyaki.png',
   },
   color: '#626f70',
   hero: {

@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
+import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
+import { use3DTilt } from '@/lib/hooks/use3DTilt';
 
 interface Pulse {
   x: number;
@@ -46,37 +48,27 @@ export default function FuturisticGrid({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const noiseCanvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const reducedMotion = useReducedMotion();
   const animationFrameRef = useRef<number>();
   const noiseAnimationRef = useRef<number>();
   const pulsesRef = useRef<Pulse[]>([]);
   const interceptEffectsRef = useRef<InterceptEffect[]>([]);
   const particlesRef = useRef<Particle[]>([]);
-  const mousePositionRef = useRef({ x: 0, y: 0 });
+  const mousePositionRef = useRef({ x: 0, y: 0 }); // Canvas-relative pixel coordinates
 
-  useEffect(() => {
-    // Check for reduced motion preference
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mediaQuery.matches);
-    
-    const handleChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mediaQuery.addEventListener('change', handleChange);
-    
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
+  // Apply 3D tilt to container
+  use3DTilt(containerRef, { global: true, intensity: 2 });
 
-  // Mouse tracking for 3D tilt
+  // Mouse tracking for hit detection
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth) * 2 - 1; // -1 to 1
-      const y = (e.clientY / window.innerHeight) * 2 - 1; // -1 to 1
-      mousePositionRef.current = { x, y };
-
-      if (containerRef.current && !reducedMotion) {
-        // Apply 3D tilt based on mouse position
-        const tiltX = y * 2; // Tilt up/down
-        const tiltY = x * -2; // Tilt left/right
-        containerRef.current.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+      // Calculate canvas-relative coordinates for hit detection
+      if (canvasRef.current) {
+        const rect = canvasRef.current.getBoundingClientRect();
+        mousePositionRef.current = {
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        };
       }
     };
 
@@ -85,7 +77,7 @@ export default function FuturisticGrid({
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [reducedMotion]);
+  }, []);
 
   // Animated noise texture
   useEffect(() => {
@@ -286,9 +278,9 @@ export default function FuturisticGrid({
 
     // Check if cursor is near pulse
     const checkCursorProximity = (pulse: Pulse) => {
-      // Convert normalized mouse position (-1 to 1) to canvas coordinates
-      const mouseX = ((mousePositionRef.current.x + 1) / 2) * rect.width;
-      const mouseY = ((mousePositionRef.current.y + 1) / 2) * rect.height;
+      // Use canvas-relative mouse coordinates directly (already in pixels)
+      const mouseX = mousePositionRef.current.x;
+      const mouseY = mousePositionRef.current.y;
       
       if (pulse.vertical) {
         const currentY = pulse.progress * rect.height;
@@ -297,7 +289,7 @@ export default function FuturisticGrid({
           Math.pow(mouseY - currentY, 2)
         );
         return { 
-          isClose: distance < 80, 
+          isClose: distance < 45, // Reduced from 80 to 45 for more precision
           x: pulse.x, 
           y: currentY 
         };
@@ -308,7 +300,7 @@ export default function FuturisticGrid({
           Math.pow(mouseY - pulse.y, 2)
         );
         return { 
-          isClose: distance < 80, 
+          isClose: distance < 45, // Reduced from 80 to 45 for more precision
           x: currentX, 
           y: pulse.y 
         };

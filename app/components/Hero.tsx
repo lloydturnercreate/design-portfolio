@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import FuturisticGrid from './FuturisticGrid';
+import { use3DTilt } from '@/lib/hooks/use3DTilt';
 
 /**
  * Hero
@@ -11,48 +12,18 @@ import FuturisticGrid from './FuturisticGrid';
  */
 export default function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
-  const [reducedMotion, setReducedMotion] = useState(false);
   const [pulseCount, setPulseCount] = useState(0);
+
+  // Apply 3D tilt effect to content (global mouse tracking)
+  use3DTilt(contentRef, { global: true, intensity: 2 });
 
   // Increment counter when pulse is caught
   const handlePulseIntercepted = () => {
     setPulseCount(prev => prev + 1);
   };
 
-  useEffect(() => {
-    // Check for reduced motion preference
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mediaQuery.matches);
-    
-    const handleChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mediaQuery.addEventListener('change', handleChange);
-    
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  // Mouse tracking for 3D tilt - same as grid
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth) * 2 - 1; // -1 to 1
-      const y = (e.clientY / window.innerHeight) * 2 - 1; // -1 to 1
-
-      if (contentRef.current && !reducedMotion) {
-        // Apply same 3D tilt as grid for aligned movement
-        const tiltX = y * 2; // Tilt up/down
-        const tiltY = x * -2; // Tilt left/right
-        contentRef.current.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [reducedMotion]);
-
   return (
-    <div className="relative w-full min-h-[90vh] flex items-center justify-center bg-background overflow-hidden">
+    <div className="relative w-full min-h-[90vh] flex items-center justify-center bg-background overflow-hidden cursor-crosshair">
       {/* Futuristic grid background */}
       <FuturisticGrid onPulseIntercepted={handlePulseIntercepted} />
       
@@ -99,7 +70,7 @@ export default function Hero() {
             {/* For Founders CTA - Primary */}
             <a
               href="#book-diagnostic"
-              className="group w-full sm:w-auto px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] flex items-center justify-center shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02]"
+              className="group w-full sm:w-auto px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] flex items-center justify-center shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02] cursor-pointer"
               aria-label="Book a 15-minute diagnostic call for founders"
             >
               <span className="tracking-tight-1 whitespace-nowrap">For Founders – Book 15-min Call</span>
@@ -108,7 +79,7 @@ export default function Hero() {
             {/* For Agencies CTA - Secondary */}
             <a
               href="#check-availability"
-              className="group w-full sm:w-auto px-10 py-5 bg-card border border-border text-foreground font-semibold rounded-2xl hover:border-muted-dark hover:bg-secondary transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] flex items-center justify-center hover:scale-[1.02]"
+              className="group w-full sm:w-auto px-10 py-5 bg-card border border-border text-foreground font-semibold rounded-2xl hover:border-muted-dark hover:bg-secondary transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] flex items-center justify-center hover:scale-[1.02] cursor-pointer"
               aria-label="Check availability for agencies"
             >
               <span className="tracking-tight-1 whitespace-nowrap">For Agencies – Check Availability</span>

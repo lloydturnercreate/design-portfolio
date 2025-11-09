@@ -29,3 +29,4 @@ This directory contains images for the MoonPay case study page, focusing on Moon
 - Ensure all images showcase the playful yet professional brand identity
 - Include variety: UI screens, branding materials, mobile views, and animations
 
+

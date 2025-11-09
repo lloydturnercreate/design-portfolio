@@ -23,3 +23,4 @@ export default function MoonPayPage() {
   return <ProjectTemplate project={moonpay} />;
 }
 
+

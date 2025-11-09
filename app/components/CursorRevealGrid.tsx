@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
+import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 
 /**
  * CursorRevealGrid
@@ -10,19 +11,8 @@ import { useRef, useEffect, useState } from 'react';
  */
 export default function CursorRevealGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const reducedMotion = useReducedMotion();
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 }); // percentage
-
-  useEffect(() => {
-    // Check for reduced motion preference
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mediaQuery.matches);
-    
-    const handleChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mediaQuery.addEventListener('change', handleChange);
-    
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
 
   useEffect(() => {
     if (reducedMotion || !gridRef.current) return;
@@ -107,4 +97,5 @@ export default function CursorRevealGrid() {
     </div>
   );
 }
+
 

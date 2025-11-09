@@ -23,3 +23,4 @@ export default function SukiyakiPage() {
   return <ProjectTemplate project={sukiyaki} />;
 }
 
+
