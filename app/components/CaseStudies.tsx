@@ -6,14 +6,16 @@ import { useHorizontalScroll } from '@/lib/hooks/useHorizontalScroll';
 import CaseStudyCard from './CaseStudyCard';
 
 // Transform projects into case study card format
-const caseStudies = allProjects.map((project) => ({
-  company: project.hero.company,
-  title: project.card.title,
-  description: project.card.description,
-  slug: project.metadata.slug,
-  color: project.color,
-  coverImage: project.card.coverImage,
-}));
+const caseStudies = allProjects
+  .filter((project) => project.metadata.slug !== 'spacemoney') // Hide MoonPay for now
+  .map((project) => ({
+    company: project.hero.company,
+    title: project.card.title,
+    description: project.card.description,
+    slug: project.metadata.slug,
+    color: project.color,
+    icons: project.card.icons,
+  }));
 
 /**
  * CaseStudies

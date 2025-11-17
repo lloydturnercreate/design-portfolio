@@ -93,7 +93,11 @@ export interface ProjectMetadata {
 export interface ProjectCard {
   title: string; // Short tagline for case study card
   description: string; // Brief description for card preview
-  coverImage: string; // Path to cover image
+  icons: Array<{
+    src: string;
+    alt: string;
+    scale?: number; // Optional scale variation (default ~1.04)
+  }>;
 }
 
 export interface Project {
@@ -129,7 +133,10 @@ export const phutureFinance: Project = {
   card: {
     title: 'Launch-Ready Investment App',
     description: "Built Phuture's trading interface and design system, reducing onboarding friction and enabling faster product rollouts post-Series A.",
-    coverImage: '/project-covers/phuture.png',
+    icons: [
+      { src: '/project-covers/phuture-1.png', alt: 'Phuture Finance icon 1', scale: 1.04 },
+      { src: '/project-covers/phuture-1.png', alt: 'Phuture Finance icon 2', scale: 1.03 },
+    ],
   },
   color: '#3e1fff',
   hero: {
@@ -287,7 +294,11 @@ export const raptor: Project = {
   card: {
     title: 'Minimalist UI for Clarity & Trust',
     description: 'A modern crypto wallet designed for simplicity and security — exploring refined UI patterns in the fintech space.',
-    coverImage: '/project-covers/raptor.png',
+    icons: [
+      { src: '/project-covers/phuture-1.png', alt: 'Raptor icon 1', scale: 1.05 },
+      { src: '/project-covers/phuture-1.png', alt: 'Raptor icon 2', scale: 1.04 },
+      { src: '/project-covers/phuture-1.png', alt: 'Raptor icon 3', scale: 1.03 },
+    ],
   },
   color: '#FFD226',
   hero: {
@@ -364,16 +375,16 @@ export const raptor: Project = {
     ],
   },
   prevProject: 'phuture-finance',
-  nextProject: 'moonpay',
+  nextProject: 'spacemoney',
 };
 
-// MoonPay Project Data
+// SpaceMoney Project Data
 export const moonpay: Project = {
   metadata: {
-    slug: 'moonpay',
-    title: 'MoonPay - Building at Scale in Crypto Infrastructure',
+    slug: 'spacemoney',
+    title: 'SpaceMoney - Building at Scale in Crypto Infrastructure',
     description:
-      'Senior Designer at MoonPay following the $175m Helio acquisition. Led Moonit, a 0-to-1 meme coin trading platform generating ~$10m profit, while contributing to MoonPay Labs and Commerce products.',
+      'Senior Designer at SpaceMoney following the $175m Helio acquisition. Led Moonit, a 0-to-1 meme coin trading platform generating ~$10m profit, while contributing to SpaceMoney Labs and Commerce products.',
     keywords: [
       'Web3',
       'meme coins',
@@ -384,20 +395,23 @@ export const moonpay: Project = {
       'fintech',
       'brand design',
       'animation',
-      'MoonPay',
+      'SpaceMoney',
     ],
   },
   card: {
-    title: '0-to-1 Product Generating $10m',
-    description: 'Built Moonit as sole designer with complete ownership. Launched profitable meme coin platform in 18 months.',
-    coverImage: '/project-covers/moonpay.png',
+    title: 'Project TBC',
+    description: 'Project details coming soon.',
+    icons: [
+      { src: '/project-covers/phuture-1.png', alt: 'SpaceMoney icon 1', scale: 1.04 },
+      { src: '/project-covers/phuture-1.png', alt: 'SpaceMoney icon 2', scale: 1.05 },
+    ],
   },
   color: '#7B3FF2',
   hero: {
-    company: 'MoonPay',
+    company: 'SpaceMoney',
     tagline: 'Building a profitable trading platform from the ground up.',
     intro:
-      'Moonit launched as a meme coin trading platform with no existing design foundation, brand identity, or established patterns. The project required complete ownership across product strategy, brand development, UI/UX, animation, and marketing within a two-company partnership between MoonPay and dexscreener. The platform generated ~$10m profit in 18 months, demonstrating how strategic design execution translates to commercial success in competitive markets.',
+      'Moonit launched as a meme coin trading platform with no existing design foundation, brand identity, or established patterns. The project required complete ownership across product strategy, brand development, UI/UX, animation, and marketing within a two-company partnership between SpaceMoney and dexscreener. The platform generated ~$10m profit in 18 months, demonstrating how strategic design execution translates to commercial success in competitive markets.',
     meta: {
       role: 'Senior Designer',
       duration: '2024-Present',
@@ -490,11 +504,11 @@ export const moonpay: Project = {
   challenge: {
     title: 'The Challenge',
     description:
-      'MoonPay partnered with dexscreener to launch Moonit, a meme coin trading platform targeting one of crypto\'s most competitive markets. As the sole designer, I inherited a project with no existing product, brand identity, or design foundation. The scope required complete ownership across all design disciplines while managing stakeholder relationships across two organizations and meeting aggressive profit targets.',
+      'SpaceMoney partnered with dexscreener to launch Moonit, a meme coin trading platform targeting one of crypto\'s most competitive markets. As the sole designer, I inherited a project with no existing product, brand identity, or design foundation. The scope required complete ownership across all design disciplines while managing stakeholder relationships across two organizations and meeting aggressive profit targets.',
     bullets: [
       'No existing foundation: brand identity, design patterns, or product UI to build from',
       'Complete design ownership across strategy, brand, product, animation, and marketing',
-      'Complex stakeholder dynamics balancing priorities across MoonPay and dexscreener',
+      'Complex stakeholder dynamics balancing priorities across SpaceMoney and dexscreener',
       'Competitive market requiring speed, clarity, and frictionless trading experience',
       'Commercial pressure to deliver a profitable product, not just a well-designed one',
     ],
@@ -569,7 +583,7 @@ export const moonpay: Project = {
       'Managed complex stakeholder dynamics across two companies while maintaining product quality',
     ],
     conclusion:
-      'Moonit showcased the impact of complete design ownership extending beyond UI into strategy, positioning, and business outcomes. The project required operating independently across all design disciplines, aligning cross-functional stakeholders, and delivering measurable commercial value. Beyond Moonit, I contributed to MoonPay Labs and Commerce products, supporting the broader platform ecosystem.',
+      'Moonit showcased the impact of complete design ownership extending beyond UI into strategy, positioning, and business outcomes. The project required operating independently across all design disciplines, aligning cross-functional stakeholders, and delivering measurable commercial value. Beyond Moonit, I contributed to SpaceMoney Labs and Commerce products, supporting the broader platform ecosystem.',
   },
   prevProject: 'raptor',
   nextProject: 'sukiyaki',
@@ -597,7 +611,11 @@ export const sukiyaki: Project = {
   card: {
     title: 'Cultural Authenticity Meets Modern UX',
     description: 'Designed a refined digital experience for a Japanese fine-dining restaurant, blending traditional aesthetics with modern web design.',
-    coverImage: '/project-covers/sukiyaki.png',
+    icons: [
+      { src: '/project-covers/phuture-1.png', alt: 'Sukiyaki icon 1', scale: 1.03 },
+      { src: '/project-covers/phuture-1.png', alt: 'Sukiyaki icon 2', scale: 1.04 },
+      { src: '/project-covers/phuture-1.png', alt: 'Sukiyaki icon 3', scale: 1.05 },
+    ],
   },
   color: '#626f70',
   hero: {
@@ -709,7 +727,7 @@ export const sukiyaki: Project = {
     conclusion:
       'Through cultural research, design refinement, and UX strategy, Sukiyaki became an experience that seamlessly blends tradition with modernity. The project demonstrates how deep cultural understanding can inform design decisions, creating digital experiences that feel authentic, refined, and memorable.',
   },
-  prevProject: 'moonpay',
+  prevProject: 'spacemoney',
 };
 
 // Export all projects as an array for navigation

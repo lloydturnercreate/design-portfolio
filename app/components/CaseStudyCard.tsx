@@ -2,7 +2,6 @@
 
 import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 
 export interface CaseStudyCardProps {
@@ -12,7 +11,11 @@ export interface CaseStudyCardProps {
     description: string;
     slug: string | null;
     color: string;
-    coverImage?: string;
+    icons?: Array<{
+      src: string;
+      alt: string;
+      scale?: number;
+    }>;
   };
 }
 
@@ -27,6 +30,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
   const reducedMotion = useReducedMotion();
   const [isHovered, setIsHovered] = useState(false);
   const [textTransform, setTextTransform] = useState('');
+  const [iconTransforms, setIconTransforms] = useState<string[]>([]);
 
   // Mouse tracking for 3D tilt with parallax text effect
   useEffect(() => {
@@ -61,6 +65,27 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
       const textTiltX = -y * 8; // 4x more dramatic than card
       const textTiltY = x * 8; // inverted from x * -8
       setTextTransform(`translateX(${textOffsetX}px) translateY(${textOffsetY}px) translateZ(80px) rotateX(${textTiltX}deg) rotateY(${textTiltY}deg) scale(1.02)`);
+
+      // Calculate enhanced icon transforms (scaled up from text effect)
+      if (study.icons) {
+        const iconTransformsArray = study.icons.map((icon, index) => {
+          const iconScale = icon.scale || 1.04;
+          const projectionStrengthIcon = 0.45; // Stronger projection than text
+          const iconOffsetX = -x * 45 * projectionStrengthIcon; // More movement
+          const iconOffsetY = -y * 45 * projectionStrengthIcon;
+          
+          // Enhanced tilt for icons (1.5x more dramatic than text)
+          const iconTiltX = -y * 12;
+          const iconTiltY = x * 12;
+          
+          // Vary Z-depth per icon for layering effect
+          const baseZDepth = 120;
+          const zDepth = baseZDepth + (index * 15);
+          
+          return `translateX(${iconOffsetX}px) translateY(${iconOffsetY}px) translateZ(${zDepth}px) rotateX(${iconTiltX}deg) rotateY(${iconTiltY}deg) scale(${iconScale})`;
+        });
+        setIconTransforms(iconTransformsArray);
+      }
     };
 
     const handleMouseLeave = () => {
@@ -69,6 +94,9 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
         card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
       }
       setTextTransform('translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1)');
+      if (study.icons) {
+        setIconTransforms(study.icons.map(() => 'translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1)'));
+      }
     };
 
     card.addEventListener('mouseenter', handleMouseEnter);
@@ -89,25 +117,39 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
       }`}
       style={{ transformStyle: 'preserve-3d' }}
     >
-      {/* Cover image or placeholder - full card background */}
-      {study.coverImage ? (
-        <div className="absolute inset-0">
-          <Image
-            src={study.coverImage}
-            alt={`${study.company} cover image`}
-            fill
-            className="object-cover object-left md:object-center lg:object-right"
-            sizes="(max-width: 768px) 92vw, (max-width: 1024px) 85vw, 80vw"
-            priority={study.company === 'Phuture'}
-          />
-        </div>
-      ) : (
-        <div className="absolute inset-0 bg-background group-hover:bg-secondary transition-colors flex items-center justify-center">
-          <span className="text-sm md:text-base text-muted-dark font-medium uppercase tracking-[0.12em]">
-            {study.company}
-          </span>
-        </div>
-      )}
+      {/* Dark background */}
+      <div className="absolute inset-0" style={{ backgroundColor: '#111111' }} />
+
+      {/* Floating 3D icons */}
+      {study.icons && study.icons.map((icon, index) => {
+        const iconTransform = iconTransforms[index] || 'translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1)';
+        
+        // Calculate positioning for multiple icons (staggered layout)
+        const topPosition = 20 + (index * 12); // Start at 20%, offset by 12% each
+        const rightPosition = 20 + (index % 2 === 0 ? 0 : 10); // Alternate horizontal position
+        
+        return (
+          <div
+            key={index}
+            className="absolute pointer-events-none transition-all duration-200 ease-out"
+            style={{
+              top: `${topPosition}%`,
+              right: `${rightPosition}%`,
+              width: '20%',
+              height: '20%',
+              transform: iconTransform,
+              filter: isHovered ? 'drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6))' : 'drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4))',
+              transformStyle: 'preserve-3d',
+            }}
+          >
+            <img
+              src={icon.src}
+              alt={icon.alt}
+              className="w-full h-full object-contain"
+            />
+          </div>
+        );
+      })}
 
       {/* Content overlaid at bottom */}
       <div 

@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: 'https://lloydturner.co.uk/moonpay',
+      url: 'https://lloydturner.co.uk/spacemoney',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
