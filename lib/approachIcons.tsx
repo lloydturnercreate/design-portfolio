@@ -294,7 +294,6 @@ export const iconMapping: Record<string, string[]> = {
   'Product Strategy & UX': ['route', 'chart', 'users', 'check'],
   'Brand Identity & Visual Language': ['lightbulb', 'browser', 'eye', 'check'],
   'UI Design & Animation': ['device', 'browser', 'refresh', 'chart'],
-  'Stakeholder Management': ['users', 'check', 'link', 'refresh'],
   'Marketing & Social Assets': ['eye', 'browser', 'link', 'check'],
   'Clarity Over Complexity': ['screen', 'path', 'blocks'],
   'Trust Through Design': ['mobile', 'typography', 'layers'],

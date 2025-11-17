@@ -304,11 +304,11 @@ export const raptor: Project = {
   },
   gallery: [
     {
-      src: '/projects/raptor/raptor-1.png',
+      src: '/projects/raptor/Raptor-1.png',
       alt: 'Raptor wallet interface',
     },
     {
-      src: '/projects/raptor/raptor-02.png',
+      src: '/projects/raptor/Raptor-02.png',
       alt: 'Raptor wallet design',
     },
     {
