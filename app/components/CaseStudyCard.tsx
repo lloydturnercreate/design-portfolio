@@ -96,7 +96,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
             src={study.coverImage}
             alt={`${study.company} cover image`}
             fill
-            className="object-cover object-right"
+            className="object-cover object-left md:object-center lg:object-right"
             sizes="(max-width: 768px) 92vw, (max-width: 1024px) 85vw, 80vw"
             priority={study.company === 'Phuture'}
           />

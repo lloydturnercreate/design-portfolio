@@ -43,13 +43,14 @@ export function useHorizontalScroll(
       
       // Get all child elements
       const items = inner.children;
-      if (items.length === 0) return;
+      const itemLimit = Math.min(items.length, itemCount);
+      if (itemLimit === 0) return;
 
       // Calculate which item is most visible (closest to center)
       let closestIndex = 0;
       let closestDistance = Infinity;
 
-      for (let i = 0; i < items.length; i++) {
+      for (let i = 0; i < itemLimit; i++) {
         const item = items[i] as HTMLElement;
         const itemLeft = item.offsetLeft - scrollLeft;
         const itemCenter = itemLeft + item.offsetWidth / 2;
@@ -75,7 +76,7 @@ export function useHorizontalScroll(
       container.removeEventListener('scroll', updateCurrentIndex);
       window.removeEventListener('resize', updateCurrentIndex);
     };
-  }, [containerRef, innerRef]);
+  }, [containerRef, innerRef, itemCount]);
 
   const scrollToIndex = (index: number) => {
     const container = containerRef.current;

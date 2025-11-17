@@ -16,6 +16,8 @@ interface Pulse {
   interceptAmount: number;
   wasIntercepted: boolean;
   isPermanentlyGreen: boolean;
+  isDormant: boolean;
+  nextStartTime: number | null;
 }
 
 interface InterceptEffect {
@@ -55,12 +57,35 @@ export default function FuturisticGrid({
   const interceptEffectsRef = useRef<InterceptEffect[]>([]);
   const particlesRef = useRef<Particle[]>([]);
   const mousePositionRef = useRef({ x: 0, y: 0 }); // Canvas-relative pixel coordinates
+  const [isMobile, setIsMobile] = useState(false);
+  const onPulseInterceptedRef = useRef(onPulseIntercepted);
+
+  // Keep the ref updated without triggering re-renders
+  useEffect(() => {
+    onPulseInterceptedRef.current = onPulseIntercepted;
+  }, [onPulseIntercepted]);
+
+  useEffect(() => {
+    const updateIsMobile = () => {
+      if (typeof window === 'undefined') return;
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+    };
+
+    updateIsMobile();
+    window.addEventListener('resize', updateIsMobile);
+
+    return () => {
+      window.removeEventListener('resize', updateIsMobile);
+    };
+  }, []);
 
   // Apply 3D tilt to container
   use3DTilt(containerRef, { global: true, intensity: 2 });
 
   // Mouse tracking for hit detection
   useEffect(() => {
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       // Calculate canvas-relative coordinates for hit detection
       if (canvasRef.current) {
@@ -77,7 +102,7 @@ export default function FuturisticGrid({
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [isMobile]);
 
   // Animated noise texture
   useEffect(() => {
@@ -174,7 +199,7 @@ export default function FuturisticGrid({
     // Initialize pulses
     const initializePulses = () => {
       const pulses: Pulse[] = [];
-      const numPulses = 2; // Minimal number of simultaneous pulses
+      const numPulses = isMobile ? 1 : 2; // Minimal number of simultaneous pulses, reduced on mobile
       const usedLines = new Set<string>();
 
       for (let i = 0; i < numPulses; i++) {
@@ -197,15 +222,15 @@ export default function FuturisticGrid({
           
           // More varied speed range: 0.006 to 0.036 (faster)
           const speed = 0.006 + Math.random() * 0.03;
-          // Fast pulses (top 25%) are gold, others are random colors
-          const isFast = speed > 0.027;
+          // Fast pulses (top 25%) are gold on desktop, others are random colors
+          const isFast = !isMobile && speed > 0.027;
           const baseColor = isFast ? '#FFD700' : pulseColors[Math.floor(Math.random() * pulseColors.length)];
           
           pulses.push({
             x: vertical ? majorLineIndex * gridSize : 0,
             y: !vertical ? majorLineIndex * gridSize : 0,
             vertical,
-            progress: Math.random(),
+            progress: isMobile ? -Math.random() * 0.6 : Math.random(),
             speed: speed,
             length: 60 + Math.random() * 100,
             color: baseColor,
@@ -213,6 +238,8 @@ export default function FuturisticGrid({
             interceptAmount: 0,
             wasIntercepted: false,
             isPermanentlyGreen: false,
+            isDormant: false,
+            nextStartTime: null,
           });
         }
       }
@@ -472,7 +499,8 @@ export default function FuturisticGrid({
       // Track which lines currently have pulses
       const activeLinesSet = new Set<string>();
       pulsesRef.current.forEach((pulse) => {
-        if (pulse.progress >= 0 && pulse.progress <= 1.0) {
+        const pulseIsDormant = isMobile && pulse.isDormant;
+        if (!pulseIsDormant && pulse.progress >= 0 && pulse.progress <= 1.0) {
           const lineKey = `${pulse.vertical ? 'v' : 'h'}-${pulse.vertical ? pulse.x : pulse.y}`;
           activeLinesSet.add(lineKey);
         }
@@ -480,24 +508,39 @@ export default function FuturisticGrid({
 
       // Update and draw pulses
       pulsesRef.current.forEach((pulse, index) => {
+        if (isMobile && pulse.isDormant) {
+          if (currentTime >= (pulse.nextStartTime ?? 0)) {
+            pulse.isDormant = false;
+            pulse.nextStartTime = null;
+            pulse.progress = -0.2;
+          } else {
+            return;
+          }
+        }
+
         pulse.progress += pulse.speed;
 
-        // Check for cursor interception
-        const proximity = checkCursorProximity(pulse);
-        const isIntercepted = proximity.isClose && pulse.progress >= 0 && pulse.progress <= 1.0;
-        
-        // Trigger effect on first interception and make permanently green
-        if (isIntercepted && !pulse.wasIntercepted && !pulse.isPermanentlyGreen) {
-          pulse.wasIntercepted = true;
-          pulse.isPermanentlyGreen = true; // Stays green forever
+        if (!isMobile) {
+          // Check for cursor interception
+          const proximity = checkCursorProximity(pulse);
+          const isIntercepted = proximity.isClose && pulse.progress >= 0 && pulse.progress <= 1.0;
           
-          // Create particle burst effect
-          createParticleBurst(proximity.x, proximity.y);
-          
-          // Notify parent of interception
-          onPulseIntercepted?.();
-        } else if (!isIntercepted) {
+          // Trigger effect on first interception and make permanently green
+          if (isIntercepted && !pulse.wasIntercepted && !pulse.isPermanentlyGreen) {
+            pulse.wasIntercepted = true;
+            pulse.isPermanentlyGreen = true; // Stays green forever
+            
+            // Create particle burst effect
+            createParticleBurst(proximity.x, proximity.y);
+            
+            // Notify parent of interception
+            onPulseInterceptedRef.current?.();
+          } else if (!isIntercepted) {
+            pulse.wasIntercepted = false;
+          }
+        } else {
           pulse.wasIntercepted = false;
+          pulse.isPermanentlyGreen = false;
         }
 
         // Reset pulse when it reaches the end
@@ -518,15 +561,15 @@ export default function FuturisticGrid({
           
           // More varied speed range: 0.006 to 0.036 (faster)
           const speed = 0.006 + Math.random() * 0.03;
-          // Fast pulses (top 25%) are gold, others are random colors
-          const isFast = speed > 0.027;
+          // Fast pulses (top 25%) are gold on desktop, others are random colors
+          const isFast = !isMobile && speed > 0.027;
           const baseColor = isFast ? '#FFD700' : pulseColors[Math.floor(Math.random() * pulseColors.length)];
           
           pulsesRef.current[index] = {
             x: vertical ? majorLineIndex * gridSize : 0,
             y: !vertical ? majorLineIndex * gridSize : 0,
             vertical,
-            progress: -0.2,
+            progress: isMobile ? -0.2 : -0.2,
             speed: speed,
             length: 60 + Math.random() * 100,
             color: baseColor,
@@ -534,6 +577,8 @@ export default function FuturisticGrid({
             interceptAmount: 0,
             wasIntercepted: false,
             isPermanentlyGreen: false,
+            isDormant: isMobile,
+            nextStartTime: isMobile ? currentTime + 2000 : null,
           };
         }
 
@@ -555,7 +600,7 @@ export default function FuturisticGrid({
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, isMobile]);
 
   // Static grid for reduced motion
   if (reducedMotion) {

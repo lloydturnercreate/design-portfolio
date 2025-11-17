@@ -1,4 +1,8 @@
+'use client';
+
+import { useRef } from 'react';
 import Section from './Section';
+import { use3DTilt } from '@/lib/hooks/use3DTilt';
 
 /**
  * TwoDoorCTA
@@ -6,6 +10,13 @@ import Section from './Section';
  * Clear differentiation between two paths
  */
 export default function TwoDoorCTA() {
+  const foundersCardRef = useRef<HTMLDivElement>(null);
+  const agenciesCardRef = useRef<HTMLDivElement>(null);
+
+  // Apply 3D tilt effect to entire cards
+  use3DTilt(foundersCardRef, { intensity: 3 });
+  use3DTilt(agenciesCardRef, { intensity: 3 });
+
   return (
     <Section className="py-20 md:py-32 lg:py-40 bg-background">
       <div className="max-w-7xl mx-auto">
@@ -23,7 +34,11 @@ export default function TwoDoorCTA() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
           {/* For Founders */}
-          <div className="bg-card border border-border p-10 md:p-12 rounded-3xl hover:border-muted-dark hover:shadow-premium transition-all duration-300 group flex flex-col">
+          <div 
+            ref={foundersCardRef}
+            className="bg-card border border-border p-10 md:p-12 rounded-3xl hover:border-muted-dark hover:shadow-premium transition-[border-color,box-shadow] duration-300 group flex flex-col"
+            style={{ transformStyle: 'preserve-3d' }}
+          >
             <div className="flex-grow mb-10">
               <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6 tracking-tight-1">
                 For Founders
@@ -38,15 +53,23 @@ export default function TwoDoorCTA() {
             </div>
             <a
               href="#book-diagnostic"
-              className="inline-flex items-center justify-center w-full px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 text-center text-base min-h-[60px] shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02] tracking-tight-1"
+              role="button"
+              data-cta-type="primary"
+              className="lava-gradient inline-flex items-center justify-center w-full px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 text-center text-base min-h-[60px] shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02] tracking-tight-1 pointer-events-auto"
               aria-label="Book a 15-minute diagnostic call for founders"
             >
-              Book a 15-min Call
+              <span className="lava-layer-3" />
+              <span className="lava-layer-4" />
+              <span>Book a 15-min Call</span>
             </a>
           </div>
 
           {/* For Agencies */}
-          <div className="bg-card border border-border p-10 md:p-12 rounded-3xl hover:border-muted-dark hover:shadow-premium transition-all duration-300 group flex flex-col">
+          <div 
+            ref={agenciesCardRef}
+            className="bg-card border border-border p-10 md:p-12 rounded-3xl hover:border-muted-dark hover:shadow-premium transition-[border-color,box-shadow] duration-300 group flex flex-col"
+            style={{ transformStyle: 'preserve-3d' }}
+          >
             <div className="flex-grow mb-10">
               <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6 tracking-tight-1">
                 For Agencies
@@ -64,10 +87,14 @@ export default function TwoDoorCTA() {
             </div>
             <a
               href="#check-availability"
-              className="inline-flex items-center justify-center w-full px-10 py-5 bg-card border border-border text-foreground font-semibold rounded-2xl hover:border-muted-dark hover:bg-secondary transition-all duration-200 text-center text-base min-h-[60px] hover:scale-[1.02] tracking-tight-1"
+              role="button"
+              data-cta-type="secondary"
+              className="lava-gradient-secondary inline-flex items-center justify-center w-full px-10 py-5 bg-card border border-border text-foreground font-semibold rounded-2xl hover:border-muted-dark hover:bg-secondary transition-all duration-200 text-center text-base min-h-[60px] hover:scale-[1.02] tracking-tight-1 pointer-events-auto"
               aria-label="Check availability and day rate for agencies"
             >
-              Check Availability
+              <span className="lava-layer-3" />
+              <span className="lava-layer-4" />
+              <span>Check Availability</span>
             </a>
           </div>
         </div>

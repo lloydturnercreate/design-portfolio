@@ -11,6 +11,7 @@ export interface GalleryImage {
 
 interface ProjectGalleryProps {
   images: GalleryImage[];
+  projectSlug?: string;
 }
 
 /**
@@ -19,7 +20,7 @@ interface ProjectGalleryProps {
  * Supports both portrait and landscape images with consistent height
  * Mirrors the design of the home page case studies without 3D effects
  */
-export default function ProjectGallery({ images }: ProjectGalleryProps) {
+export default function ProjectGallery({ images, projectSlug }: ProjectGalleryProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const scrollInnerRef = useRef<HTMLDivElement>(null);
 
@@ -76,7 +77,7 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
                 key={index} 
                 className="flex-shrink-0 first:pl-0"
               >
-                <GalleryItem image={image} index={index} />
+                <GalleryItem image={image} index={index} projectSlug={projectSlug} />
               </div>
             ))}
             {/* Spacer after last image to allow centering */}
@@ -116,16 +117,27 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 interface GalleryItemProps {
   image: GalleryImage;
   index: number;
+  projectSlug?: string;
 }
 
-function GalleryItem({ image, index }: GalleryItemProps) {
+function GalleryItem({ image, index, projectSlug }: GalleryItemProps) {
   const isVideo = image.src.match(/\.(mp4|webm|mov|avi)$/i);
+  const isMoonpay = projectSlug === 'moonpay';
+  const isPhuture = projectSlug === 'phuture-finance';
+  
+  // Reduce height by 30% for moonpay: 50vh -> 35vh, 60vh -> 42vh, 70vh -> 49vh
+  // Reduce height by 20% for phuture: 50vh -> 40vh, 60vh -> 48vh, 70vh -> 56vh
+  const heightClasses = isMoonpay
+    ? 'h-[35vh] md:h-[42vh] lg:h-[49vh]'
+    : isPhuture
+    ? 'h-[40vh] md:h-[48vh] lg:h-[56vh]'
+    : 'h-[50vh] md:h-[60vh] lg:h-[70vh]';
   
   return (
     <div className="relative group">
       {/* Media container with consistent height, width hugs content */}
       <div 
-        className="relative h-[50vh] md:h-[60vh] lg:h-[70vh] bg-card border border-border rounded-2xl overflow-hidden hover:border-muted-dark hover:shadow-premium transition-all duration-300 inline-flex"
+        className={`relative ${heightClasses} bg-card border border-border rounded-2xl overflow-hidden hover:border-muted-dark hover:shadow-premium transition-all duration-300 inline-flex`}
       >
         {isVideo ? (
           <video

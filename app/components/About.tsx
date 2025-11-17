@@ -51,15 +51,24 @@ export default function About() {
               early-stage discovery through to developer handoff.
             </p>
 
-            {/* CV Download button */}
-            <div className="pt-4">
+            {/* Action buttons */}
+            <div className="pt-4 flex flex-col sm:flex-row gap-4">
               <a
-                href="/cv.pdf"
+                href="/resume/Lloyd Turner _ Product_Visual Designer.pdf"
                 download
-                className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 min-h-[60px] shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02] tracking-tight-1"
-                aria-label="Download 1-page CV"
+                className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 min-h-[60px] hover:scale-[1.02] tracking-tight-1"
+                aria-label="Download CV"
               >
                 Download CV
+              </a>
+              <a
+                href="https://www.linkedin.com/in/lloyd-turner-370837110/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-10 py-5 bg-card border border-border text-foreground font-semibold rounded-2xl hover:border-muted-dark hover:bg-secondary transition-all duration-200 min-h-[60px] hover:scale-[1.02] tracking-tight-1"
+                aria-label="Visit Lloyd Turner's LinkedIn profile"
+              >
+                Connect on LinkedIn
               </a>
             </div>
           </div>

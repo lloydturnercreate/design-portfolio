@@ -25,11 +25,11 @@ export default function ProjectTemplate({ project }: ProjectTemplateProps) {
 
         {/* Gallery Section - Optional */}
         {project.gallery && project.gallery.length > 0 && (
-          <ProjectGallery images={project.gallery} />
+          <ProjectGallery images={project.gallery} projectSlug={project.metadata.slug} />
         )}
 
         {/* Challenge Section - Optional */}
-        {project.challenge && <ProjectChallenge challenge={project.challenge} color={project.color} />}
+        {project.challenge && <ProjectChallenge challenge={project.challenge} color={project.color} projectSlug={project.metadata.slug} />}
 
         {/* Approach Section - Optional */}
         {project.approach && <ProjectApproach approach={project.approach} color={project.color} />}

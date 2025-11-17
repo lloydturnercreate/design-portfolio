@@ -59,7 +59,7 @@ export default function CaseStudies() {
       <div className="mb-16 md:mb-20 w-full">
         <div 
           ref={scrollContainerRef}
-          className="overflow-x-auto scrollbar-hide scroll-smooth"
+          className="overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
         >
           <div 
             ref={scrollInnerRef}
@@ -68,13 +68,13 @@ export default function CaseStudies() {
             {caseStudies.map((study, index) => (
               <div 
                 key={index} 
-                className="flex-shrink-0 w-[92vw] md:w-[85vw] lg:w-[80vw] first:pl-0 px-4"
+                className="flex-shrink-0 w-[92vw] md:w-[85vw] lg:w-[80vw] first:pl-0 px-4 snap-center snap-always"
               >
                 <CaseStudyCard study={study} />
               </div>
             ))}
             {/* Spacer after last card to allow centering */}
-            <div className="flex-shrink-0 w-[4vw]" aria-hidden="true" />
+            <div className="flex-shrink-0 w-[4vw] snap-none" aria-hidden="true" />
           </div>
         </div>
       </div>

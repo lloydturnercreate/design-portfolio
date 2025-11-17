@@ -139,8 +139,8 @@ export const phutureFinance: Project = {
       'As Head of Design at Phuture Finance, I led the creation of a DeFi investment platform that made crypto index investing accessible. The challenge: balance Web3 complexity with the simplicity retail investors expect.',
     meta: {
       role: 'Head of Design',
-      duration: '2021-2022',
-      team: '3 designers, 5 engineers',
+      duration: '2021-2023',
+      team: '1 designer, 5 engineers',
       scope: ['Product Design', 'Design System', 'User Research', 'Brand'],
     },
   },
@@ -272,7 +272,7 @@ export const raptor: Project = {
     slug: 'raptor',
     title: 'Raptor - A sleek & secure crypto wallet',
     description:
-      'A modern crypto wallet UI designed for clarity, trust, and seamless transactions. Personal project exploring minimalist design principles in the crypto space.',
+      'A modern crypto wallet UI designed for clarity, trust, and seamless transactions. Exploring minimalist design principles in the crypto space.',
     keywords: [
       'crypto wallet',
       'UI design',
@@ -286,7 +286,7 @@ export const raptor: Project = {
   },
   card: {
     title: 'Minimalist UI for Clarity & Trust',
-    description: 'A modern crypto wallet designed for simplicity and security — personal project exploring refined UI patterns in the fintech space.',
+    description: 'A modern crypto wallet designed for simplicity and security — exploring refined UI patterns in the fintech space.',
     coverImage: '/project-covers/raptor.png',
   },
   color: '#FFD226',
@@ -294,21 +294,21 @@ export const raptor: Project = {
     company: 'Raptor',
     tagline: 'A sleek & secure crypto wallet.',
     intro:
-      'Raptor is a personal exploration in crypto wallet design — stripping away complexity to create a clean, intuitive experience that prioritizes security and ease of use. Built for both beginners and experienced users, every detail was crafted to inspire confidence in managing digital assets.',
+      'Raptor is an exploration in crypto wallet design — stripping away complexity to create a clean, intuitive experience that prioritizes security and ease of use. Built for both beginners and experienced users, every detail was crafted to inspire confidence in managing digital assets.',
     meta: {
       role: 'Product & Visual Designer',
-      duration: 'Personal Project, 2023',
+      duration: '2023',
       team: 'Solo',
       scope: ['UI Design', 'Visual Design', 'Prototyping', 'Design System'],
     },
   },
   gallery: [
     {
-      src: '/projects/raptor/raptor-1.avif',
+      src: '/projects/raptor/raptor-1.png',
       alt: 'Raptor wallet interface',
     },
     {
-      src: '/projects/raptor/raptor-2.avif',
+      src: '/projects/raptor/raptor-02.png',
       alt: 'Raptor wallet design',
     },
     {
@@ -388,16 +388,16 @@ export const moonpay: Project = {
     ],
   },
   card: {
-    title: 'Scale Through Systemisation',
-    description: "Contributed to MoonPay's product ecosystem during high-growth, helping unify design language across multiple user flows.",
+    title: '0-to-1 Product Generating $10m',
+    description: 'Built Moonit as sole designer with complete ownership. Launched profitable meme coin platform in 18 months.',
     coverImage: '/project-covers/moonpay.png',
   },
   color: '#7B3FF2',
   hero: {
     company: 'MoonPay',
-    tagline: 'Building at scale in crypto infrastructure.',
+    tagline: 'Building a profitable trading platform from the ground up.',
     intro:
-      'I joined MoonPay as Senior Designer through the $175m acquisition of Helio. As sole designer on Moonit — a 0-to-1 meme coin trading platform on Solana — I handled everything from product strategy to branding, UI/UX, animation, and social assets. The result: a highly successful product generating ~$10m profit in 18 months.',
+      'Moonit launched as a meme coin trading platform with no existing design foundation, brand identity, or established patterns. The project required complete ownership across product strategy, brand development, UI/UX, animation, and marketing within a two-company partnership between MoonPay and dexscreener. The platform generated ~$10m profit in 18 months, demonstrating how strategic design execution translates to commercial success in competitive markets.',
     meta: {
       role: 'Senior Designer',
       duration: '2024-Present',
@@ -407,106 +407,137 @@ export const moonpay: Project = {
   },
   gallery: [
     {
-      src: '/projects/moonpay/image-1.svg',
+      src: '/projects/moonpay/01.png',
       alt: 'Moonit trading interface',
       caption: 'Trading Interface',
     },
     {
-      src: '/projects/moonpay/image-2.svg',
+      src: '/projects/moonpay/02.png',
       alt: 'Moonit token discovery',
       caption: 'Token Discovery',
     },
     {
-      src: '/projects/moonpay/image-3.svg',
+      src: '/projects/moonpay/03.mp4',
       alt: 'Moonit portfolio view',
       caption: 'Portfolio Management',
     },
     {
-      src: '/projects/moonpay/image-4.svg',
+      src: '/projects/moonpay/04.png',
       alt: 'Moonit brand identity',
       caption: 'Brand Identity',
     },
     {
-      src: '/projects/moonpay/image-5.svg',
+      src: '/projects/moonpay/05.png',
       alt: 'Moonit trading flow',
       caption: 'Trading Flow',
     },
     {
-      src: '/projects/moonpay/image-6.svg',
+      src: '/projects/moonpay/05b.mp4',
       alt: 'Moonit social assets',
       caption: 'Social Assets',
     },
     {
-      src: '/projects/moonpay/image-7.svg',
+      src: '/projects/moonpay/06.png',
       alt: 'Moonit mobile experience',
       caption: 'Mobile Experience',
     },
     {
-      src: '/projects/moonpay/image-8.svg',
+      src: '/projects/moonpay/07.png',
       alt: 'Moonit animation system',
       caption: 'Animation System',
+    },
+    {
+      src: '/projects/moonpay/08.png',
+      alt: 'Moonit interface details',
+      caption: 'Interface Details',
+    },
+    {
+      src: '/projects/moonpay/09.mp4',
+      alt: 'Moonit user experience',
+      caption: 'User Experience',
+    },
+    {
+      src: '/projects/moonpay/10.png',
+      alt: 'Moonit product features',
+      caption: 'Product Features',
+    },
+    {
+      src: '/projects/moonpay/11.mp4',
+      alt: 'Moonit design system',
+      caption: 'Design System',
+    },
+    {
+      src: '/projects/moonpay/12.gif',
+      alt: 'Moonit brand elements',
+      caption: 'Brand Elements',
+    },
+    {
+      src: '/projects/moonpay/13.mp4',
+      alt: 'Moonit visual identity',
+      caption: 'Visual Identity',
+    },
+    {
+      src: '/projects/moonpay/14.gif',
+      alt: 'Moonit marketing assets',
+      caption: 'Marketing Assets',
+    },
+    {
+      src: '/projects/moonpay/15.gif',
+      alt: 'Moonit complete experience',
+      caption: 'Complete Experience',
     },
   ],
   challenge: {
     title: 'The Challenge',
     description:
-      'Moonit was inherited as a partnership with dexscreener — a 0-to-1 meme coin trading platform with no existing design foundation. As sole designer, I needed to build everything from scratch while navigating complex stakeholder relationships between two companies.',
+      'MoonPay partnered with dexscreener to launch Moonit, a meme coin trading platform targeting one of crypto\'s most competitive markets. As the sole designer, I inherited a project with no existing product, brand identity, or design foundation. The scope required complete ownership across all design disciplines while managing stakeholder relationships across two organizations and meeting aggressive profit targets.',
     bullets: [
-      'Building a complete product from zero — no design patterns, brand, or UI foundation',
-      'Working as the only designer across all disciplines: strategy, branding, UI/UX, animation, and marketing',
-      'Managing dual stakeholder relationships between MoonPay and dexscreener teams',
-      'Competing in the fast-moving, highly competitive Solana meme coin trading space',
-      'Balancing speed to market with quality execution in a profit-driven environment',
+      'No existing foundation: brand identity, design patterns, or product UI to build from',
+      'Complete design ownership across strategy, brand, product, animation, and marketing',
+      'Complex stakeholder dynamics balancing priorities across MoonPay and dexscreener',
+      'Competitive market requiring speed, clarity, and frictionless trading experience',
+      'Commercial pressure to deliver a profitable product, not just a well-designed one',
     ],
   },
   approach: {
     title: 'Design Approach',
     description:
-      'With complete design ownership, I took a holistic approach — treating Moonit as both a product and a brand. Every decision, from user flows to social media assets, was crafted to resonate with the meme coin trading community while maintaining professional quality.',
+      'Building Moonit required strategic thinking across every design discipline. With no team to delegate to and two companies to align, I focused on high-impact decisions that would drive business value while establishing a scalable foundation. The process balanced speed with quality, ensuring traders received the clarity and performance they demanded.',
     subsections: [
       {
-        title: 'Product Strategy & UX',
+        title: 'Strategic Product Foundations',
         bullets: [
-          'Researched competitive landscape and meme coin trader behaviors',
-          'Designed intuitive trading flows optimized for speed and clarity',
-          'Created user journey maps balancing discovery, analysis, and execution',
-          'Prioritized features based on user needs and business goals',
+          'Analyzed competitor products to identify market gaps and opportunities',
+          'Prioritized core trading flows and essential features over nice-to-haves',
+          'Designed for speed and clarity, critical requirements for meme coin traders',
+          'Built flexible product architecture supporting rapid iteration post-launch',
         ],
       },
       {
-        title: 'Brand Identity & Visual Language',
+        title: 'Brand Identity & Positioning',
         bullets: [
-          'Developed brand identity that balanced playfulness with credibility',
-          'Created visual language reflecting meme coin culture without feeling gimmicky',
-          'Designed cohesive color system, typography, and iconography',
-          'Ensured brand consistency across product, marketing, and social channels',
+          'Developed brand balancing credibility with personality to stand out in crowded market',
+          'Created visual language resonating with crypto culture while remaining accessible',
+          'Built flexible brand system spanning product UI, social assets, and marketing',
+          'Positioned Moonit as a professional alternative in a market of gimmicky competitors',
         ],
       },
       {
-        title: 'UI Design & Animation',
+        title: 'End-to-End Design & Production',
         bullets: [
-          'Built engaging interface with smooth micro-interactions and transitions',
-          'Designed responsive layouts optimized for desktop and mobile trading',
-          'Created animation system that added delight without hindering performance',
-          'Maintained visual hierarchy for rapid information processing',
+          'Designed complete UI system including responsive layouts, interactions, and components',
+          'Created animation principles enhancing experience without sacrificing performance',
+          'Produced marketing materials, social templates, and launch graphics',
+          'Maintained visual consistency across all customer touchpoints',
         ],
       },
       {
         title: 'Stakeholder Management',
         bullets: [
-          'Navigated complex feedback loops between MoonPay and dexscreener teams',
-          'Presented design rationale and built consensus across organizations',
-          'Balanced competing priorities while maintaining product vision',
-          'Delivered iterative updates aligned with both companies\' goals',
-        ],
-      },
-      {
-        title: 'Marketing & Social Assets',
-        bullets: [
-          'Designed social media templates, launch graphics, and promotional materials',
-          'Created cohesive visual identity across all customer touchpoints',
-          'Built asset library enabling rapid marketing execution',
-          'Supported go-to-market strategy with compelling visual storytelling',
+          'Navigated feedback from two organizations with different priorities and timelines',
+          'Presented design decisions with clear rationale tied to business outcomes',
+          'Balanced product vision with legitimate stakeholder concerns',
+          'Delivered iterative updates aligned with commercial goals across both companies',
         ],
       },
     ],
@@ -520,25 +551,25 @@ export const moonpay: Project = {
         description: 'In 18 months',
       },
       {
-        value: '100%',
-        label: 'Design Ownership',
-        description: 'Sole designer across all disciplines',
+        value: '0-to-1',
+        label: 'Complete Product Launch',
+        description: 'Sole designer, all disciplines',
       },
       {
         value: '2 Companies',
         label: 'Stakeholder Alignment',
-        description: 'MoonPay + dexscreener partnership',
+        description: 'Cross-organization leadership',
       },
     ],
     bullets: [
-      'Successfully launched 0-to-1 product in highly competitive meme coin trading market',
-      'Demonstrated ability to own all design disciplines on a high-stakes product',
-      'Built scalable design system enabling rapid iteration and feature expansion',
-      'Established Moonit as a credible player in the Solana trading ecosystem',
-      'Navigated complex organizational dynamics while maintaining product quality',
+      'Generated ~$10m profit in 18 months, demonstrating direct link between design decisions and commercial success',
+      'Successfully owned all design disciplines as sole designer on high-stakes product launch',
+      'Built scalable design system enabling rapid iteration in competitive market environment',
+      'Positioned Moonit as credible alternative in crowded meme coin trading space',
+      'Managed complex stakeholder dynamics across two companies while maintaining product quality',
     ],
     conclusion:
-      'Moonit showcased the power of holistic design ownership. By controlling every aspect — from product strategy to social assets — I created a cohesive experience that resonated with users and delivered exceptional business results. Beyond Moonit, I contributed to MoonPay Labs\' experimental R&D platform and MoonPay Commerce (formerly Helio), helping shape crypto payment solutions across e-commerce.',
+      'Moonit showcased the impact of complete design ownership extending beyond UI into strategy, positioning, and business outcomes. The project required operating independently across all design disciplines, aligning cross-functional stakeholders, and delivering measurable commercial value. Beyond Moonit, I contributed to MoonPay Labs and Commerce products, supporting the broader platform ecosystem.',
   },
   prevProject: 'raptor',
   nextProject: 'sukiyaki',
@@ -564,8 +595,8 @@ export const sukiyaki: Project = {
     ],
   },
   card: {
-    title: 'TBC',
-    description: 'Details coming soon.',
+    title: 'Cultural Authenticity Meets Modern UX',
+    description: 'Designed a refined digital experience for a Japanese fine-dining restaurant, blending traditional aesthetics with modern web design.',
     coverImage: '/project-covers/sukiyaki.png',
   },
   color: '#626f70',
@@ -576,7 +607,7 @@ export const sukiyaki: Project = {
       'Sukiyaki is more than just a meal — it\'s an experience. The challenge was to translate the warmth, history, and communal spirit of this Japanese tradition into a modern digital presence that reflects the refined, immersive atmosphere of the restaurant while providing a seamless way for users to explore the menu, learn about the culture, and make reservations effortlessly.',
     meta: {
       role: 'Lead Designer & UX Strategist',
-      duration: 'Personal Project, 2024',
+      duration: '2024',
       team: 'Solo',
       scope: ['Brand Strategy', 'UX/UI Design', 'Interaction Design', 'Cultural Research'],
     },

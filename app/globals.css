@@ -63,6 +63,350 @@
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out;
   }
+
+
+  /* Independent layer animations - each gradient moves on its own path */
+  @keyframes lavaLayer1 {
+    0% {
+      transform: translate(-50%, -50%) translate(0%, 0%) rotate(0deg) scale(1);
+    }
+    25% {
+      transform: translate(-50%, -50%) translate(15%, -20%) rotate(90deg) scale(1.2);
+    }
+    50% {
+      transform: translate(-50%, -50%) translate(-10%, 15%) rotate(180deg) scale(0.9);
+    }
+    75% {
+      transform: translate(-50%, -50%) translate(20%, 10%) rotate(270deg) scale(1.1);
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(0%, 0%) rotate(360deg) scale(1);
+    }
+  }
+
+  @keyframes lavaLayer2 {
+    0% {
+      transform: translate(-50%, -50%) translate(10%, -15%) rotate(45deg) scale(1.1);
+    }
+    25% {
+      transform: translate(-50%, -50%) translate(-20%, 10%) rotate(135deg) scale(0.95);
+    }
+    50% {
+      transform: translate(-50%, -50%) translate(15%, 20%) rotate(225deg) scale(1.15);
+    }
+    75% {
+      transform: translate(-50%, -50%) translate(-15%, -10%) rotate(315deg) scale(1.05);
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(10%, -15%) rotate(405deg) scale(1.1);
+    }
+  }
+
+  @keyframes lavaLayer3 {
+    0% {
+      transform: translate(-50%, -50%) translate(-15%, 20%) rotate(-30deg) scale(1.05);
+    }
+    25% {
+      transform: translate(-50%, -50%) translate(20%, -15%) rotate(60deg) scale(1.2);
+    }
+    50% {
+      transform: translate(-50%, -50%) translate(-10%, -20%) rotate(150deg) scale(0.9);
+    }
+    75% {
+      transform: translate(-50%, -50%) translate(15%, 15%) rotate(240deg) scale(1.1);
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(-15%, 20%) rotate(330deg) scale(1.05);
+    }
+  }
+
+  @keyframes lavaLayer4 {
+    0% {
+      transform: translate(-50%, -50%) translate(5%, 10%) rotate(120deg) scale(0.95);
+    }
+    25% {
+      transform: translate(-50%, -50%) translate(-25%, 5%) rotate(210deg) scale(1.15);
+    }
+    50% {
+      transform: translate(-50%, -50%) translate(10%, -25%) rotate(300deg) scale(1.05);
+    }
+    75% {
+      transform: translate(-50%, -50%) translate(-5%, 20%) rotate(390deg) scale(0.9);
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(5%, 10%) rotate(480deg) scale(0.95);
+    }
+  }
+
+  .lava-gradient {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Hot lava + space laser magic palette - More vibrant */
+  .lava-gradient::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 80, 0, 1) 0%,
+      rgba(255, 120, 0, 0.95) 15%,
+      rgba(255, 180, 0, 0.85) 35%,
+      rgba(255, 220, 0, 0.6) 55%,
+      rgba(255, 255, 100, 0.3) 70%,
+      transparent 80%
+    );
+    filter: blur(32px);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation-name: var(--lava-layer1, lavaLayer1);
+    animation-duration: var(--lava-duration1, 6s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+  }
+
+  .lava-gradient::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(0, 200, 255, 1) 0%,
+      rgba(0, 220, 255, 0.95) 20%,
+      rgba(100, 240, 255, 0.8) 40%,
+      rgba(150, 250, 255, 0.5) 60%,
+      rgba(200, 255, 255, 0.3) 75%,
+      transparent 85%
+    );
+    filter: blur(36px);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation-name: var(--lava-layer2, lavaLayer2);
+    animation-duration: var(--lava-duration2, 7s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+  }
+
+  .lava-gradient .lava-layer-3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 30, 30, 1) 0%,
+      rgba(255, 80, 30, 0.95) 25%,
+      rgba(255, 130, 0, 0.8) 45%,
+      rgba(255, 180, 50, 0.6) 65%,
+      rgba(255, 220, 120, 0.3) 80%,
+      transparent 90%
+    );
+    filter: blur(34px);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation-name: var(--lava-layer3, lavaLayer3);
+    animation-duration: var(--lava-duration3, 6.5s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+    transform: translate(-50%, -50%);
+  }
+
+  .lava-gradient .lava-layer-4 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(200, 0, 255, 1) 0%,
+      rgba(150, 50, 255, 0.9) 20%,
+      rgba(100, 150, 255, 0.7) 40%,
+      rgba(0, 220, 255, 0.5) 60%,
+      rgba(255, 230, 0, 0.4) 75%,
+      transparent 85%
+    );
+    filter: blur(38px);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation-name: var(--lava-layer4, lavaLayer4);
+    animation-duration: var(--lava-duration4, 8s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+    transform: translate(-50%, -50%);
+  }
+
+  .lava-gradient:hover::before,
+  .lava-gradient:hover::after,
+  .lava-gradient:hover .lava-layer-3,
+  .lava-gradient:hover .lava-layer-4 {
+    opacity: 1;
+    animation-play-state: running;
+  }
+
+  .lava-gradient > *:not(.lava-layer-3):not(.lava-layer-4) {
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Secondary button gradient - Same as primary, separate class for independent editing */
+  .lava-gradient-secondary {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lava-gradient-secondary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(220, 38, 38, 1) 0%,
+      rgba(239, 68, 68, 0.95) 15%,
+      rgba(251, 146, 60, 0.85) 35%,
+      rgba(249, 115, 22, 0.6) 55%,
+      rgba(251, 146, 60, 0.3) 70%,
+      transparent 80%
+    );
+    filter: blur(32px);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation-name: var(--lava-layer1, lavaLayer1);
+    animation-duration: var(--lava-duration1, 6s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+  }
+
+  .lava-gradient-secondary::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(249, 115, 22, 1) 0%,
+      rgba(251, 146, 60, 0.95) 20%,
+      rgba(253, 186, 116, 0.8) 40%,
+      rgba(239, 68, 68, 0.5) 60%,
+      rgba(220, 38, 38, 0.3) 75%,
+      transparent 85%
+    );
+    filter: blur(36px);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation-name: var(--lava-layer2, lavaLayer2);
+    animation-duration: var(--lava-duration2, 7s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+  }
+
+  .lava-gradient-secondary .lava-layer-3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(127, 29, 29, 1) 0%,
+      rgba(185, 28, 28, 0.95) 25%,
+      rgba(220, 38, 38, 0.8) 45%,
+      rgba(249, 115, 22, 0.6) 65%,
+      rgba(251, 146, 60, 0.3) 80%,
+      transparent 90%
+    );
+    filter: blur(34px);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation-name: var(--lava-layer3, lavaLayer3);
+    animation-duration: var(--lava-duration3, 6.5s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+    transform: translate(-50%, -50%);
+  }
+
+  .lava-gradient-secondary .lava-layer-4 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(249, 115, 22, 1) 0%,
+      rgba(251, 146, 60, 0.9) 20%,
+      rgba(253, 186, 116, 0.7) 40%,
+      rgba(239, 68, 68, 0.5) 60%,
+      rgba(220, 38, 38, 0.4) 75%,
+      transparent 85%
+    );
+    filter: blur(38px);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation-name: var(--lava-layer4, lavaLayer4);
+    animation-duration: var(--lava-duration4, 8s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+    transform: translate(-50%, -50%);
+  }
+
+  .lava-gradient-secondary:hover::before,
+  .lava-gradient-secondary:hover::after,
+  .lava-gradient-secondary:hover .lava-layer-3,
+  .lava-gradient-secondary:hover .lava-layer-4 {
+    opacity: 1;
+    animation-play-state: running;
+  }
+
+  .lava-gradient-secondary > *:not(.lava-layer-3):not(.lava-layer-4) {
+    position: relative;
+    z-index: 10;
+  }
 }
 
 /* Performance optimizations */

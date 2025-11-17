@@ -1,6 +1,8 @@
 'use client';
 
+import { motion, useReducedMotion } from 'framer-motion';
 import { StatMetric } from '@/lib/projects';
+import { cardLoopBounceVariants, cardReducedMotionVariants } from '@/lib/animationConfig';
 
 interface StatBlockProps {
   metrics: StatMetric[];
@@ -11,16 +13,20 @@ interface StatBlockProps {
  * StatBlock
  * Displays key metrics/stats in a visually prominent grid
  * Used to break up text and highlight quantitative results
+ * Features continuous looping bounce animation for added life
  */
 export default function StatBlock({ metrics, color }: StatBlockProps) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 my-16 md:my-20">
       {metrics.map((metric, index) => (
-        <div
+        <motion.div
           key={index}
-          className="relative bg-secondary/50 border border-border/50 rounded-xl p-6 md:p-8 text-left group hover:bg-secondary transition-all duration-300 flex flex-col justify-end h-full"
-          onMouseEnter={(e) => e.currentTarget.style.borderColor = `${color}66`}
-          onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(var(--border-rgb), 0.5)'}
+          variants={shouldReduceMotion ? cardReducedMotionVariants : cardLoopBounceVariants}
+          animate="animate"
+          custom={index}
+          className="relative bg-card border border-border rounded-xl p-6 md:p-8 text-left group hover:border-muted-dark hover:shadow-premium transition-all duration-300 flex flex-col justify-end h-full"
         >
           {/* Value */}
           <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3 tracking-tighter-1" style={{ color }}>
@@ -38,7 +44,7 @@ export default function StatBlock({ metrics, color }: StatBlockProps) {
               {metric.description}
             </div>
           )}
-        </div>
+        </motion.div>
       ))}
     </div>
   );

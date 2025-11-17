@@ -26,9 +26,13 @@ export default function Footer() {
               href="https://calendly.com/lloydturner"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02]"
+              role="button"
+              data-cta-type="primary"
+              className="lava-gradient group inline-flex items-center justify-center px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02]"
               aria-label="Book a call with Lloyd Turner"
             >
+              <span className="lava-layer-3" />
+              <span className="lava-layer-4" />
               <span className="tracking-tight-1 whitespace-nowrap">Book a Call</span>
             </a>
           </div>
@@ -69,7 +73,7 @@ export default function Footer() {
 
             {/* LinkedIn */}
             <a
-              href="https://linkedin.com/in/lloydturner"
+              href="https://www.linkedin.com/in/lloyd-turner-370837110/"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative flex items-center justify-center transition-all duration-300"
@@ -101,7 +105,7 @@ export default function Footer() {
 
             {/* Download CV */}
             <a
-              href="/cv.pdf"
+              href="/resume/Lloyd Turner _ Product_Visual Designer.pdf"
               download
               className="group relative flex items-center justify-center transition-all duration-300"
               aria-label="Download CV"
