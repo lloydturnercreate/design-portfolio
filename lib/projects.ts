@@ -400,7 +400,7 @@ export const moonpay: Project = {
   },
   card: {
     title: '0-to-1 Platform Generating $10m+ Profit',
-    description: 'Case study coming soon',
+    description: 'Case study coming soon.',
     backgroundImage: '/project-covers/moonpay.png',
     backgroundImages: {
       mobile: '/project-covers/moonpay-mobile.png',
@@ -731,7 +731,7 @@ export const sukiyaki: Project = {
 };
 
 // Export all projects as an array for navigation
-export const allProjects: Project[] = [phutureFinance, moonpay, raptor, sukiyaki];
+export const allProjects: Project[] = [phutureFinance, raptor, sukiyaki, moonpay];
 
 // Helper function to get project by slug
 export function getProjectBySlug(slug: string): Project | undefined {
