@@ -400,7 +400,7 @@ export const moonpay: Project = {
   },
   card: {
     title: '0-to-1 Platform Generating $10m+ Profit',
-    description: 'Complete design ownership of a token trading platform — from brand identity to product launch as sole designer, generating $10m+ in 18 months.',
+    description: 'Case study coming soon',
     backgroundImage: '/project-covers/moonpay.png',
     backgroundImages: {
       mobile: '/project-covers/moonpay-mobile.png',

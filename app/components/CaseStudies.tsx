@@ -11,7 +11,7 @@ const caseStudies = allProjects
     company: project.hero.company,
     title: project.card.title,
     description: project.card.description,
-    slug: project.metadata.slug,
+    slug: project.metadata.slug === 'moonpay' ? null : project.metadata.slug,
     color: project.color,
     backgroundImage: project.card.backgroundImage,
     backgroundImages: project.card.backgroundImages,
