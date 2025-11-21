@@ -49,7 +49,7 @@ export default function Hero() {
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-5 mb-10 md:mb-12 pointer-events-none">
             <span className="text-xs md:text-sm font-medium text-muted uppercase tracking-[0.08em]">Ex-Google</span>
             <span className="w-1 h-1 rounded-full bg-muted-dark opacity-50"></span>
-            <span className="text-xs md:text-sm font-medium text-muted uppercase tracking-[0.08em]">Ex-MoonPay</span>
+            <span className="text-xs md:text-sm font-medium text-muted uppercase tracking-[0.08em]">MoonPay</span>
             <span className="w-1 h-1 rounded-full bg-muted-dark opacity-50"></span>
             <span className="text-xs md:text-sm font-medium text-muted uppercase tracking-[0.08em]">Senior Product Designer</span>
           </div>
