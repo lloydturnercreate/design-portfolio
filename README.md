@@ -1,20 +1,76 @@
 # Lloyd Turner Portfolio Website
 
-A cutting-edge, professional portfolio website built with Next.js 14, React, and Three.js.
+A cutting-edge, professional portfolio website showcasing product design work with interactive 3D effects, smooth page transitions, and immersive animations.
 
-## Tech Stack
+## 🚀 Live Features
+
+### Interactive Hero
+- **3D Tilt Effects**: Global mouse tracking with perspective transforms
+- **Pulse Interception Game**: Interactive canvas-based energy pulses that turn green when intercepted
+- **Animated Grid**: Canvas-rendered futuristic grid with moving energy signals
+- **Animated Noise Texture**: Real-time noise overlay for authentic CRT aesthetic
+
+### Case Studies
+- **4 Complete Projects**: MoonPay (Moonit), Phuture Finance, Raptor, Sukiyaki
+- **3D Parallax Cards**: Interactive case study cards with multi-layer depth effects
+- **Horizontal Scroll Navigation**: Smooth scrolling with dot indicators and arrow controls
+- **Responsive Images**: Optimized breakpoint-specific images (mobile, tablet, desktop)
+
+### Page Transitions
+- **Scale Animations**: Home page scales down when navigating to projects
+- **Context-Based State**: Global transition management with forward/back detection
+- **Smooth Navigation**: Coordinated animations across page changes
+
+### Accessibility
+- **Reduced Motion Support**: Respects prefers-reduced-motion with graceful fallbacks
+- **Semantic HTML**: Proper ARIA labels and role attributes
+- **Keyboard Navigation**: Full keyboard support for all interactive elements
+- **Touch Targets**: Minimum 44px touch targets for mobile
+
+### Performance
+- **Canvas-Based Animations**: Hardware-accelerated rendering for smooth 60fps
+- **Optimized Images**: AVIF/WebP with responsive srcset
+- **Code Splitting**: Automatic route-based splitting via Next.js
+- **Production Optimizations**: Console removal, SWC minification, tree shaking
+
+## 💻 Tech Stack
 
 - **Framework**: Next.js 14+ (App Router)
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion + GSAP
-- **3D Effects**: Three.js
 - **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Canvas**: Native Canvas API (no Three.js)
+- **Deployment**: Vercel
 
-## Getting Started
+## 📁 Project Structure
+
+```
+/app
+  /components          - React components
+    /project          - Project page components
+    /transitions      - Page transition wrappers
+  /[project-slug]     - Dynamic project pages
+  layout.tsx          - Root layout with metadata
+  page.tsx            - Home page
+  globals.css         - Global styles & animations
+/lib
+  /context           - React context providers
+  /hooks             - Custom React hooks
+  projects.ts        - Project data & types
+  animationConfig.ts - Framer Motion variants
+  transitionConfig.ts - Transition timing values
+  approachIcons.tsx  - Icon mappings for project sections
+/public
+  /projects          - Project images & media
+  /project-covers    - Responsive cover images
+  /client-assets     - Client logos & brand assets
+```
+
+## 🛠️ Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
@@ -33,7 +89,7 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
 ### Build
 
@@ -51,18 +107,80 @@ npm start
 yarn start
 ```
 
-## Project Structure
+## 🎨 Key Components
 
-```
-/app
-  /components      - React components
-  /lib            - Utilities and helpers
-  layout.tsx      - Root layout
-  page.tsx        - Home page
-  globals.css     - Global styles
-```
+### Hero (`app/components/Hero.tsx`)
+- Interactive 3D tilt with global mouse tracking
+- Canvas-based futuristic grid with animated pulses
+- Pulse interception game with particle effects
+- Dual CTA buttons with lava gradient effects
 
-## Deployment
+### Case Studies (`app/components/CaseStudies.tsx`)
+- Horizontal scrolling container with snap points
+- Dynamic case study cards from project data
+- Navigation controls with current index tracking
 
-This project is configured for Vercel deployment. Simply push to your repository and connect it to Vercel.
+### Case Study Card (`app/components/CaseStudyCard.tsx`)
+- 3D tilt effect with parallax text layer
+- Responsive background images per breakpoint
+- Smooth transition to project page on click
 
+### Project Template (`app/components/ProjectTemplate.tsx`)
+- Flexible template supporting optional sections
+- Gallery, Challenge, Approach, Results sections
+- Floating back button for navigation
+
+### Page Transitions
+- **TransitionContext**: Global state management for animations
+- **PageScaleWrapper**: Home page scale-down effect
+- **ProjectPageWrapper**: Project page slide-up animation
+- **TransitionOverlay**: Coordinated overlay fade
+
+## 🔧 Configuration
+
+### Animation Timing (`lib/transitionConfig.ts`)
+Centralized configuration for all transition durations and easing curves.
+
+### Framer Motion Variants (`lib/animationConfig.ts`)
+Reusable animation variants for consistent motion design.
+
+### Tailwind Config (`tailwind.config.ts`)
+Custom colors, typography scales, shadows, and utility classes.
+
+## 📦 Bundle Optimizations
+
+- **SWC Minification**: Faster builds with Rust-based compiler
+- **Console Removal**: Automatic removal in production builds
+- **Image Optimization**: Next.js Image with AVIF/WebP support
+- **Package Optimization**: Framer Motion tree-shaking enabled
+
+## 🚢 Deployment
+
+This project is configured for Vercel deployment:
+
+1. Push to your Git repository
+2. Connect repository to Vercel
+3. Automatic deployments on push to main
+
+### Environment Variables
+
+No environment variables required for basic deployment.
+
+## 📈 Performance Metrics
+
+- **First Contentful Paint**: Optimized with critical CSS
+- **Time to Interactive**: Minimal JavaScript on initial load
+- **Accessibility Score**: WCAG AA compliant
+- **SEO**: Complete metadata with Open Graph tags
+
+## 🎯 Future Enhancements
+
+- Additional case studies (Google, MoonPay Labs projects)
+- Blog section with MDX support
+- Contact form integration
+- Analytics integration
+- More interactive canvas effects
+
+## 📄 License
+
+Private portfolio project © 2024 Lloyd Turner

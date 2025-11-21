@@ -8,7 +8,7 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   experimental: {
-    optimizePackageImports: ['three', '@react-three/fiber', '@react-three/drei', 'framer-motion', 'gsap'],
+    optimizePackageImports: ['framer-motion'],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

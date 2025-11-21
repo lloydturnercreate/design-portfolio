@@ -69,30 +69,40 @@ export default function Hero() {
           {/* CTA Buttons - Now included in 3D tilt effect, fully interactive */}
           <div className="flex flex-col sm:flex-row gap-5 justify-center items-center max-w-2xl mx-auto relative z-50 pointer-events-auto">
             {/* For Founders CTA - Primary */}
-            <a
-              href="#book-diagnostic"
-              role="button"
-              data-cta-type="primary"
-              className="lava-gradient group w-full sm:w-auto px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] flex items-center justify-center shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02] cursor-pointer"
-              aria-label="Book a 15-minute diagnostic call for founders"
-            >
-              <span className="lava-layer-3" />
-              <span className="lava-layer-4" />
-              <span className="tracking-tight-1 whitespace-nowrap">For Founders – Book 15-min Call</span>
-            </a>
+            <div className="flex flex-col items-center gap-3 w-full sm:w-auto">
+              <a
+                href="https://calendly.com/lloyd-turner/intro-call"
+                target="_blank"
+                rel="noopener noreferrer"
+                role="button"
+                data-cta-type="primary"
+                className="lava-gradient group w-full sm:w-auto px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] flex items-center justify-center shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02] cursor-pointer"
+                aria-label="Contact for a discovery call - Founders"
+              >
+                <span className="lava-layer-3" />
+                <span className="lava-layer-4" />
+                <span className="tracking-tight-1 whitespace-nowrap">Book a 15-min Call</span>
+              </a>
+              <span className="text-xs font-medium text-muted uppercase tracking-[0.08em] pointer-events-none">For Founders</span>
+            </div>
 
             {/* For Agencies CTA - Secondary */}
-            <a
-              href="#check-availability"
-              role="button"
-              data-cta-type="secondary"
-              className="lava-gradient-secondary group w-full sm:w-auto px-10 py-5 bg-card border border-border text-foreground font-semibold rounded-2xl hover:border-muted-dark hover:bg-secondary transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] flex items-center justify-center hover:scale-[1.02] cursor-pointer"
-              aria-label="Check availability for agencies"
-            >
-              <span className="lava-layer-3" />
-              <span className="lava-layer-4" />
-              <span className="tracking-tight-1 whitespace-nowrap">For Agencies – Check Availability</span>
-            </a>
+            <div className="flex flex-col items-center gap-3 w-full sm:w-auto">
+              <a
+                href="https://form.typeform.com/to/Rwp3bZGg"
+                target="_blank"
+                rel="noopener noreferrer"
+                role="button"
+                data-cta-type="secondary"
+                className="lava-gradient-secondary group w-full sm:w-auto px-10 py-5 bg-blue-950 text-white font-semibold rounded-2xl hover:bg-slate-950 transition-all duration-200 text-center text-base lg:text-lg min-h-[60px] flex items-center justify-center hover:scale-[1.02] cursor-pointer"
+                aria-label="Check availability for agencies"
+              >
+                <span className="lava-layer-3" />
+                <span className="lava-layer-4" />
+                <span className="tracking-tight-1 whitespace-nowrap">Check Availability</span>
+              </a>
+              <span className="text-xs font-medium text-muted uppercase tracking-[0.08em] pointer-events-none">For Agencies</span>
+            </div>
           </div>
         </div>
       </div>

@@ -201,10 +201,17 @@ export const icons = {
     </svg>
   ),
   
-  // Podium (trophy/award)
+  // Trophy/Award
   trophy: (
     <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728L5.25 4.236zm13.896 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165M5.25 4.236l2.48 5.492m0 0L9.75 9.75m-2.25-1.514L5.25 4.236z" />
+    </svg>
+  ),
+  
+  // Podium (1st, 2nd, 3rd place ranking)
+  podium: (
+    <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 20h4V14H3v6zm7-9h4v9h-4v-9zm7 4h4v5h-4v-5z" />
     </svg>
   ),
   
@@ -280,6 +287,50 @@ export const icons = {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
     </svg>
   ),
+  
+  // Calendar (Booking/Scheduling)
+  calendar: (
+    <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+  ),
+  
+  // Small square next to big square (scale/subtle)
+  scaleSquares: (
+    <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <rect x="4" y="8" width="6" height="6" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="13" y="5" width="10" height="10" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  
+  // Square in motion (transition)
+  motionSquare: (
+    <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <rect x="8" y="8" width="8" height="8" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 10L4 12l2 2M18 10l2 2-2 2M10 6l2-2 2 2M10 18l2 2 2-2" opacity="0.4" />
+    </svg>
+  ),
+  
+  // Three dots under square (micro-interaction)
+  microInteraction: (
+    <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <rect x="7" y="4" width="10" height="10" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="9" cy="18" r="1" fill="currentColor" />
+      <circle cx="12" cy="18" r="1" fill="currentColor" />
+      <circle cx="15" cy="18" r="1" fill="currentColor" />
+    </svg>
+  ),
+  
+  // Six blocks in grid (storytelling/structure)
+  gridBlocks: (
+    <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="6" height="6" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="14" y="4" width="6" height="6" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="4" y="14" width="6" height="6" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="14" y="14" width="6" height="6" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="9" y="9" width="6" height="6" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+    </svg>
+  ),
 };
 
 /**
@@ -299,11 +350,11 @@ export const iconMapping: Record<string, string[]> = {
   'Trust Through Design': ['mobile', 'typography', 'layers'],
   'Seamless Experience': ['swap', 'device', 'refresh'],
   'Research & Cultural Foundation': ['book', 'eye', 'chart', 'check'],
-  'User Experience Strategy': ['users', 'route', 'link', 'check'],
-  'Visual Design & Brand Identity': ['browser', 'eye', 'lightbulb', 'chart'],
-  'Interaction & Motion Design': ['refresh', 'device', 'swap', 'check'],
+  'User Experience Strategy': ['users', 'route', 'calendar', 'check'],
+  'Visual Design & Brand Identity': ['screen', 'palette', 'typography', 'chart'],
+  'Interaction & Motion Design': ['scaleSquares', 'motionSquare', 'microInteraction', 'gridBlocks'],
   'Strategic Product Foundations': ['search', 'list', 'speed', 'blocks'],
-  'Brand Identity & Positioning': ['checkerboard', 'palette', 'stack', 'trophy'],
+  'Brand Identity & Positioning': ['checkerboard', 'palette', 'stack', 'podium'],
   'End-to-End Design & Production': ['mobile', 'layers', 'frame', 'consistency'],
   'Stakeholder Management': ['users', 'check', 'link', 'refresh'],
   'Cultural Research & Color Palette': ['scroll', 'droplet', 'book', 'chart'],

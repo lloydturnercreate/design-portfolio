@@ -46,17 +46,22 @@ export default function TwoDoorCTA() {
               <p className="text-lg md:text-xl text-muted mb-4 leading-[1.6] font-light tracking-tight-1">
                 You&apos;re building fast, but design is lagging behind growth.
               </p>
-              <p className="text-lg md:text-xl text-muted leading-[1.6] font-light tracking-tight-1">
+              <p className="text-lg md:text-xl text-muted mb-5 leading-[1.6] font-light tracking-tight-1">
                 Get design clarity, speed, and investor-grade polish — without hiring a
                 full-time team.
               </p>
+              <p className="text-lg md:text-xl font-semibold text-foreground tracking-tight-1">
+                Project-based or embedded — from MVP to Series A
+              </p>
             </div>
             <a
-              href="#book-diagnostic"
+              href="https://calendly.com/lloyd-turner/intro-call"
+              target="_blank"
+              rel="noopener noreferrer"
               role="button"
               data-cta-type="primary"
               className="lava-gradient inline-flex items-center justify-center w-full px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 text-center text-base min-h-[60px] shadow-premium-lg hover:shadow-premium-xl hover:scale-[1.02] tracking-tight-1 pointer-events-auto"
-              aria-label="Book a 15-minute diagnostic call for founders"
+              aria-label="Contact for a discovery call - Founders"
             >
               <span className="lava-layer-3" />
               <span className="lava-layer-4" />
@@ -86,11 +91,13 @@ export default function TwoDoorCTA() {
               </p>
             </div>
             <a
-              href="#check-availability"
+              href="https://form.typeform.com/to/Rwp3bZGg"
+              target="_blank"
+              rel="noopener noreferrer"
               role="button"
               data-cta-type="secondary"
-              className="lava-gradient-secondary inline-flex items-center justify-center w-full px-10 py-5 bg-card border border-border text-foreground font-semibold rounded-2xl hover:border-muted-dark hover:bg-secondary transition-all duration-200 text-center text-base min-h-[60px] hover:scale-[1.02] tracking-tight-1 pointer-events-auto"
-              aria-label="Check availability and day rate for agencies"
+              className="lava-gradient-secondary inline-flex items-center justify-center w-full px-10 py-5 bg-blue-950 text-white font-semibold rounded-2xl hover:bg-slate-950 transition-all duration-200 text-center text-base min-h-[60px] hover:scale-[1.02] tracking-tight-1 pointer-events-auto"
+              aria-label="Check availability for agencies"
             >
               <span className="lava-layer-3" />
               <span className="lava-layer-4" />

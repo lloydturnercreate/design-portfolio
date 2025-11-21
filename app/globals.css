@@ -436,10 +436,10 @@
 }
 
 /* Smooth scroll animations */
+/* Note: Global smooth scrolling removed to allow instant hash navigation (e.g., /#work) */
+/* Individual components like horizontal scrollers still use the 'scroll-smooth' class locally */
 @media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
+  /* html { scroll-behavior: smooth; } - Disabled for instant hash navigation */
 }
 
 @media (prefers-reduced-motion: reduce) {

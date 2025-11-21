@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import Image from 'next/image';
 import { useHorizontalScroll } from '@/lib/hooks/useHorizontalScroll';
 
 export interface GalleryImage {
@@ -149,11 +150,18 @@ function GalleryItem({ image, index, projectSlug }: GalleryItemProps) {
             playsInline
           />
         ) : (
-          <img
-            src={image.src}
-            alt={image.alt}
-            className="h-full w-auto object-cover"
-          />
+          <div className="relative h-full w-auto">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              width={0}
+              height={0}
+              sizes="(max-height: 70vh) 100vw, 100vw"
+              quality={100}
+              className="h-full w-auto object-cover"
+              style={{ width: 'auto', height: '100%' }}
+            />
+          </div>
         )}
       </div>
     </div>

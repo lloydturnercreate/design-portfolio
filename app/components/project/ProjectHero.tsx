@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { ProjectHero as ProjectHeroType } from '@/lib/projects';
 import ProjectMeta from './ProjectMeta';
 import CursorRevealGrid from '../CursorRevealGrid';
@@ -20,10 +21,17 @@ export default function ProjectHero({ hero, color }: ProjectHeroProps) {
       {/* Background image if provided */}
       {hero.heroImage && (
         <>
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${hero.heroImage})` }}
-          />
+          <div className="absolute inset-0">
+            <Image
+              src={hero.heroImage}
+              alt={hero.tagline}
+              fill
+              priority
+              quality={100}
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black" />
         </>
       )}
@@ -58,4 +66,3 @@ export default function ProjectHero({ hero, color }: ProjectHeroProps) {
     </section>
   );
 }
-

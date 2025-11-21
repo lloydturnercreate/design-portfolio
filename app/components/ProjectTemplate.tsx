@@ -4,8 +4,9 @@ import ProjectGallery from './project/ProjectGallery';
 import ProjectChallenge from './project/ProjectChallenge';
 import ProjectApproach from './project/ProjectApproach';
 import ProjectResults from './project/ProjectResults';
-import ProjectNavigation from './project/ProjectNavigation';
+import FloatingBackButton from './project/FloatingBackButton';
 import Footer from './Footer';
+import ProjectPageWrapper from './transitions/ProjectPageWrapper';
 
 interface ProjectTemplateProps {
   project: Project;
@@ -19,31 +20,30 @@ interface ProjectTemplateProps {
 export default function ProjectTemplate({ project }: ProjectTemplateProps) {
   return (
     <>
-      <main className="min-h-screen w-full overflow-x-hidden bg-background relative">
-        {/* Hero Section - Always rendered */}
-        <ProjectHero hero={project.hero} color={project.color} />
+      {/* Floating Back Button - Rendered outside wrapper for proper fixed positioning */}
+      <FloatingBackButton />
+      
+      <ProjectPageWrapper>
+        <main className="min-h-screen w-full overflow-x-hidden bg-background relative">
+          {/* Hero Section - Always rendered */}
+          <ProjectHero hero={project.hero} color={project.color} />
 
-        {/* Gallery Section - Optional */}
-        {project.gallery && project.gallery.length > 0 && (
-          <ProjectGallery images={project.gallery} projectSlug={project.metadata.slug} />
-        )}
+          {/* Gallery Section - Optional */}
+          {project.gallery && project.gallery.length > 0 && (
+            <ProjectGallery images={project.gallery} projectSlug={project.metadata.slug} />
+          )}
 
-        {/* Challenge Section - Optional */}
-        {project.challenge && <ProjectChallenge challenge={project.challenge} color={project.color} projectSlug={project.metadata.slug} />}
+          {/* Challenge Section - Optional */}
+          {project.challenge && <ProjectChallenge challenge={project.challenge} color={project.color} projectSlug={project.metadata.slug} />}
 
-        {/* Approach Section - Optional */}
-        {project.approach && <ProjectApproach approach={project.approach} color={project.color} />}
+          {/* Approach Section - Optional */}
+          {project.approach && <ProjectApproach approach={project.approach} color={project.color} />}
 
-        {/* Results Section - Optional */}
-        {project.results && <ProjectResults results={project.results} color={project.color} />}
-
-        {/* Navigation - Always rendered */}
-        <ProjectNavigation
-          nextProject={project.nextProject}
-          prevProject={project.prevProject}
-        />
-      </main>
-      <Footer />
+          {/* Results Section - Optional */}
+          {project.results && <ProjectResults results={project.results} color={project.color} />}
+        </main>
+        <Footer />
+      </ProjectPageWrapper>
     </>
   );
 }

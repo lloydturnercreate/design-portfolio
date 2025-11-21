@@ -1,12 +1,20 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { TransitionProvider } from '@/lib/context/TransitionContext';
+import TransitionOverlay from './components/transitions/TransitionOverlay';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://lloydturner.co.uk'),
@@ -41,11 +49,6 @@ export const metadata: Metadata = {
     title: 'Lloyd Turner | Senior Product Designer',
     description: 'Ex-Google, Ex-MoonPay Senior Product Designer helping fintech & Web3 teams ship investor-grade products.',
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-  },
   robots: {
     index: true,
     follow: true,
@@ -67,9 +70,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className={`${inter.className} antialiased`}>
-        {children}
+        <TransitionProvider>
+          <TransitionOverlay />
+          {children}
+        </TransitionProvider>
       </body>
     </html>
   );
 }
-

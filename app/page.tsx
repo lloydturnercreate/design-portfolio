@@ -6,19 +6,25 @@ import Process from './components/Process';
 import About from './components/About';
 import TwoDoorCTA from './components/TwoDoorCTA';
 import Footer from './components/Footer';
+import PageScaleWrapper from './components/transitions/PageScaleWrapper';
+
 export default function Home() {
   return (
     <>
-      <main className="min-h-screen w-full overflow-x-hidden bg-background relative">
-        <Hero />
-        <CredibilityStrip />
-        <ValueSection />
-        <CaseStudies />
-        <Process />
-        <About />
-        <TwoDoorCTA />
-      </main>
-      <Footer />
+      {/* Hero stays outside PageScaleWrapper to avoid scaling issues with canvas */}
+      <Hero />
+      
+      <PageScaleWrapper>
+        <main className="min-h-screen w-full overflow-x-hidden bg-background relative">
+          <CredibilityStrip />
+          <ValueSection />
+          <CaseStudies />
+          <Process />
+          <About />
+          <TwoDoorCTA />
+        </main>
+        <Footer />
+      </PageScaleWrapper>
     </>
   );
 }

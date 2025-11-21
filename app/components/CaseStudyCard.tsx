@@ -1,8 +1,11 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
+import { useTransition } from '@/lib/context/TransitionContext';
+import { TRANSITION_CONFIG } from '@/lib/transitionConfig';
 
 export interface CaseStudyCardProps {
   study: {
@@ -11,11 +14,13 @@ export interface CaseStudyCardProps {
     description: string;
     slug: string | null;
     color: string;
-    icons?: Array<{
-      src: string;
-      alt: string;
-      scale?: number;
-    }>;
+    backgroundImage?: string;
+    backgroundImages?: {
+      mobile?: string;
+      tablet?: string;
+      desktop?: string;
+    };
+    imageAlignment?: 'left' | 'center';
   };
 }
 
@@ -30,7 +35,9 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
   const reducedMotion = useReducedMotion();
   const [isHovered, setIsHovered] = useState(false);
   const [textTransform, setTextTransform] = useState('');
-  const [iconTransforms, setIconTransforms] = useState<string[]>([]);
+  const [isClicked, setIsClicked] = useState(false);
+  const router = useRouter();
+  const { startTransition } = useTransition();
 
   // Mouse tracking for 3D tilt with parallax text effect
   useEffect(() => {
@@ -65,27 +72,6 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
       const textTiltX = -y * 8; // 4x more dramatic than card
       const textTiltY = x * 8; // inverted from x * -8
       setTextTransform(`translateX(${textOffsetX}px) translateY(${textOffsetY}px) translateZ(80px) rotateX(${textTiltX}deg) rotateY(${textTiltY}deg) scale(1.02)`);
-
-      // Calculate enhanced icon transforms (scaled up from text effect)
-      if (study.icons) {
-        const iconTransformsArray = study.icons.map((icon, index) => {
-          const iconScale = icon.scale || 1.04;
-          const projectionStrengthIcon = 0.45; // Stronger projection than text
-          const iconOffsetX = -x * 45 * projectionStrengthIcon; // More movement
-          const iconOffsetY = -y * 45 * projectionStrengthIcon;
-          
-          // Enhanced tilt for icons (1.5x more dramatic than text)
-          const iconTiltX = -y * 12;
-          const iconTiltY = x * 12;
-          
-          // Vary Z-depth per icon for layering effect
-          const baseZDepth = 120;
-          const zDepth = baseZDepth + (index * 15);
-          
-          return `translateX(${iconOffsetX}px) translateY(${iconOffsetY}px) translateZ(${zDepth}px) rotateX(${iconTiltX}deg) rotateY(${iconTiltY}deg) scale(${iconScale})`;
-        });
-        setIconTransforms(iconTransformsArray);
-      }
     };
 
     const handleMouseLeave = () => {
@@ -94,9 +80,6 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
         card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
       }
       setTextTransform('translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1)');
-      if (study.icons) {
-        setIconTransforms(study.icons.map(() => 'translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1)'));
-      }
     };
 
     card.addEventListener('mouseenter', handleMouseEnter);
@@ -110,46 +93,94 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
     };
   }, [reducedMotion]);
 
+  // Handle card click for transition
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (!study.slug) return;
+
+    e.preventDefault();
+    setIsClicked(true);
+
+    // Mark that we're on a project page (for back navigation detection)
+    sessionStorage.setItem('wasOnProject', 'true');
+
+    // Get card position for potential future use
+    const rect = cardRef.current?.getBoundingClientRect();
+    
+    // Start transition with card metadata
+    startTransition({
+      slug: study.slug,
+      color: study.color,
+      position: rect ? { x: rect.left, y: rect.top, width: rect.width, height: rect.height } : undefined,
+    });
+
+    // Navigate after delay to allow scale animation
+    setTimeout(() => {
+      router.push(`/${study.slug}`);
+    }, TRANSITION_CONFIG.durations.navigationDelay * 1000);
+  };
+
+  const fallbackImage = study.backgroundImage || 
+    study.backgroundImages?.desktop || 
+    study.backgroundImages?.tablet || 
+    study.backgroundImages?.mobile;
+
+  const imageAlignmentClass = study.imageAlignment === 'center' 
+    ? 'object-center' 
+    : 'object-left md:object-center';
+
   const cardContent = (
     <div 
       className={`relative w-full h-full bg-card border rounded-3xl overflow-hidden shadow-premium transition-all duration-300 cursor-pointer group ${
         isHovered ? 'border-muted-dark' : 'border-border'
-      }`}
+      } ${isClicked ? 'ring-2 ring-white ring-opacity-50' : ''}`}
       style={{ transformStyle: 'preserve-3d' }}
     >
-      {/* Dark background */}
-      <div className="absolute inset-0" style={{ backgroundColor: '#111111' }} />
-
-      {/* Floating 3D icons */}
-      {study.icons && study.icons.map((icon, index) => {
-        const iconTransform = iconTransforms[index] || 'translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1)';
-        
-        // Calculate positioning for multiple icons (staggered layout)
-        const topPosition = 20 + (index * 12); // Start at 20%, offset by 12% each
-        const rightPosition = 20 + (index % 2 === 0 ? 0 : 10); // Alternate horizontal position
-        
-        return (
-          <div
-            key={index}
-            className="absolute pointer-events-none transition-all duration-200 ease-out"
-            style={{
-              top: `${topPosition}%`,
-              right: `${rightPosition}%`,
-              width: '20%',
-              height: '20%',
-              transform: iconTransform,
-              filter: isHovered ? 'drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6))' : 'drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4))',
-              transformStyle: 'preserve-3d',
-            }}
-          >
-            <img
-              src={icon.src}
-              alt={icon.alt}
-              className="w-full h-full object-contain"
+      {/* Background image - responsive with next/image */}
+      {(study.backgroundImages || study.backgroundImage) ? (
+        <div className="absolute inset-0">
+          {/* Mobile Image (< 768px) */}
+          {study.backgroundImages?.mobile && (
+            <div className="block md:hidden h-full w-full relative">
+              <Image
+                src={study.backgroundImages.mobile}
+                alt={`${study.company} case study cover`}
+                fill
+                quality={100}
+                sizes="(max-width: 768px) 100vw"
+                className={`object-cover ${imageAlignmentClass}`}
+              />
+            </div>
+          )}
+          
+          {/* Tablet Image (768px - 1024px) */}
+          {study.backgroundImages?.tablet && (
+            <div className="hidden md:block lg:hidden h-full w-full relative">
+              <Image
+                src={study.backgroundImages.tablet}
+                alt={`${study.company} case study cover`}
+                fill
+                quality={100}
+                sizes="(min-width: 768px) and (max-width: 1024px) 100vw"
+                className={`object-cover ${imageAlignmentClass}`}
+              />
+            </div>
+          )}
+          
+          {/* Desktop Image (>= 1024px) */}
+          <div className={`${study.backgroundImages?.mobile ? 'hidden' : 'block'} ${study.backgroundImages?.tablet ? 'lg:block' : ''} ${(!study.backgroundImages?.mobile && !study.backgroundImages?.tablet) ? 'block' : ''} h-full w-full relative`}>
+            <Image
+              src={study.backgroundImages?.desktop || fallbackImage || ''}
+              alt={`${study.company} case study cover`}
+              fill
+              quality={100}
+              sizes="(min-width: 1024px) 100vw"
+              className={`object-cover ${imageAlignmentClass}`}
             />
           </div>
-        );
-      })}
+        </div>
+      ) : (
+        <div className="absolute inset-0" style={{ backgroundColor: '#111111' }} />
+      )}
 
       {/* Content overlaid at bottom */}
       <div 
@@ -183,13 +214,23 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
       style={{ transformStyle: 'preserve-3d' }}
     >
       {study.slug ? (
-        <Link href={`/${study.slug}`} aria-label={`View ${study.company} case study`} className="block h-full">
+        <div 
+          onClick={handleCardClick}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleCardClick(e as any);
+            }
+          }}
+          aria-label={`View ${study.company} case study`} 
+          className="block h-full"
+        >
           {cardContent}
-        </Link>
+        </div>
       ) : (
         cardContent
       )}
     </div>
   );
 }
-

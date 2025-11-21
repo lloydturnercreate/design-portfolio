@@ -23,7 +23,7 @@ export default function Footer() {
           {/* Book a Call Button */}
           <div className="mb-16 md:mb-20">
             <a
-              href="https://calendly.com/lloydturner"
+              href="https://calendly.com/lloyd-turner/intro-call"
               target="_blank"
               rel="noopener noreferrer"
               role="button"
@@ -41,7 +41,7 @@ export default function Footer() {
           <div className="flex gap-6 md:gap-8 justify-center items-center mb-16 md:mb-20">
             {/* Calendly - Most Important */}
             <a
-              href="https://calendly.com/lloydturner"
+              href="https://calendly.com/lloyd-turner/intro-call"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative flex items-center justify-center transition-all duration-300"

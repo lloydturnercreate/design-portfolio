@@ -9,17 +9,17 @@ const processSteps = [
   {
     step: '01',
     title: 'Discover',
-    description: 'Understand business goals, users, and product constraints.',
+    description: 'I facilitate workshops to consolidate founder vision vs. engineering reality, ensuring we build the right MVP, not just a pretty one.',
   },
   {
     step: '02',
     title: 'Systemise',
-    description: 'Build scalable components, patterns, and flows.',
+    description: 'I ship tokenized component libraries that allow dev teams to build faster and maintain consistency—without constant design oversight.',
   },
   {
     step: '03',
     title: 'Ship',
-    description: 'Rapid iteration, developer handoff, and measurable results.',
+    description: 'A Figma file isn\'t a product. I work alongside engineers during implementation, providing annotated handoffs and VQA (Visual QA) to ensure the live product matches the investor deck.',
   },
 ];
 
@@ -55,7 +55,7 @@ export default function Process() {
         </div>
 
         {/* Process steps - simplified with looping bounce animation */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10">
           {processSteps.map((step, index) => (
             <motion.div
               key={index}

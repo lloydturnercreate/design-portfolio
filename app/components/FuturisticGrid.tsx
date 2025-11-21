@@ -188,9 +188,10 @@ export default function FuturisticGrid({
     // Grid configuration
     const gridSize = 60; // Distance between grid lines
     const rect = canvas.getBoundingClientRect();
-    const cols = Math.ceil(rect.width / gridSize);
-    const rows = Math.ceil(rect.height / gridSize);
-
+    // Add +1 to ensure we have enough lines to cover the edges
+    const cols = Math.ceil(rect.width / gridSize) + 1;
+    const rows = Math.ceil(rect.height / gridSize) + 1;
+    
     // Colors
     const gridColor = 'rgba(59, 130, 246, 0.2)'; // Slightly more visible faded lines
     const majorGridColor = 'rgba(59, 130, 246, 0.25)'; // Slightly less visible major lines

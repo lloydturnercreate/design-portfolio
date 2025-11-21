@@ -27,29 +27,55 @@ export default function ProjectChallenge({ challenge, color, projectSlug }: Proj
 
   // Icons for each challenge type - project-specific
   const getIcon = (index: number) => {
+    // MoonPay-specific icons
+    if (projectSlug === 'moonpay') {
+      const moonpayIcons = [
+        // Icon 1: 3 building blocks (no existing foundation)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>,
+        // Icon 2: 3 circles (complete design ownership)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <circle cx="12" cy="7" r="3.5" strokeWidth={1.5} />
+          <circle cx="7" cy="16" r="3.5" strokeWidth={1.5} />
+          <circle cx="17" cy="16" r="3.5" strokeWidth={1.5} />
+        </svg>,
+        // Icon 3: 3-way Venn diagram (stakeholder dynamics)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <circle cx="9" cy="9" r="5" strokeWidth={1.5} />
+          <circle cx="15" cy="9" r="5" strokeWidth={1.5} />
+          <circle cx="12" cy="14" r="5" strokeWidth={1.5} />
+        </svg>,
+        // Icon 4: Lightning bolt (speed and frictionless experience)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>,
+      ];
+      return moonpayIcons[index] || moonpayIcons[0];
+    }
+
     // Sukiyaki-specific icons
     if (projectSlug === 'sukiyaki') {
       const sukiyakiIcons = [
-        // Icon 1: Warmth/connection (heart - warmth and inclusion)
+        // Icon 1: Translation/transformation (scroll - traditional art to digital)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>,
-        // Icon 2: Premium/balance (layers - sophistication and structure)
-        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z" />
-        </svg>,
-        // Icon 3: Immersion/presence (eye - "you're already there")
-        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-        </svg>,
-        // Icon 4: Cultural bridge (scales - balance between cultures)
+        // Icon 2: Balance (scales - balancing storytelling with functionality)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
         </svg>,
-        // Icon 5: Accessibility/welcome (open door - welcoming, accessible)
+        // Icon 3: Premium/simplicity (diamond - luxury without clutter)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 9V7a2 2 0 012-2h4a2 2 0 012 2v2m-6 4h.01M6 13h12a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6a2 2 0 012-2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </svg>,
+        // Icon 4: Effortless exclusivity (key - access that's seamless yet exclusive)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+        </svg>,
+        // Icon 5: Cultural authenticity (sparkle/star - standing out through uniqueness)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
         </svg>,
       ];
       return sukiyakiIcons[index] || sukiyakiIcons[0];
