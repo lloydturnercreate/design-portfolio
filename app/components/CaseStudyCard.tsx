@@ -145,6 +145,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
                 src={study.backgroundImages.mobile}
                 alt={`${study.company} case study cover`}
                 fill
+                priority={true}
                 quality={100}
                 sizes="(max-width: 768px) 100vw"
                 className={`object-cover ${imageAlignmentClass}`}
@@ -159,6 +160,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
                 src={study.backgroundImages.tablet}
                 alt={`${study.company} case study cover`}
                 fill
+                priority={true}
                 quality={100}
                 sizes="(min-width: 768px) and (max-width: 1024px) 100vw"
                 className={`object-cover ${imageAlignmentClass}`}
@@ -172,6 +174,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
               src={study.backgroundImages?.desktop || fallbackImage || ''}
               alt={`${study.company} case study cover`}
               fill
+              priority={true}
               quality={100}
               sizes="(min-width: 1024px) 100vw"
               className={`object-cover ${imageAlignmentClass}`}
