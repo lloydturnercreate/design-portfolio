@@ -1,4 +1,4 @@
-import { RefObject, useEffect } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import { useReducedMotion } from './useReducedMotion';
 
 export interface TiltOptions {
@@ -11,6 +11,7 @@ export interface TiltOptions {
 /**
  * use3DTilt Hook
  * Applies 3D tilt effect to an element based on mouse position
+ * Disabled on mobile/touch devices
  * 
  * @param ref - React ref to the element to apply tilt to
  * @param options - Customization options for the tilt effect
@@ -27,10 +28,29 @@ export function use3DTilt<T extends HTMLElement>(
   } = options;
 
   const reducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile/touch devices
+  useEffect(() => {
+    const checkMobile = () => {
+      if (typeof window === 'undefined') return;
+      // Check for touch support and small screens
+      const isTouchDevice = window.matchMedia('(hover: none)').matches;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      setIsMobile(isTouchDevice || isSmallScreen);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   useEffect(() => {
     const element = ref.current;
-    if (!element || reducedMotion) return;
+    if (!element || reducedMotion || isMobile) return;
 
     if (global) {
       // Global mouse tracking (entire viewport)
@@ -76,6 +96,6 @@ export function use3DTilt<T extends HTMLElement>(
         element.removeEventListener('mouseleave', handleMouseLeave);
       };
     }
-  }, [ref, intensity, perspective, scale, global, reducedMotion]);
+  }, [ref, intensity, perspective, scale, global, reducedMotion, isMobile]);
 }
 

@@ -59,7 +59,55 @@ export default function CaseStudies() {
       </div>
 
       {/* Case study cards horizontal scroll - Full viewport width, edge to edge */}
-      <div className="mb-16 md:mb-20 w-full">
+      <div className="mb-16 md:mb-20 w-full relative group/carousel">
+        {/* Left edge navigation zone - desktop only */}
+        <button
+          onClick={scrollToPrevious}
+          disabled={!canScrollPrevious}
+          aria-label="Scroll left"
+          className={`hidden lg:flex absolute left-0 top-0 bottom-0 w-32 z-20 
+            items-center justify-start pl-8
+            transition-all duration-500 ease-out
+            bg-gradient-to-r from-black/30 to-transparent
+            opacity-0 hover:opacity-100 disabled:hidden
+            focus-visible:opacity-100 focus-visible:outline-none`}
+        >
+          <div className="p-4 rounded-full bg-black/30 backdrop-blur-md border border-white/20 shadow-lg transform transition-transform duration-300 hover:scale-110 group-hover:translate-x-2 hover:bg-black/50">
+            <svg 
+              className="w-6 h-6 text-white drop-shadow-md" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+            </svg>
+          </div>
+        </button>
+
+        {/* Right edge navigation zone - desktop only */}
+        <button
+          onClick={scrollToNext}
+          disabled={!canScrollNext}
+          aria-label="Scroll right"
+          className={`hidden lg:flex absolute right-0 top-0 bottom-0 w-32 z-20 
+            items-center justify-end pr-8
+            transition-all duration-500 ease-out
+            bg-gradient-to-l from-black/30 to-transparent
+            opacity-0 hover:opacity-100 disabled:hidden
+            focus-visible:opacity-100 focus-visible:outline-none`}
+        >
+          <div className="p-4 rounded-full bg-black/30 backdrop-blur-md border border-white/20 shadow-lg transform transition-transform duration-300 hover:scale-110 group-hover:-translate-x-2 hover:bg-black/50">
+            <svg 
+              className="w-6 h-6 text-white drop-shadow-md" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </button>
+
         <div 
           ref={scrollContainerRef}
           className="overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
@@ -86,28 +134,6 @@ export default function CaseStudies() {
       <div className="container mx-auto px-6 sm:px-8 lg:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-center gap-8 md:gap-12">
-            {/* Previous Button */}
-            <button
-              onClick={scrollToPrevious}
-              disabled={!canScrollPrevious}
-              className="p-2 hover:opacity-60 transition-opacity duration-300 disabled:opacity-20 disabled:cursor-not-allowed"
-              aria-label="Previous project"
-            >
-              <svg
-                className="w-5 h-5 md:w-6 md:h-6 text-foreground"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-
             {/* Navigation Dots */}
             <div className="flex items-center gap-4 md:gap-5">
               {caseStudies.map((_, index) => (
@@ -123,28 +149,6 @@ export default function CaseStudies() {
                 />
               ))}
             </div>
-
-            {/* Next Button */}
-            <button
-              onClick={scrollToNext}
-              disabled={!canScrollNext}
-              className="p-2 hover:opacity-60 transition-opacity duration-300 disabled:opacity-20 disabled:cursor-not-allowed"
-              aria-label="Next project"
-            >
-              <svg
-                className="w-5 h-5 md:w-6 md:h-6 text-foreground"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
           </div>
         </div>
       </div>

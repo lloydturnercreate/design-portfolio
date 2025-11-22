@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTransition } from '@/lib/context/TransitionContext';
 import { TRANSITION_CONFIG } from '@/lib/transitionConfig';
@@ -15,9 +15,28 @@ interface ProjectPageWrapperProps {
  * - Entry: Slides up from bottom (forward transitions)
  * - Exit: Slides down to bottom (back transitions)
  * - Direct load: Renders normally at y: 0
+ * - Disabled on mobile/touch devices for better performance
  */
 export default function ProjectPageWrapper({ children }: ProjectPageWrapperProps) {
   const { direction, completeTransition, cardMetadata } = useTransition();
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile/touch devices
+  useEffect(() => {
+    const checkMobile = () => {
+      if (typeof window === 'undefined') return;
+      const isTouchDevice = window.matchMedia('(hover: none)').matches;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      setIsMobile(isTouchDevice || isSmallScreen);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   // Determine animation state
   const isSlideUp = direction === 'forward';
@@ -32,6 +51,11 @@ export default function ProjectPageWrapper({ children }: ProjectPageWrapperProps
       return () => clearTimeout(timer);
     }
   }, [isSlideUp, completeTransition]);
+
+  // On mobile, skip complex animations - just render content
+  if (isMobile) {
+    return <div>{children}</div>;
+  }
 
   return (
     <>

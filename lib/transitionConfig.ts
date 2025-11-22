@@ -34,7 +34,7 @@ export const TRANSITION_CONFIG = {
    * Overlay opacity values
    */
   overlay: {
-    visible: 0.4,
+    visible: 1,
     hidden: 0,
   },
 } as const;

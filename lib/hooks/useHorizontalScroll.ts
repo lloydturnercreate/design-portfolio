@@ -3,6 +3,7 @@ import { RefObject, useEffect, useState } from 'react';
 export interface HorizontalScrollOptions {
   itemCount: number;
   customScrollLogic?: (index: number, container: HTMLElement, items: HTMLCollection) => number;
+  resetKey?: any;
 }
 
 export interface HorizontalScrollReturn {
@@ -28,8 +29,17 @@ export function useHorizontalScroll(
   innerRef: RefObject<HTMLElement>,
   options: HorizontalScrollOptions
 ): HorizontalScrollReturn {
-  const { itemCount, customScrollLogic } = options;
+  const { itemCount, customScrollLogic, resetKey } = options;
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Reset scroll position when resetKey changes
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || resetKey === undefined) return;
+
+    container.scrollTo({ left: 0, behavior: 'instant' });
+    setCurrentIndex(0);
+  }, [resetKey, containerRef]);
 
   // Update current index based on scroll position
   useEffect(() => {

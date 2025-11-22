@@ -36,13 +36,32 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [textTransform, setTextTransform] = useState('');
   const [isClicked, setIsClicked] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
   const { startTransition } = useTransition();
+
+  // Detect mobile/touch devices
+  useEffect(() => {
+    const checkMobile = () => {
+      if (typeof window === 'undefined') return;
+      // Check for touch support and small screens
+      const isTouchDevice = window.matchMedia('(hover: none)').matches;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      setIsMobile(isTouchDevice || isSmallScreen);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   // Mouse tracking for 3D tilt with parallax text effect
   useEffect(() => {
     const card = cardRef.current;
-    if (!card) return;
+    if (!card || isMobile) return;
 
     const handleMouseEnter = () => {
       setIsHovered(true);
@@ -91,7 +110,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
       card.removeEventListener('mousemove', handleMouseMove);
       card.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, isMobile]);
 
   // Handle card click for transition
   const handleCardClick = (e: React.MouseEvent) => {
@@ -106,17 +125,22 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
     // Get card position for potential future use
     const rect = cardRef.current?.getBoundingClientRect();
     
-    // Start transition with card metadata
-    startTransition({
-      slug: study.slug,
-      color: study.color,
-      position: rect ? { x: rect.left, y: rect.top, width: rect.width, height: rect.height } : undefined,
-    });
-
-    // Navigate after delay to allow scale animation
-    setTimeout(() => {
+    // On mobile, navigate immediately. On desktop, use transition.
+    if (isMobile) {
       router.push(`/${study.slug}`);
-    }, TRANSITION_CONFIG.durations.navigationDelay * 1000);
+    } else {
+      // Start transition with card metadata
+      startTransition({
+        slug: study.slug,
+        color: study.color,
+        position: rect ? { x: rect.left, y: rect.top, width: rect.width, height: rect.height } : undefined,
+      });
+
+      // Navigate after delay to allow scale animation
+      setTimeout(() => {
+        router.push(`/${study.slug}`);
+      }, TRANSITION_CONFIG.durations.navigationDelay * 1000);
+    }
   };
 
   const fallbackImage = study.backgroundImage || 
@@ -130,8 +154,8 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
 
   const cardContent = (
     <div 
-      className={`relative w-full h-full bg-card border rounded-3xl overflow-hidden shadow-premium transition-all duration-300 cursor-pointer group ${
-        isHovered ? 'border-muted-dark' : 'border-border'
+      className={`relative w-full h-full bg-card border rounded-3xl overflow-hidden shadow-premium ${isMobile ? '' : 'transition-all duration-300'} cursor-pointer group ${
+        (!isMobile && isHovered) ? 'border-muted-dark' : 'border-border'
       } ${isClicked ? 'ring-2 ring-white ring-opacity-50' : ''}`}
       style={{ transformStyle: 'preserve-3d' }}
     >
@@ -188,10 +212,10 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
       {/* Content overlaid at bottom */}
       <div 
         ref={textRef}
-        className="absolute bottom-0 left-0 right-0 p-8 md:p-10 lg:p-12 xl:p-14 pointer-events-none transition-all duration-200 ease-out"
+        className={`absolute bottom-0 left-0 right-0 p-8 md:p-10 lg:p-12 xl:p-14 pointer-events-none ${isMobile ? '' : 'transition-all duration-200 ease-out'}`}
         style={{
           transform: textTransform || 'translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1)',
-          filter: isHovered ? 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))' : 'drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3))',
+          filter: (!isMobile && isHovered) ? 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))' : 'drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3))',
         }}
       >
         <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4 tracking-tight-1" style={{ textShadow: '0 2px 10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 0, 0, 0.6)' }}>

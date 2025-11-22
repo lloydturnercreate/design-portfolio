@@ -90,7 +90,7 @@ export default function Footer() {
 
             {/* Phone */}
             <a
-              href="tel:+447123456789"
+              href="tel:+447452960410"
               className="group relative flex items-center justify-center transition-all duration-300"
               aria-label="Call Lloyd Turner"
             >
@@ -99,7 +99,7 @@ export default function Footer() {
               </svg>
               {/* Tooltip */}
               <span className="absolute -bottom-12 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-foreground text-background text-sm font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
-                07123 456789
+                07452 960 410
               </span>
             </a>
 

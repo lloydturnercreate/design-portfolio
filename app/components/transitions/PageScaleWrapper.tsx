@@ -14,9 +14,28 @@ interface PageScaleWrapperProps {
  * Wraps the home page and handles scaling animation
  * - Scales down to 0.85 when navigating forward to a project
  * - Starts at 0.85 and scales up to 1.0 when returning via back button
+ * - Disabled on mobile/touch devices for better performance
  */
 export default function PageScaleWrapper({ children }: PageScaleWrapperProps) {
   const { direction, isTransitioning, resetTransition, startBackTransition } = useTransition();
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Detect mobile/touch devices
+  useEffect(() => {
+    const checkMobile = () => {
+      if (typeof window === 'undefined') return;
+      const isTouchDevice = window.matchMedia('(hover: none)').matches;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      setIsMobile(isTouchDevice || isSmallScreen);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
   
   // Detect if we're returning from a project by checking sessionStorage
   const [isReturning] = useState(() => {
@@ -73,6 +92,11 @@ export default function PageScaleWrapper({ children }: PageScaleWrapperProps) {
     // Otherwise start at current scale
     return getScale();
   };
+
+  // On mobile, skip the scale animation entirely for better performance
+  if (isMobile) {
+    return <div>{children}</div>;
+  }
 
   return (
     <motion.div

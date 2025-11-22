@@ -26,11 +26,19 @@ export default function ProjectGallery({ images, projectSlug }: ProjectGalleryPr
   const scrollInnerRef = useRef<HTMLDivElement>(null);
 
   // Use horizontal scroll hook with custom logic for last item
-  const { currentIndex, scrollToIndex } = useHorizontalScroll(
+  const { 
+    currentIndex, 
+    scrollToIndex, 
+    scrollToPrevious, 
+    scrollToNext, 
+    canScrollPrevious, 
+    canScrollNext 
+  } = useHorizontalScroll(
     scrollContainerRef,
     scrollInnerRef,
     {
       itemCount: images.length,
+      resetKey: projectSlug, // Reset scroll when project changes
       customScrollLogic: (index, container, items) => {
         const targetItem = items[index] as HTMLElement;
         const containerWidth = container.clientWidth;
@@ -64,7 +72,55 @@ export default function ProjectGallery({ images, projectSlug }: ProjectGalleryPr
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-secondary border-y border-border w-full">
       {/* Image gallery horizontal scroll - Full viewport width, edge to edge */}
-      <div className="mb-12 md:mb-16 w-full">
+      <div className="mb-12 md:mb-16 w-full relative group/carousel">
+        {/* Left edge navigation zone - desktop only */}
+        <button
+          onClick={scrollToPrevious}
+          disabled={!canScrollPrevious}
+          aria-label="Scroll left"
+          className={`hidden lg:flex absolute left-0 top-0 bottom-0 w-32 z-20 
+            items-center justify-start pl-8
+            transition-all duration-500 ease-out
+            bg-gradient-to-r from-black/40 to-transparent
+            opacity-0 hover:opacity-100 disabled:hidden
+            focus-visible:opacity-100 focus-visible:outline-none`}
+        >
+          <div className="p-4 rounded-full bg-black/40 backdrop-blur-md border border-white/20 shadow-lg transform transition-transform duration-300 hover:scale-110 group-hover:translate-x-2 hover:bg-black/60">
+            <svg 
+              className="w-6 h-6 text-white drop-shadow-md" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+            </svg>
+          </div>
+        </button>
+
+        {/* Right edge navigation zone - desktop only */}
+        <button
+          onClick={scrollToNext}
+          disabled={!canScrollNext}
+          aria-label="Scroll right"
+          className={`hidden lg:flex absolute right-0 top-0 bottom-0 w-32 z-20 
+            items-center justify-end pr-8
+            transition-all duration-500 ease-out
+            bg-gradient-to-l from-black/40 to-transparent
+            opacity-0 hover:opacity-100 disabled:hidden
+            focus-visible:opacity-100 focus-visible:outline-none`}
+        >
+          <div className="p-4 rounded-full bg-black/40 backdrop-blur-md border border-white/20 shadow-lg transform transition-transform duration-300 hover:scale-110 group-hover:-translate-x-2 hover:bg-black/60">
+            <svg 
+              className="w-6 h-6 text-white drop-shadow-md" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </button>
+
         <div 
           ref={scrollContainerRef}
           className="overflow-x-auto scrollbar-hide scroll-smooth"

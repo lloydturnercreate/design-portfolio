@@ -23,11 +23,11 @@ export default function Hero() {
   };
 
   return (
-    <div className="relative w-full min-h-[90vh] flex items-center justify-center bg-background overflow-hidden cursor-crosshair">
+    <div className="relative w-full min-h-screen flex items-center justify-center bg-background overflow-hidden cursor-crosshair">
       {/* Futuristic grid background */}
       <FuturisticGrid onPulseIntercepted={handlePulseIntercepted} />
       
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-40">
         {/* Pulse counter - hidden until first intercept */}
         {pulseCount > 0 && (
           <div className="absolute bottom-0 right-0 font-mono animate-fade-in">
@@ -46,7 +46,7 @@ export default function Hero() {
           className="max-w-6xl mx-auto text-center transition-transform duration-200 ease-out"
         >
           {/* Credential Bar */}
-          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-5 mb-10 md:mb-12 pointer-events-none">
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-5 mb-6 sm:mb-8 md:mb-12 pointer-events-none">
             <span className="text-xs md:text-sm font-medium text-muted uppercase tracking-[0.08em]">Ex-Google</span>
             <span className="w-1 h-1 rounded-full bg-muted-dark opacity-50"></span>
             <span className="text-xs md:text-sm font-medium text-muted uppercase tracking-[0.08em]">MoonPay</span>
@@ -55,12 +55,12 @@ export default function Hero() {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter-2 text-foreground mb-8 md:mb-10 leading-[0.95] text-balance pointer-events-none">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter-2 text-foreground mb-5 sm:mb-6 md:mb-10 leading-[0.95] text-balance pointer-events-none">
             Investor-grade products for fintech & Web3
           </h1>
 
           {/* Supporting Text */}
-          <p className="text-xl md:text-2xl lg:text-3xl text-muted mb-14 md:mb-16 max-w-4xl mx-auto leading-[1.5] font-light tracking-tight-1 pointer-events-none">
+          <p className="text-xl md:text-2xl lg:text-3xl text-muted mb-8 sm:mb-10 md:mb-16 max-w-4xl mx-auto leading-[1.5] font-light tracking-tight-1 pointer-events-none">
             I help founders and product teams turn complex ideas into clear,
             scalable interfaces — design systems, launch-ready UX, and
             hands-on strategy for growth-stage startups.
@@ -83,7 +83,7 @@ export default function Hero() {
                 <span className="lava-layer-4" />
                 <span className="tracking-tight-1 whitespace-nowrap">Book a 15-min Call</span>
               </a>
-              <span className="text-xs font-medium text-muted uppercase tracking-[0.08em] pointer-events-none">For Founders</span>
+              <span className="hidden sm:block text-xs font-medium text-muted uppercase tracking-[0.08em] pointer-events-none">For Founders</span>
             </div>
 
             {/* For Agencies CTA - Secondary */}
@@ -101,7 +101,7 @@ export default function Hero() {
                 <span className="lava-layer-4" />
                 <span className="tracking-tight-1 whitespace-nowrap">Check Availability</span>
               </a>
-              <span className="text-xs font-medium text-muted uppercase tracking-[0.08em] pointer-events-none">For Agencies</span>
+              <span className="hidden sm:block text-xs font-medium text-muted uppercase tracking-[0.08em] pointer-events-none">For Agencies</span>
             </div>
           </div>
         </div>
