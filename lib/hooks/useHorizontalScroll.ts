@@ -48,9 +48,6 @@ export function useHorizontalScroll(
     if (!container || !inner) return;
 
     const updateCurrentIndex = () => {
-      const scrollLeft = container.scrollLeft;
-      const containerWidth = container.clientWidth;
-      
       // Get all child elements
       const items = inner.children;
       const itemLimit = Math.min(items.length, itemCount);
@@ -59,13 +56,18 @@ export function useHorizontalScroll(
       // Calculate which item is most visible (closest to center)
       let closestIndex = 0;
       let closestDistance = Infinity;
+      
+      const containerRect = container.getBoundingClientRect();
+      const containerCenterX = containerRect.width / 2; // Center of container
 
       for (let i = 0; i < itemLimit; i++) {
         const item = items[i] as HTMLElement;
-        const itemLeft = item.offsetLeft - scrollLeft;
-        const itemCenter = itemLeft + item.offsetWidth / 2;
-        const containerCenter = containerWidth / 2;
-        const distance = Math.abs(itemCenter - containerCenter);
+        const itemRect = item.getBoundingClientRect();
+        
+        // Calculate item position relative to container
+        const itemRelativeLeft = itemRect.left - containerRect.left;
+        const itemCenterX = itemRelativeLeft + itemRect.width / 2;
+        const distance = Math.abs(itemCenterX - containerCenterX);
 
         if (distance < closestDistance) {
           closestDistance = distance;
@@ -77,7 +79,9 @@ export function useHorizontalScroll(
     };
 
     container.addEventListener('scroll', updateCurrentIndex);
-    updateCurrentIndex(); // Initial call
+    
+    // Delay initial call slightly to ensure layout is complete
+    const timeoutId = setTimeout(updateCurrentIndex, 50);
 
     // Also update on resize
     window.addEventListener('resize', updateCurrentIndex);
@@ -85,6 +89,7 @@ export function useHorizontalScroll(
     return () => {
       container.removeEventListener('scroll', updateCurrentIndex);
       window.removeEventListener('resize', updateCurrentIndex);
+      clearTimeout(timeoutId);
     };
   }, [containerRef, innerRef, itemCount]);
 
