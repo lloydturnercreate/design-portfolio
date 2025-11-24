@@ -32,6 +32,11 @@ export interface PullQuote {
   attribution?: string;
 }
 
+export interface GridItem {
+  title: string;
+  description: string;
+}
+
 export interface ProjectMeta {
   role: string;
   duration: string;
@@ -58,6 +63,7 @@ export interface ProjectChallenge {
   description: string;
   pullQuote?: string;
   bullets: string[];
+  items?: GridItem[];
   images?: ImageBlock[];
 }
 
@@ -79,6 +85,7 @@ export interface ProjectResults {
   description?: string;
   metrics?: StatMetric[];
   bullets: string[];
+  items?: GridItem[];
   conclusion?: string;
   images?: ImageBlock[];
 }
@@ -142,7 +149,7 @@ export const phutureFinance: Project = {
   },
   color: '#3e1fff',
   hero: {
-    company: 'Phuture Finance',
+    company: 'Phuture',
     tagline: 'A new age of investing.',
     intro:
       'As Head of Design at Phuture Finance, I led the creation of a DeFi investment platform that made crypto index investing accessible. The challenge: balance Web3 complexity with the simplicity retail investors expect.',
@@ -199,48 +206,43 @@ export const phutureFinance: Project = {
     title: 'The Challenge',
     description:
       'While platforms like Robinhood and Freetrade had revolutionised fiat investing with user-friendly experiences, DeFi platforms remained fragmented and intimidating for newcomers.',
-    bullets: [
-      'No established user patterns for crypto index investing',
-      'High onboarding friction — wallets, gas fees, unfamiliar flows',
-      'Lack of trust signals — cluttered UI, aggressive marketing, unclear security',
-      'Disconnect from traditional investment models retail investors understood',
-    ],
+    bullets: [],
+    items: [
+      {
+        title: 'Cognitive Overload',
+        description: 'Users were forced to navigate gas fees, slippage settings, and token approvals before making a single trade.'
+      },
+      {
+        title: 'Fragmented Journeys',
+        description: 'Protocols separated their "Sales" site from their "App," forcing context-switching that broke the acquisition funnel.'
+      },
+      {
+        title: 'The Trust Deficit',
+        description: '"Gamified" competitor interfaces signalled volatility and risk, alienating investors looking for passive growth.'
+      },
+      {
+        title: 'Technical Barriers',
+        description: 'High latency and complex wallet interactions created a hostile environment for non-technical retail users.'
+      }
+    ]
   },
   approach: {
-    title: 'Design Approach',
+    title: 'The Strategy: Progressive Disclosure',
     description:
-      'With no precedent for crypto index investing, we looked to traditional finance platforms while adapting to DeFi\'s unique constraints. The process was iterative, driven by community feedback and real-world testing.',
+      'My mandate was to reduce "Time-to-Invest" while increasing "Trust-to-Hold." To achieve this, I implemented a strategy of Progressive Disclosure—keeping the interface simple by default to lower entry barriers, while retaining advanced power (slippage, gas settings) in secondary menus for power users.',
     subsections: [
       {
-        title: 'Simplifying Onboarding',
+        title: 'The "Swiss Army Knife" Widget',
         bullets: [
-          'Streamlined wallet-to-investment flow to minimal steps',
-          'Contextual tooltips guide new users through key features',
-          'Integrated app directly into website — no platform switching',
+          'Transaction Abstraction: We bundled complex on-chain actions (Wrap, Approve, Swap, Mint) into a single "Buy" button.',
+          'Friction Hiding: Relocated intimidating variables like gas fees and slippage tolerance into a secondary "Advanced" menu.'
         ],
       },
       {
-        title: 'Building Trust Through Design',
+        title: 'The "App-less" Architecture',
         bullets: [
-          'Clean, distraction-free dashboard mirroring traditional portfolio tools',
-          'Real-time data with clear asset breakdowns and rebalance indicators',
-          'Minimalist, professional UI to differentiate from aggressive DeFi competitors',
-        ],
-      },
-      {
-        title: 'Streamlining Trading',
-        bullets: [
-          'Simplified buy/sell widget — no unnecessary complexity',
-          'Trading experience familiar to Robinhood and Freetrade users',
-          'Consistent UX across devices with fully integrated dark mode',
-        ],
-      },
-      {
-        title: 'Transparency & Education',
-        bullets: [
-          'Learning center for educational content on index investing',
-          'Full transparency on asset selection, rebalancing, and security',
-          'Predictable UI patterns minimize hesitation in trade execution',
+          'Zero-Click Launch: integrated the trading engine directly into the marketing site architecture.',
+          'Funnel Efficiency: Users could connect wallets and invest instantly from the landing page, removing the drop-off caused by external "Launch App" subdomains.'
         ],
       },
     ],
@@ -249,28 +251,36 @@ export const phutureFinance: Project = {
     title: 'Impact',
     metrics: [
       {
-        value: '£5.5m',
+        value: '$8m',
         label: 'Assets Under Management',
-        description: 'In first 12 months',
+        description: 'Reached in <12 months',
       },
       {
-        value: '15,500+',
-        label: 'Community Growth',
-        description: 'New social media followers',
+        value: '211 days',
+        label: 'Average User Retention',
+        description: 'Significantly above industry avg',
       },
       {
         value: '40%',
         label: 'Friction Reduction',
-        description: 'Streamlined onboarding flow',
+        description: 'Via streamlined onboarding',
       },
     ],
-    bullets: [
-      'Increased user confidence through community feedback and transparent design',
-      'Major partnerships boosted brand credibility in competitive DeFi space',
-      'Positioned Phuture as a professional, stable alternative to aggressive platforms',
+    bullets: [],
+    items: [
+      {
+        title: 'Macro-Trend Visualization',
+        description: 'Designed analytics to emphasize long-term growth over micro-volatility (candlesticks). This psychologically reduced panic selling, driving high retention.'
+      },
+      {
+        title: 'Institutional Credibility',
+        description: 'The "financial-grade" aesthetic differentiated Phuture from "gamified" competitors, securing key ecosystem partnerships by signalling safety.'
+      },
+      {
+        title: 'Hypothesis Validated',
+        description: 'Proved that retail investors would sacrifice granular control (manual gas settings) in exchange for a friction-free, one-click investment experience.'
+      }
     ],
-    conclusion:
-      'Phuture Finance introduced a new category of investing to crypto. By prioritising familiar UX patterns, clarity, and transparency, we removed friction and built trust in a skeptical market — creating a structured experience that served both retail and institutional investors.',
   },
 };
 
@@ -400,7 +410,7 @@ export const moonpay: Project = {
   },
   card: {
     title: '0-to-1 Platform Generating $10m+ Profit',
-    description: 'Case study coming soon.',
+    description: 'Built Moonit from the ground up as Product Design lead—delivering a high-velocity trading terminal that generated $10m+ profit and processed $100m+ in volume.',
     backgroundImage: '/project-covers/moonpay.png',
     backgroundImages: {
       mobile: '/project-covers/moonpay-mobile.png',
@@ -411,9 +421,9 @@ export const moonpay: Project = {
   color: '#7B3FF2',
   hero: {
     company: 'MoonPay',
-    tagline: 'Building a profitable trading platform from the ground up.',
+    tagline: 'Designing for Velocity: From 0 to $10M Profit.',
     intro:
-      'Moonit launched as a meme coin trading platform with no existing design foundation, brand identity, or established patterns. The project required complete ownership across product strategy, brand development, UI/UX, animation, and marketing within a two-company partnership between MoonPay and DexScreener. The platform generated $10m+ in 18 months, demonstrating how strategic design execution translates to commercial success in competitive markets.',
+      'Lead Product Designer for Moonit, a high-frequency trading terminal that generated $100m+ volume in 12 months. I unified the strategic priorities of MoonPay and DexScreener to build a platform that captured the chaotic energy of meme coins within a structured, high-performance interface.',
     meta: {
       role: 'Senior Designer',
       duration: '2024-Present',
@@ -448,29 +458,14 @@ export const moonpay: Project = {
       caption: 'Trading Flow',
     },
     {
-      src: '/projects/moonpay/05b.mp4',
-      alt: 'Moonit social assets',
-      caption: 'Social Assets',
-    },
-    {
       src: '/projects/moonpay/06.png',
       alt: 'Moonit mobile experience',
       caption: 'Mobile Experience',
     },
     {
-      src: '/projects/moonpay/07.png',
-      alt: 'Moonit animation system',
-      caption: 'Animation System',
-    },
-    {
       src: '/projects/moonpay/08.png',
       alt: 'Moonit interface details',
       caption: 'Interface Details',
-    },
-    {
-      src: '/projects/moonpay/09.mp4',
-      alt: 'Moonit user experience',
-      caption: 'User Experience',
     },
     {
       src: '/projects/moonpay/10.png',
@@ -482,77 +477,60 @@ export const moonpay: Project = {
       alt: 'Moonit design system',
       caption: 'Design System',
     },
-    {
-      src: '/projects/moonpay/12.gif',
-      alt: 'Moonit brand elements',
-      caption: 'Brand Elements',
-    },
-    {
-      src: '/projects/moonpay/13.mp4',
-      alt: 'Moonit visual identity',
-      caption: 'Visual Identity',
-    },
-    {
-      src: '/projects/moonpay/14.gif',
-      alt: 'Moonit marketing assets',
-      caption: 'Marketing Assets',
-    },
-    {
-      src: '/projects/moonpay/15.gif',
-      alt: 'Moonit complete experience',
-      caption: 'Complete Experience',
-    },
   ],
   challenge: {
     title: 'The Challenge',
     description:
-      'MoonPay partnered with DexScreener to launch Moonit, a meme coin trading platform targeting one of crypto\'s most competitive markets. As the sole designer, I inherited a project with no existing product, brand identity, or design foundation. The scope required complete ownership across all design disciplines while managing stakeholder relationships across two organizations and meeting aggressive profit targets.',
-    bullets: [
-      'No existing foundation: brand identity, design patterns, or product UI to build from',
-      'Complete design ownership across strategy, brand, product, animation, and marketing',
-      'Complex stakeholder dynamics balancing priorities across MoonPay and DexScreener',
-      'Competitive market requiring speed, clarity, and frictionless trading experience',
+      '',
+    bullets: [],
+    items: [
+      {
+        title: 'Dual-Stakeholder Alignment',
+        description: 'Harmonizing strategic priorities between a regulated fintech (MoonPay) and a data-heavy aggregator (DexScreener), each with distinct timelines and success metrics.'
+      },
+      {
+        title: 'The Velocity Trap',
+        description: 'Meme coin markets move in seconds. The UI required zero-latency interactions where any friction meant missed profit for the user.'
+      },
+      {
+        title: 'Zero Foundation',
+        description: 'No existing design system, brand identity, or patterns. Moonit required a defined visual language and product DNA while sprinting toward launch.'
+      },
+      {
+        title: 'The Credibility Gap',
+        description: 'The platform needed to feel "native" to crypto-degenerates (Degens) while maintaining the institutional trust of the MoonPay parent brand.'
+      }
     ],
   },
   approach: {
-    title: 'Design Approach',
+    title: 'The Strategy: Performance as UX',
     description:
-      'Building Moonit required strategic thinking across every design discipline. With no team to delegate to and two companies to align, I focused on high-impact decisions that would drive business value while establishing a scalable foundation. The process balanced speed with quality, ensuring traders received the clarity and performance they demanded.',
+      'To win in a crowded market, the brand had to be distinct. I developed a visual identity that balanced institutional credibility with meme-culture personality while prioritizing execution speed over decoration.',
     subsections: [
       {
-        title: 'Strategic Product Foundations',
+        title: '\'Credible Degen\' Branding',
         bullets: [
-          'Analyzed competitor products to identify market gaps and opportunities',
-          'Prioritized core trading flows and essential features over nice-to-haves',
-          'Designed for speed and clarity, critical requirements for meme coin traders',
-          'Built flexible product architecture supporting rapid iteration post-launch',
+          'Built a flexible design system that worked equally well on high-density trading dashboards and viral social marketing assets.',
+          'Developed a visual identity that balanced institutional credibility with meme-culture personality.',
         ],
       },
       {
-        title: 'Brand Identity & Positioning',
+        title: 'Prioritizing Speed over Decoration',
         bullets: [
-          'Developed brand balancing credibility with personality to stand out in crowded market',
-          'Created visual language resonating with crypto culture while remaining accessible',
-          'Built flexible brand system spanning product UI, social assets, and marketing',
-          'Positioned Moonit as a professional alternative in a market of gimmicky competitors',
+          'Stripped away decorative UI elements to prioritize Data Density and Actionability.',
+          'Designed "One-Click" flows that minimized the steps between Discovery and Execution (on Moonit).',
         ],
       },
       {
-        title: 'End-to-End Design & Production',
+        title: 'Department of One',
         bullets: [
-          'Designed complete UI system including responsive layouts, interactions, and components',
-          'Created animation principles enhancing experience without sacrificing performance',
-          'Produced marketing materials, social templates, and launch graphics',
-          'Maintained visual consistency across all customer touchpoints',
+          'Ownership of the full vertical: Product Strategy → UI/UX → Animation → Marketing. This required ruthlessly prioritizing "must-have" flows over "nice-to-haves" to meet aggressive profit targets.',
         ],
       },
       {
-        title: 'Stakeholder Management',
+        title: 'Cross-Entity Alignment',
         bullets: [
-          'Navigated feedback from two organizations with different priorities and timelines',
-          'Presented design decisions with clear rationale tied to business outcomes',
-          'Balanced product vision with legitimate stakeholder concerns',
-          'Delivered iterative updates aligned with commercial goals across both companies',
+          'Acted as the translation layer between MoonPay\'s corporate requirements and DexScreener\'s agile, data-first culture, delivering a unified product vision that satisfied both commercial entities.',
         ],
       },
     ],
@@ -561,30 +539,36 @@ export const moonpay: Project = {
     title: 'Impact',
     metrics: [
       {
-        value: '0-to-1',
-        label: 'Complete Product Launch',
-        description: 'Sole designer, all disciplines',
+        value: '$10m+',
+        label: 'Net Profit',
+        description: 'Generated in 12 months',
       },
       {
         value: '$100m+',
-        label: 'Volume Handled',
-        description: 'Trading volume on platform',
+        label: 'Trading Volume',
+        description: 'Processed via the UI to date',
       },
       {
-        value: '$10m+',
-        label: 'Profit Generated',
-        description: 'In 18 months',
+        value: '0 to 1',
+        label: 'Delivery',
+        description: 'Ownership from concept to launch',
       },
     ],
-    bullets: [
-      'Generated $10m+ profit in 18 months, demonstrating direct link between design decisions and commercial success',
-      'Successfully owned all design disciplines as sole designer on high-stakes product launch',
-      'Built scalable design system enabling rapid iteration in competitive market environment',
-      'Positioned Moonit as credible alternative in crowded meme coin trading space',
-      'Managed complex stakeholder dynamics across two companies while maintaining product quality',
+    bullets: [],
+    items: [
+      {
+        title: 'Commercial Velocity',
+        description: 'The design system enabled rapid iteration, allowing us to ship features faster than competitors and capture $10m+ in profit.'
+      },
+      {
+        title: 'Brand Elasticity',
+        description: 'Created a visual language that successfully bridged the gap between "Corporate Fintech" and "Crypto Native" audiences.'
+      },
+      {
+        title: 'High-Fidelity Adoption',
+        description: 'The frictionless UX drove over $100m in volume, proving that users preferred a structured, designed experience over raw, clunky tools.'
+      }
     ],
-    conclusion:
-      'Moonit showcased the impact of complete design ownership extending beyond UI into strategy, positioning, and business outcomes. The project required operating independently across all design disciplines, aligning cross-functional stakeholders, and delivering measurable commercial value. Beyond Moonit, I contributed to MoonPay Labs and Commerce products, supporting the broader MoonPay ecosystem.',
   },
 };
 
@@ -731,7 +715,7 @@ export const sukiyaki: Project = {
 };
 
 // Export all projects as an array for navigation
-export const allProjects: Project[] = [raptor, phutureFinance, sukiyaki, moonpay];
+export const allProjects: Project[] = [moonpay, phutureFinance, raptor, sukiyaki];
 
 // Helper function to get project by slug
 export function getProjectBySlug(slug: string): Project | undefined {

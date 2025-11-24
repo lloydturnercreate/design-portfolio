@@ -30,28 +30,50 @@ export default function ProjectChallenge({ challenge, color, projectSlug }: Proj
     // MoonPay-specific icons
     if (projectSlug === 'moonpay') {
       const moonpayIcons = [
-        // Icon 1: 3 building blocks (no existing foundation)
+        // Icon 1: Two overlapping circles (Dual-Stakeholder Alignment)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <circle cx="10" cy="12" r="6" strokeWidth={1.5} />
+          <circle cx="14" cy="12" r="6" strokeWidth={1.5} />
+        </svg>,
+        // Icon 2: Clock/timer with motion lines (The Velocity Trap)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <circle cx="12" cy="12" r="7" strokeWidth={1.5} />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 7v5l3 3" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12h2m14 0h2M12 3v2m0 14v2" />
+        </svg>,
+        // Icon 3: Empty foundation/blueprint (Zero Foundation)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
         </svg>,
-        // Icon 2: 3 circles (complete design ownership)
-        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <circle cx="12" cy="7" r="3.5" strokeWidth={1.5} />
-          <circle cx="7" cy="16" r="3.5" strokeWidth={1.5} />
-          <circle cx="17" cy="16" r="3.5" strokeWidth={1.5} />
-        </svg>,
-        // Icon 3: 3-way Venn diagram (stakeholder dynamics)
-        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <circle cx="9" cy="9" r="5" strokeWidth={1.5} />
-          <circle cx="15" cy="9" r="5" strokeWidth={1.5} />
-          <circle cx="12" cy="14" r="5" strokeWidth={1.5} />
-        </svg>,
-        // Icon 4: Lightning bolt (speed and frictionless experience)
+        // Icon 4: Lightning bolt (The Credibility Gap - bridging energy/speed with trust)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>,
       ];
       return moonpayIcons[index] || moonpayIcons[0];
+    }
+
+    // Future-specific icons
+    if (projectSlug === 'future') {
+      const futureIcons = [
+        // Icon 1: Overloading / Brain (Cognitive Overload)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        </svg>,
+        // Icon 2: Broken path / Zigzag (Fragmented Journeys)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>,
+        // Icon 3: Down arrow (The Trust Deficit / Volatility)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>,
+        // Icon 4: Fencing / Barrier (Technical Barriers)
+        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>,
+      ];
+      return futureIcons[index] || futureIcons[0];
     }
 
     // Sukiyaki-specific icons
@@ -119,14 +141,26 @@ export default function ProjectChallenge({ challenge, color, projectSlug }: Proj
 
           {/* Challenge Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16 md:mb-20">
-            {challenge.bullets.map((bullet, index) => (
-              <ChallengeCard 
-                key={index}
-                icon={getIcon(index)}
-                text={bullet}
-                color={color}
-              />
-            ))}
+            {challenge.items ? (
+              challenge.items.map((item, index) => (
+                <ChallengeCard 
+                  key={index}
+                  icon={getIcon(index)}
+                  title={item.title}
+                  text={item.description}
+                  color={color}
+                />
+              ))
+            ) : (
+              challenge.bullets.map((bullet, index) => (
+                <ChallengeCard 
+                  key={index}
+                  icon={getIcon(index)}
+                  text={bullet}
+                  color={color}
+                />
+              ))
+            )}
           </div>
 
           {/* Images */}

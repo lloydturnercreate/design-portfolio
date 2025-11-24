@@ -3,6 +3,7 @@
 interface ChallengeCardProps {
   icon: React.ReactNode;
   text: string;
+  title?: string;
   color: string;
 }
 
@@ -11,7 +12,7 @@ interface ChallengeCardProps {
  * Visual card component for displaying challenge points
  * Shows icon + text in a bordered card with horizontal layout
  */
-export default function ChallengeCard({ icon, text, color }: ChallengeCardProps) {
+export default function ChallengeCard({ icon, text, title, color }: ChallengeCardProps) {
   return (
     <div 
       className="group relative bg-card border border-border rounded-2xl p-6 md:p-8 transition-all duration-300"
@@ -27,10 +28,17 @@ export default function ChallengeCard({ icon, text, color }: ChallengeCardProps)
           {icon}
         </div>
 
-        {/* Text */}
-        <p className="text-base md:text-lg text-foreground leading-[1.6] font-light flex-1">
-          {text}
-        </p>
+        {/* Content */}
+        <div className="flex-1">
+          {title && (
+            <h3 className="text-lg md:text-xl font-bold text-foreground mb-2">
+              {title}
+            </h3>
+          )}
+          <p className="text-base md:text-lg text-foreground leading-[1.6] font-light">
+            {text}
+          </p>
+        </div>
       </div>
 
       {/* Hover gradient */}
@@ -43,4 +51,3 @@ export default function ChallengeCard({ icon, text, color }: ChallengeCardProps)
     </div>
   );
 }
-

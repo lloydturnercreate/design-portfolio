@@ -36,16 +36,34 @@ export default function ProjectResults({ results, color }: ProjectResultsProps) 
 
           {/* Results Bullets */}
           <div className="space-y-6 md:space-y-8 mb-12 md:mb-16">
-            {results.bullets.map((bullet, index) => (
-              <div key={index} className="flex gap-4 md:gap-6">
-                <div className="flex-shrink-0 mt-2">
-                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
+            {results.items ? (
+              results.items.map((item, index) => (
+                <div key={index} className="flex gap-4 md:gap-6">
+                  <div className="flex-shrink-0 mt-2">
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
+                  </div>
+                  <div className="flex-1">
+                     <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
+                       {item.title}
+                     </h3>
+                     <p className="text-lg md:text-xl text-foreground leading-[1.6] font-light">
+                       {item.description}
+                     </p>
+                  </div>
                 </div>
-                <p className="text-lg md:text-xl text-foreground leading-[1.6] font-light">
-                  {bullet}
-                </p>
-              </div>
-            ))}
+              ))
+            ) : (
+              results.bullets.map((bullet, index) => (
+                <div key={index} className="flex gap-4 md:gap-6">
+                  <div className="flex-shrink-0 mt-2">
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
+                  </div>
+                  <p className="text-lg md:text-xl text-foreground leading-[1.6] font-light">
+                    {bullet}
+                  </p>
+                </div>
+              ))
+            )}
           </div>
 
           {/* Images */}
