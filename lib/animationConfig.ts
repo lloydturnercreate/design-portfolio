@@ -24,12 +24,12 @@ const REPEAT_DELAY = 2;
 export const cardLoopBounceVariants: Variants = {
   animate: (index: number) => {
     const cardDelay = index * STAGGER_DELAY; // Card 1: 0s, Card 2: 0.2s, Card 3: 0.4s
-    // Each card jumps higher: Card 1: -40px, Card 2: -50px, Card 3: -60px
-    const jumpHeight = -60;
+    // Each card jumps to same height: 40px
+    const jumpHeight = -40;
     
     return {
       y: [0, jumpHeight, 0],
-      rotate: [0, -6, 0],
+      rotate: [0, -4, 0],
       transition: {
         y: {
           duration: BOUNCE_DURATION,

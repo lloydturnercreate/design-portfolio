@@ -16,6 +16,9 @@ const caseStudies = allProjects
     backgroundImage: project.card.backgroundImage,
     backgroundImages: project.card.backgroundImages,
     imageAlignment: project.card.imageAlignment,
+    // Add noise overlay to all project cards
+    noiseOverlay: true,
+    noiseOpacity: 0.85,
   }));
 
 /**
@@ -68,7 +71,6 @@ export default function CaseStudies() {
           className={`hidden lg:flex absolute left-0 top-0 bottom-0 w-32 z-20 
             items-center justify-start pl-8
             transition-all duration-500 ease-out
-            bg-gradient-to-r from-black/30 to-transparent
             opacity-0 hover:opacity-100 disabled:hidden
             focus-visible:opacity-100 focus-visible:outline-none`}
         >
@@ -92,7 +94,6 @@ export default function CaseStudies() {
           className={`hidden lg:flex absolute right-0 top-0 bottom-0 w-32 z-20 
             items-center justify-end pr-8
             transition-all duration-500 ease-out
-            bg-gradient-to-l from-black/30 to-transparent
             opacity-0 hover:opacity-100 disabled:hidden
             focus-visible:opacity-100 focus-visible:outline-none`}
         >

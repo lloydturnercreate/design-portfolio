@@ -185,16 +185,21 @@ export default function FuturisticGrid({
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Grid configuration
+    // Grid configuration - 1.5x coverage for 3D tilt
     const gridSize = 60; // Distance between grid lines
     const rect = canvas.getBoundingClientRect();
-    // Add +1 to ensure we have enough lines to cover the edges
-    const cols = Math.ceil(rect.width / gridSize) + 1;
-    const rows = Math.ceil(rect.height / gridSize) + 1;
+    // Extend grid by 25% on each side for tilt coverage
+    const extendedWidth = rect.width * 1.5;
+    const extendedHeight = rect.height * 1.5;
+    const cols = Math.ceil(extendedWidth / gridSize) + 1;
+    const rows = Math.ceil(extendedHeight / gridSize) + 1;
+    // Starting offset to center the extended grid
+    const offsetX = -(extendedWidth - rect.width) / 2;
+    const offsetY = -(extendedHeight - rect.height) / 2;
     
     // Colors
-    const gridColor = 'rgba(59, 130, 246, 0.2)'; // Slightly more visible faded lines
-    const majorGridColor = 'rgba(59, 130, 246, 0.25)'; // Slightly less visible major lines
+    const gridColor = 'rgba(59, 130, 246, 0.25)'; // Slightly more visible faded lines
+    const majorGridColor = 'rgba(59, 130, 246, 0.3)'; // Slightly less visible major lines
     const pulseColors = ['#3B82F6', '#60A5FA', '#2563EB', '#EF4444']; // Blue palette with red accent
 
     // Initialize pulses
@@ -228,8 +233,8 @@ export default function FuturisticGrid({
           const baseColor = isFast ? '#FFD700' : pulseColors[Math.floor(Math.random() * pulseColors.length)];
           
           pulses.push({
-            x: vertical ? majorLineIndex * gridSize : 0,
-            y: !vertical ? majorLineIndex * gridSize : 0,
+            x: vertical ? offsetX + majorLineIndex * gridSize : 0,
+            y: !vertical ? offsetY + majorLineIndex * gridSize : 0,
             vertical,
             progress: isMobile ? -Math.random() * 0.6 : Math.random(),
             speed: speed,
@@ -257,29 +262,29 @@ export default function FuturisticGrid({
 
       // Vertical lines
       for (let i = 0; i <= cols; i++) {
-        const x = i * gridSize;
+        const x = offsetX + i * gridSize;
         const isMajor = i % 3 === 0;
         
         ctx.strokeStyle = isMajor ? majorGridColor : gridColor;
         ctx.lineWidth = isMajor ? 1 : 0.5;
         
         ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, rect.height);
+        ctx.moveTo(x, offsetY);
+        ctx.lineTo(x, offsetY + extendedHeight);
         ctx.stroke();
       }
 
       // Horizontal lines
       for (let i = 0; i <= rows; i++) {
-        const y = i * gridSize;
+        const y = offsetY + i * gridSize;
         const isMajor = i % 3 === 0;
         
         ctx.strokeStyle = isMajor ? majorGridColor : gridColor;
         ctx.lineWidth = isMajor ? 1 : 0.5;
         
         ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(rect.width, y);
+        ctx.moveTo(offsetX, y);
+        ctx.lineTo(offsetX + extendedWidth, y);
         ctx.stroke();
       }
     };
@@ -311,7 +316,7 @@ export default function FuturisticGrid({
       const mouseY = mousePositionRef.current.y;
       
       if (pulse.vertical) {
-        const currentY = pulse.progress * rect.height;
+        const currentY = offsetY + pulse.progress * extendedHeight;
         const distance = Math.sqrt(
           Math.pow(mouseX - pulse.x, 2) + 
           Math.pow(mouseY - currentY, 2)
@@ -322,7 +327,7 @@ export default function FuturisticGrid({
           y: currentY 
         };
       } else {
-        const currentX = pulse.progress * rect.width;
+        const currentX = offsetX + pulse.progress * extendedWidth;
         const distance = Math.sqrt(
           Math.pow(mouseX - currentX, 2) + 
           Math.pow(mouseY - pulse.y, 2)
@@ -402,7 +407,7 @@ export default function FuturisticGrid({
       const color = isPermanentlyGreen ? successColor : baseColor;
 
       if (vertical) {
-        const currentY = progress * rect.height;
+        const currentY = offsetY + progress * extendedHeight;
         
         // Create gradient for pulse
         const gradient = ctx.createLinearGradient(x, currentY - length, x, currentY);
@@ -419,8 +424,8 @@ export default function FuturisticGrid({
         ctx.shadowColor = color;
         ctx.globalAlpha = 0.3;
         ctx.beginPath();
-        ctx.moveTo(x, Math.max(0, currentY - length));
-        ctx.lineTo(x, Math.min(rect.height, currentY));
+        ctx.moveTo(x, Math.max(offsetY, currentY - length));
+        ctx.lineTo(x, Math.min(offsetY + extendedHeight, currentY));
         ctx.stroke();
 
         // Middle bloom
@@ -428,8 +433,8 @@ export default function FuturisticGrid({
         ctx.shadowBlur = 20;
         ctx.globalAlpha = 0.5;
         ctx.beginPath();
-        ctx.moveTo(x, Math.max(0, currentY - length));
-        ctx.lineTo(x, Math.min(rect.height, currentY));
+        ctx.moveTo(x, Math.max(offsetY, currentY - length));
+        ctx.lineTo(x, Math.min(offsetY + extendedHeight, currentY));
         ctx.stroke();
 
         // Core line
@@ -437,15 +442,15 @@ export default function FuturisticGrid({
         ctx.shadowBlur = 15;
         ctx.globalAlpha = 1.0;
         ctx.beginPath();
-        ctx.moveTo(x, Math.max(0, currentY - length));
-        ctx.lineTo(x, Math.min(rect.height, currentY));
+        ctx.moveTo(x, Math.max(offsetY, currentY - length));
+        ctx.lineTo(x, Math.min(offsetY + extendedHeight, currentY));
         ctx.stroke();
 
         // Reset
         ctx.shadowBlur = 0;
         ctx.globalAlpha = 1.0;
       } else {
-        const currentX = progress * rect.width;
+        const currentX = offsetX + progress * extendedWidth;
         
         // Create gradient for pulse
         const gradient = ctx.createLinearGradient(currentX - length, y, currentX, y);
@@ -461,8 +466,8 @@ export default function FuturisticGrid({
         ctx.shadowColor = color;
         ctx.globalAlpha = 0.3;
         ctx.beginPath();
-        ctx.moveTo(Math.max(0, currentX - length), y);
-        ctx.lineTo(Math.min(rect.width, currentX), y);
+        ctx.moveTo(Math.max(offsetX, currentX - length), y);
+        ctx.lineTo(Math.min(offsetX + extendedWidth, currentX), y);
         ctx.stroke();
 
         // Middle bloom
@@ -470,8 +475,8 @@ export default function FuturisticGrid({
         ctx.shadowBlur = 20;
         ctx.globalAlpha = 0.5;
         ctx.beginPath();
-        ctx.moveTo(Math.max(0, currentX - length), y);
-        ctx.lineTo(Math.min(rect.width, currentX), y);
+        ctx.moveTo(Math.max(offsetX, currentX - length), y);
+        ctx.lineTo(Math.min(offsetX + extendedWidth, currentX), y);
         ctx.stroke();
 
         // Core line
@@ -479,8 +484,8 @@ export default function FuturisticGrid({
         ctx.shadowBlur = 15;
         ctx.globalAlpha = 1.0;
         ctx.beginPath();
-        ctx.moveTo(Math.max(0, currentX - length), y);
-        ctx.lineTo(Math.min(rect.width, currentX), y);
+        ctx.moveTo(Math.max(offsetX, currentX - length), y);
+        ctx.lineTo(Math.min(offsetX + extendedWidth, currentX), y);
         ctx.stroke();
 
         // Reset
@@ -567,8 +572,8 @@ export default function FuturisticGrid({
           const baseColor = isFast ? '#FFD700' : pulseColors[Math.floor(Math.random() * pulseColors.length)];
           
           pulsesRef.current[index] = {
-            x: vertical ? majorLineIndex * gridSize : 0,
-            y: !vertical ? majorLineIndex * gridSize : 0,
+            x: vertical ? offsetX + majorLineIndex * gridSize : 0,
+            y: !vertical ? offsetY + majorLineIndex * gridSize : 0,
             vertical,
             progress: isMobile ? -0.2 : -0.2,
             speed: speed,
@@ -607,17 +612,17 @@ export default function FuturisticGrid({
   if (reducedMotion) {
     return (
       <div className="absolute inset-0 w-full h-full pointer-events-none">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" style={{ overflow: 'visible' }}>
           <defs>
             <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(59, 130, 246, 0.2)" strokeWidth="0.5"/>
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(59, 130, 246, 0.25)" strokeWidth="0.5"/>
             </pattern>
             <pattern id="majorGrid" width="180" height="180" patternUnits="userSpaceOnUse">
-              <path d="M 180 0 L 0 0 0 180" fill="none" stroke="rgba(59, 130, 246, 0.25)" strokeWidth="1"/>
+              <path d="M 180 0 L 0 0 0 180" fill="none" stroke="rgba(59, 130, 246, 0.3)" strokeWidth="1"/>
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-          <rect width="100%" height="100%" fill="url(#majorGrid)" />
+          <rect x="-25%" y="-25%" width="150%" height="150%" fill="url(#grid)" />
+          <rect x="-25%" y="-25%" width="150%" height="150%" fill="url(#majorGrid)" />
         </svg>
       </div>
     );

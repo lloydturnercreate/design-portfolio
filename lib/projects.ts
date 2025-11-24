@@ -731,7 +731,7 @@ export const sukiyaki: Project = {
 };
 
 // Export all projects as an array for navigation
-export const allProjects: Project[] = [phutureFinance, raptor, sukiyaki, moonpay];
+export const allProjects: Project[] = [raptor, phutureFinance, sukiyaki, moonpay];
 
 // Helper function to get project by slug
 export function getProjectBySlug(slug: string): Project | undefined {

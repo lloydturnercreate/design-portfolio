@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
 import Section from './Section';
 
@@ -22,70 +22,11 @@ const companies: CompanyLogo[] = [
 /**
  * CredibilityStrip
  * Horizontal scrolling logo strip with company logos
- * Features auto-scroll on desktop, swipe on mobile
+ * Features continuous auto-scroll animation on all devices
  * Uses Next.js Image optimization for performance
  */
 export default function CredibilityStrip() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container || typeof window === 'undefined') return;
-
-    // Auto-scroll on desktop only
-    const mediaQuery = window.matchMedia('(min-width: 768px)');
-    if (!mediaQuery.matches) return;
-
-    let scrollPosition = 0;
-    const scrollSpeed = 0.5; // pixels per frame
-    let animationFrameId: number;
-    let isPaused = false;
-
-    const autoScroll = () => {
-      if (isPaused) {
-        animationFrameId = requestAnimationFrame(autoScroll);
-        return;
-      }
-
-      scrollPosition += scrollSpeed;
-      const scrollWidth = container.scrollWidth;
-      const maxScroll = scrollWidth / 2;
-      
-      // Reset when scrolled past first set of companies
-      if (scrollPosition >= maxScroll) {
-        scrollPosition = 0;
-      }
-      
-      container.scrollLeft = scrollPosition;
-      animationFrameId = requestAnimationFrame(autoScroll);
-    };
-
-    // Pause on hover
-    const handleMouseEnter = () => {
-      isPaused = true;
-    };
-
-    const handleMouseLeave = () => {
-      isPaused = false;
-    };
-
-    container.addEventListener('mouseenter', handleMouseEnter);
-    container.addEventListener('mouseleave', handleMouseLeave);
-    
-    // Start auto-scroll after a brief delay to ensure layout is complete
-    const startTimeout = setTimeout(() => {
-      animationFrameId = requestAnimationFrame(autoScroll);
-    }, 500);
-
-    return () => {
-      clearTimeout(startTimeout);
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-      container.removeEventListener('mouseenter', handleMouseEnter);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, []);
 
   return (
     <Section className="bg-secondary py-12 md:py-16 border-y border-border">
@@ -102,13 +43,13 @@ export default function CredibilityStrip() {
           {/* Right fade gradient */}
           <div className="absolute right-0 top-0 bottom-0 w-24 md:w-32 bg-gradient-to-l from-secondary to-transparent z-10 pointer-events-none" />
           
-          {/* Scrolling container */}
+          {/* Scrolling container with CSS animation */}
           <div
             ref={scrollContainerRef}
-            className="flex gap-16 md:gap-20 overflow-x-auto scrollbar-hide md:overflow-x-hidden"
+            className="flex gap-16 md:gap-20 animate-scroll-logos hover:pause-animation"
           >
-            {/* Duplicate set for seamless loop */}
-            {[...companies, ...companies].map((company, index) => {
+            {/* Triple duplicate for seamless loop - need enough for smooth infinite scroll */}
+            {[...companies, ...companies, ...companies].map((company, index) => {
               const isSmaller = company.name === 'Amazon' || company.name === 'Google';
               const isLarger = company.name === 'MoonPay' || company.name === 'Phuture';
               

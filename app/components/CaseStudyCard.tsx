@@ -21,6 +21,8 @@ export interface CaseStudyCardProps {
       desktop?: string;
     };
     imageAlignment?: 'left' | 'center';
+    noiseOverlay?: boolean; // Enable film grain/noise effect
+    noiseOpacity?: number; // Noise opacity (0-1)
   };
 }
 
@@ -207,6 +209,17 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
         </div>
       ) : (
         <div className="absolute inset-0" style={{ backgroundColor: '#111111' }} />
+      )}
+
+      {/* Noise overlay - film grain effect */}
+      {study.noiseOverlay && (
+        <div 
+          className="absolute inset-0 pointer-events-none noise-overlay"
+          style={{ 
+            opacity: study.noiseOpacity || 0.35,
+            mixBlendMode: 'overlay'
+          }}
+        />
       )}
 
       {/* Content overlaid at bottom */}
