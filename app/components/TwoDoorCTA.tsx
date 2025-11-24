@@ -50,9 +50,6 @@ export default function TwoDoorCTA() {
                 Get design clarity, speed, and investor-grade polish — without hiring a
                 full-time team.
               </p>
-              <p className="text-lg md:text-xl font-semibold text-foreground tracking-tight-1">
-                Project-based or embedded — from MVP to Series A
-              </p>
             </div>
             <a
               href="https://calendly.com/lloyd-turner/intro-call"
@@ -85,9 +82,6 @@ export default function TwoDoorCTA() {
               <p className="text-lg md:text-xl text-muted mb-5 leading-[1.6] font-light tracking-tight-1">
                 I provide high-level design systems and UX execution support for fintech,
                 SaaS, and crypto projects.
-              </p>
-              <p className="text-lg md:text-xl font-semibold text-foreground tracking-tight-1">
-                Day Rate: £800–£1000 / day
               </p>
             </div>
             <a
