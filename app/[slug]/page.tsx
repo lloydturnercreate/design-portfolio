@@ -11,9 +11,12 @@ interface PageProps {
 
 // Generate static params for all projects
 export function generateStaticParams() {
-  return allProjects.map((project) => ({
-    slug: project.metadata.slug,
-  }));
+  // Only generate routes for case studies, not AI projects (which have their own pages)
+  return allProjects
+    .filter((project) => project.metadata.category !== 'ai-project' && project.metadata.category !== 'experiment')
+    .map((project) => ({
+      slug: project.metadata.slug,
+    }));
 }
 
 // Generate metadata for each project

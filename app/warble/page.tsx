@@ -159,7 +159,7 @@ function WarbleApp() {
   };
 
   // --- Scheduler ---
-  const scheduleNote = (stepNumber: number, time: number) => {
+  const scheduleNote = useCallback((stepNumber: number, time: number) => {
     const currentScaleNotes = SCALES[selectedScale];
     
     // Schedule visual update to match audio timing
@@ -185,14 +185,14 @@ function WarbleApp() {
         }
       }
     });
-  };
+  }, [bpm, grid, selectedInstrument, volume, reverbAmt, selectedScale, swing]);
 
-  const nextNote = () => {
+  const nextNote = useCallback(() => {
     const secondsPerBeat = 60.0 / bpm;
     const secondsPerStep = secondsPerBeat / 4;
     nextNoteTimeRef.current += secondsPerStep;
     stepRef.current = (stepRef.current + 1) % patternLength;
-  };
+  }, [bpm, patternLength]);
 
   const scheduler = useCallback(() => {
     if (!audioCtxRef.current) return;
@@ -201,7 +201,7 @@ function WarbleApp() {
       nextNote();
     }
     lookaheadTimerRef.current = window.setTimeout(scheduler, 25);
-  }, [bpm, grid, selectedInstrument, volume, reverbAmt, selectedScale, swing]);
+  }, [scheduleNote, nextNote]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -255,6 +255,12 @@ function WarbleApp() {
     }
   };
 
+  // --- Generators ---
+  const clearGrid = useCallback(() => {
+    setGrid(Array(ROWS).fill(null).map(() => Array(patternLength).fill(false)));
+    if(isPlaying) setIsPlaying(false);
+  }, [isPlaying, patternLength]);
+
   // --- Keyboard Shortcuts ---
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -267,7 +273,7 @@ function WarbleApp() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [clearGrid]);
 
   // --- URL & Storage Logic ---
   useEffect(() => {
@@ -321,12 +327,6 @@ function WarbleApp() {
     const url = `${window.location.origin}${window.location.pathname}#${hash}`;
     navigator.clipboard.writeText(url);
     alert("Link copied to clipboard!"); // Ideally use a toast
-  };
-
-  // --- Generators ---
-  const clearGrid = () => {
-    setGrid(Array(ROWS).fill(null).map(() => Array(patternLength).fill(false)));
-    if(isPlaying) setIsPlaying(false);
   };
 
   const randomizePattern = () => {
