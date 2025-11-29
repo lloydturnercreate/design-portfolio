@@ -90,11 +90,14 @@ export interface ProjectResults {
   images?: ImageBlock[];
 }
 
+export type ProjectCategory = 'case-study' | 'ai-project' | 'experiment';
+
 export interface ProjectMetadata {
   slug: string;
   title: string;
   description: string;
   keywords?: string[];
+  category?: ProjectCategory; // Defaults to 'case-study' if not specified
 }
 
 export interface ProjectCard {
@@ -112,7 +115,7 @@ export interface ProjectCard {
 export interface Project {
   metadata: ProjectMetadata;
   card: ProjectCard; // Card preview data for case studies listing
-  hero: ProjectHero;
+  hero?: ProjectHero; // Optional for interactive projects
   color: string; // Brand color for the project (hex code)
   gallery?: GalleryImage[]; // Image gallery shown after hero
   challenge?: ProjectChallenge;
@@ -714,8 +717,164 @@ export const sukiyaki: Project = {
   },
 };
 
+// TypeRunner - Interactive Typing Game
+export const typerunner: Project = {
+  metadata: {
+    slug: 'typerunner',
+    title: 'TypeRunner - Guitar Hero for Touch Typing',
+    description:
+      'An arcade-style typing game that makes learning touch typing fun. Built with React, Canvas API, and procedural audio.',
+    keywords: [
+      'game development',
+      'React',
+      'Canvas API',
+      'procedural audio',
+      'TypeScript',
+      'interactive design',
+      'typing game',
+    ],
+    category: 'ai-project',
+  },
+  card: {
+    title: 'TYPERUNNER',
+    description:
+      'A Guitar Hero-inspired typing game with neon aesthetics, progressive difficulty, and procedural music generation.',
+    backgroundImage: '/project-covers/typerunner.png',
+    backgroundImages: {
+      mobile: '/project-covers/typerunner-mobile.png',
+      tablet: '/project-covers/typerunner-tablet.png',
+      desktop: '/project-covers/typerunner-desktop.png',
+    },
+  },
+  color: '#ff00ff', // Neon magenta
+};
+
+// Twist - Media Compressor/Converter Tool
+export const twist: Project = {
+  metadata: {
+    slug: 'twist',
+    title: 'Twist - Local Media Compression Tool',
+    description:
+      'A powerful, privacy-first compressor and converter for creatives. Handles prominent image and video formats locally on your device.',
+    keywords: [
+      'media compression',
+      'video converter',
+      'image optimization',
+      'privacy-first',
+      'creative tools',
+      'WebAssembly',
+    ],
+    category: 'experiment',
+  },
+  card: {
+    title: 'TWIST',
+    description:
+      'A local, yet powerful compressor/converter tool for creatives. Handles prominent image and video files with privacy-first processing.',
+    backgroundImage: '/project-covers/twist.png',
+    backgroundImages: {
+      mobile: '/project-covers/twist-mobile.png',
+      tablet: '/project-covers/twist-tablet.png',
+      desktop: '/project-covers/twist-desktop.png',
+    },
+  },
+  color: '#10b981', // Emerald green
+  hero: {
+    company: 'Twist',
+    tagline: 'Privacy-First Media Compression',
+    intro:
+      'A powerful, local media compressor and converter tool designed for creatives. Process images and videos directly on your device—no uploads, no cloud processing, complete privacy.',
+    meta: {
+      role: 'Product Designer & Developer',
+      duration: 'Coming Soon',
+      team: 'Solo',
+      scope: ['Product Design', 'WebAssembly', 'UI/UX', 'Privacy Engineering'],
+    },
+  },
+};
+
+// Rooftops - Paper Plane Distance Game
+export const rooftops: Project = {
+  metadata: {
+    slug: 'rooftops',
+    title: 'Rooftops - Paper Plane Distance Game',
+    description:
+      'A dreamy sidescrolling paper plane distance game set over Spanish rooftops during golden hour. Alto\'s Adventure meets Flappy Bird.',
+    keywords: [
+      'game development',
+      'side-scroller',
+      'procedural generation',
+      'physics simulation',
+      'atmospheric design',
+      'mobile game',
+    ],
+    category: 'experiment',
+  },
+  card: {
+    title: 'ROOFTOPS',
+    description:
+      'A dreamy sidescrolling paper plane distance game, set over Spanish rooftops during golden hour/twilight. Think Alto\'s Adventure meets Flappy Bird.',
+    backgroundImage: '/project-covers/rooftops.png',
+    backgroundImages: {
+      mobile: '/project-covers/rooftops-mobile.png',
+      tablet: '/project-covers/rooftops-tablet.png',
+      desktop: '/project-covers/rooftops-desktop.png',
+    },
+  },
+  color: '#f59e0b', // Amber/golden hour
+  hero: {
+    company: 'Rooftops',
+    tagline: 'Soar Through Golden Hour',
+    intro:
+      'A dreamy sidescrolling paper plane distance game set over Spanish rooftops during golden hour and twilight. Navigate thermal updrafts, avoid obstacles, and chase the perfect flight. Think Alto\'s Adventure meets Flappy Bird.',
+    meta: {
+      role: 'Game Designer & Developer',
+      duration: 'Coming Soon',
+      team: 'Solo',
+      scope: ['Game Design', 'Physics Simulation', 'Procedural Generation', 'Art Direction'],
+    },
+  },
+};
+
+// Warble - Ringtone Generator
+export const warble: Project = {
+  metadata: {
+    slug: 'warble',
+    title: 'Warble - Ringtone Generator',
+    description:
+      'An elegant ringtone generator with refined sound design. Create custom, harmonious ringtones with simple controls.',
+    keywords: [
+      'audio generation',
+      'sound design',
+      'Web Audio API',
+      'procedural audio',
+      'ringtone maker',
+      'music tool',
+    ],
+    category: 'experiment',
+  },
+  card: {
+    title: 'WARBLE',
+    description:
+      'An elegant ringtone generator with refined sound design. Create custom, harmonious ringtones inspired by modern sound aesthetics.',
+    backgroundImage: '/project-covers/warble.svg',
+  },
+  color: '#8b5cf6', // Purple/violet
+  hero: {
+    company: 'Warble',
+    tagline: 'Elegant Ringtone Generation',
+    intro:
+      'An elegant ringtone generator with refined sound design. Create custom, harmonious ringtones using simple, intuitive controls. Inspired by the refined audio aesthetics of modern sound design.',
+    meta: {
+      role: 'Sound Designer & Developer',
+      duration: '2025',
+      team: 'Solo',
+      scope: ['Sound Design', 'Web Audio API', 'UI/UX', 'Product Design'],
+    },
+  },
+};
+
 // Export all projects as an array for navigation
-export const allProjects: Project[] = [moonpay, phutureFinance, raptor, sukiyaki];
+export const allProjects: Project[] = [moonpay, phutureFinance, raptor, sukiyaki, typerunner, warble, twist, rooftops];
 
 // Helper function to get project by slug
 export function getProjectBySlug(slug: string): Project | undefined {

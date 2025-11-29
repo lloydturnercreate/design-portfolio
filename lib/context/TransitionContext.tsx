@@ -17,16 +17,27 @@ interface CardMetadata {
 }
 
 /**
+ * Logo metadata for AI project transitions
+ */
+interface LogoMetadata {
+  slug: string;
+  logoSrc: string;
+  color: string;
+}
+
+/**
  * Transition state and actions
  */
 interface TransitionContextValue {
   // State
   direction: 'forward' | 'back' | null;
   cardMetadata: CardMetadata | null;
+  logoMetadata: LogoMetadata | null;
   isTransitioning: boolean;
 
   // Actions
   startTransition: (metadata: CardMetadata) => void;
+  startLogoTransition: (metadata: LogoMetadata) => void;
   startBackTransition: () => void;
   completeTransition: () => void;
   resetTransition: () => void;
@@ -41,6 +52,7 @@ const TransitionContext = createContext<TransitionContextValue | undefined>(unde
 export function TransitionProvider({ children }: { children: ReactNode }) {
   const [direction, setDirection] = useState<'forward' | 'back' | null>(null);
   const [cardMetadata, setCardMetadata] = useState<CardMetadata | null>(null);
+  const [logoMetadata, setLogoMetadata] = useState<LogoMetadata | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   /**
@@ -49,6 +61,17 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const startTransition = useCallback((metadata: CardMetadata) => {
     setDirection('forward');
     setCardMetadata(metadata);
+    setLogoMetadata(null);
+    setIsTransitioning(true);
+  }, []);
+
+  /**
+   * Start a logo transition (home → AI project)
+   */
+  const startLogoTransition = useCallback((metadata: LogoMetadata) => {
+    setDirection('forward');
+    setLogoMetadata(metadata);
+    setCardMetadata(null);
     setIsTransitioning(true);
   }, []);
 
@@ -73,14 +96,17 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const resetTransition = useCallback(() => {
     setDirection(null);
     setCardMetadata(null);
+    setLogoMetadata(null);
     setIsTransitioning(false);
   }, []);
 
   const value: TransitionContextValue = {
     direction,
     cardMetadata,
+    logoMetadata,
     isTransitioning,
     startTransition,
+    startLogoTransition,
     startBackTransition,
     completeTransition,
     resetTransition,

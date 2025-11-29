@@ -6,9 +6,11 @@ import { useHorizontalScroll } from '@/lib/hooks/useHorizontalScroll';
 import CaseStudyCard from './CaseStudyCard';
 
 // Transform projects into case study card format
+// Filter to only include case study projects (exclude ai-projects and experiments)
 const caseStudies = allProjects
+  .filter((project) => !project.metadata.category || project.metadata.category === 'case-study')
   .map((project) => ({
-    company: project.hero.company,
+    company: project.hero!.company, // Safe to use ! because case studies always have hero
     title: project.card.title,
     description: project.card.description,
     slug: project.metadata.slug,

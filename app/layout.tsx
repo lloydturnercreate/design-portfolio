@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { TransitionProvider } from '@/lib/context/TransitionContext';
 import TransitionOverlay from './components/transitions/TransitionOverlay';
+import LogoTransitionOverlay from './components/transitions/LogoTransitionOverlay';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -72,6 +73,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <TransitionProvider>
           <TransitionOverlay />
+          <LogoTransitionOverlay />
           {children}
         </TransitionProvider>
       </body>

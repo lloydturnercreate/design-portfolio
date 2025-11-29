@@ -12,6 +12,10 @@ export const TRANSITION_CONFIG = {
     slideUp: 0.6,            // Project entry slide-up duration
     overlay: 0.4,            // Overlay fade duration
     navigationDelay: 0.5,    // Delay before page navigation (forward)
+    logoSlideIn: 0.5,        // Logo slide in duration
+    logoHold: 0.3,           // Logo hold duration
+    logoSlideOut: 0.5,       // Logo slide out duration
+    logoNavigationDelay: 1.4, // Total delay before navigation (slideIn + hold + slideOut + buffer)
   },
 
   /**
@@ -20,6 +24,7 @@ export const TRANSITION_CONFIG = {
   easing: {
     smooth: 'easeInOut' as const,
     slideEase: [0.22, 1, 0.36, 1] as [number, number, number, number], // Custom cubic bezier for slides
+    logoEase: [0.16, 1, 0.3, 1] as [number, number, number, number], // Smooth ease-out for logo
   },
 
   /**

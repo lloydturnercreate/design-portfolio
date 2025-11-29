@@ -2,6 +2,7 @@ import Hero from './components/Hero';
 import CredibilityStrip from './components/CredibilityStrip';
 import ValueSection from './components/ValueSection';
 import CaseStudies from './components/CaseStudies';
+import AIProjects from './components/AIProjects';
 import Process from './components/Process';
 import About from './components/About';
 import TwoDoorCTA from './components/TwoDoorCTA';
@@ -19,6 +20,7 @@ export default function Home() {
           <CredibilityStrip />
           <ValueSection />
           <CaseStudies />
+          <AIProjects />
           <Process />
           <About />
           <TwoDoorCTA />

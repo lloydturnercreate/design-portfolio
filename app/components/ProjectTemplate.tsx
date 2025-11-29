@@ -25,8 +25,8 @@ export default function ProjectTemplate({ project }: ProjectTemplateProps) {
       
       <ProjectPageWrapper>
         <main className="min-h-screen w-full overflow-x-hidden bg-background relative">
-          {/* Hero Section - Always rendered */}
-          <ProjectHero hero={project.hero} color={project.color} />
+          {/* Hero Section - Optional for interactive projects */}
+          {project.hero && <ProjectHero hero={project.hero} color={project.color} />}
 
           {/* Gallery Section - Optional */}
           {project.gallery && project.gallery.length > 0 && (
