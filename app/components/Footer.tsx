@@ -105,7 +105,7 @@ export default function Footer() {
 
             {/* Download CV */}
             <a
-              href="/resume/Lloyd Turner _ Product_Visual Designer.pdf"
+              href="/resume/Lloyd Turner _ Product Designer.pdf"
               download
               className="group relative flex items-center justify-center transition-all duration-300"
               aria-label="Download CV"

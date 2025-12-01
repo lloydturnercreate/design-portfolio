@@ -58,7 +58,7 @@ export default function About() {
             {/* Action buttons */}
             <div className="pt-4 flex flex-col sm:flex-row gap-4">
               <a
-                href="/resume/Lloyd Turner _ Product_Visual Designer.pdf"
+                href="/resume/Lloyd Turner _ Product Designer.pdf"
                 download
                 className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 min-h-[60px] hover:scale-[1.02] tracking-tight-1"
                 aria-label="Download CV"
