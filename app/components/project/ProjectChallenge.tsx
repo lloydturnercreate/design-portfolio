@@ -30,24 +30,30 @@ export default function ProjectChallenge({ challenge, color, projectSlug }: Proj
     // MoonPay-specific icons
     if (projectSlug === 'moonpay') {
       const moonpayIcons = [
-        // Icon 1: Two overlapping circles (Dual-Stakeholder Alignment)
+        // Icon 1: Forked path / diverging routes (Safety vs. Speed - two opposing directions)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <circle cx="10" cy="12" r="6" strokeWidth={1.5} />
-          <circle cx="14" cy="12" r="6" strokeWidth={1.5} />
+          <circle cx="12" cy="19" r="2" strokeWidth={1.5} />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 17V12" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 12L6 6" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 12L18 6" />
+          <circle cx="6" cy="5" r="1.5" strokeWidth={1.5} />
+          <circle cx="18" cy="5" r="1.5" strokeWidth={1.5} />
         </svg>,
-        // Icon 2: Clock/timer with motion lines (The Velocity Trap)
+        // Icon 2: Two overlapping circles (Dual-Stakeholder Alignment)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <circle cx="12" cy="12" r="7" strokeWidth={1.5} />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 7v5l3 3" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12h2m14 0h2M12 3v2m0 14v2" />
+          <circle cx="9" cy="12" r="5" strokeWidth={1.5} />
+          <circle cx="15" cy="12" r="5" strokeWidth={1.5} />
         </svg>,
-        // Icon 3: Empty foundation/blueprint (Zero Foundation)
+        // Icon 3: Empty box/foundation (Zero Foundation)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
         </svg>,
-        // Icon 4: Lightning bolt (The Credibility Gap - bridging energy/speed with trust)
+        // Icon 4: Bridge / gap connector (The Credibility Gap - bridging two worlds)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16V8m16 8V8" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 12h16" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12v4m4-4v4m4-4v4" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 8c4-3 12-3 16 0" />
         </svg>,
       ];
       return moonpayIcons[index] || moonpayIcons[0];

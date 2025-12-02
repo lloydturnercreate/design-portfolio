@@ -8,6 +8,8 @@ export type ImageLayout =
   | 'full' // Full-width image
   | 'large' // Large centered image (90% width)
   | 'medium' // Medium centered image (70% width)
+  | 'medium-left' // Medium left-aligned image (70% width, full on mobile)
+  | 'small' // Small centered image (60% width)
   | 'half-left' // Half-width, aligned left
   | 'half-right' // Half-width, aligned right
   | 'two-up' // Two images side by side
@@ -395,9 +397,9 @@ export const raptor: Project = {
 export const moonpay: Project = {
   metadata: {
     slug: 'moonpay',
-    title: 'MoonPay - Building at Scale in Crypto Infrastructure',
+    title: 'Moonit - The Professional Terminal for Meme Coin Markets',
     description:
-      'Senior Designer at MoonPay following the $175m Helio acquisition. Led Moonit, a 0-to-1 meme coin trading platform generating $10m+ profit, while contributing to MoonPay Labs and Commerce products.',
+      'Senior Designer at MoonPay following the $175m Helio acquisition. Architected Moonit, a zero-latency meme coin trading platform that processed $100M+ volume and generated $10M+ profit in 12 months.',
     keywords: [
       'Web3',
       'meme coins',
@@ -409,6 +411,7 @@ export const moonpay: Project = {
       'brand design',
       'animation',
       'MoonPay',
+      'trading terminal',
     ],
   },
   card: {
@@ -424,11 +427,11 @@ export const moonpay: Project = {
   color: '#7B3FF2',
   hero: {
     company: 'MoonPay',
-    tagline: 'Designing for Velocity: From 0 to $10M Profit.',
+    tagline: 'Scaling a Zero-Latency Trading Platform to $10M+ Profit in 12 months.',
     intro:
-      'Lead Product Designer for Moonit, a high-frequency trading terminal that generated $100m+ volume in 12 months. I unified the strategic priorities of MoonPay and DexScreener to build a platform that captured the chaotic energy of meme coins within a structured, high-performance interface.',
+      'The Solana meme coin market was polarised. On one extreme was pump.fun—hyper-viral but plagued by regulatory risk. On the other were traditional aggregators—safe, but too slow for 100x moves. My role was to architect a terminal for the "Professional Degen": the trader who demands bot-speed execution with institutional stability.',
     meta: {
-      role: 'Senior Designer',
+      role: 'Senior Product Designer',
       duration: '2024-Present',
       team: 'Sole Designer (Moonit), Core Team (Labs)',
       scope: ['Product Strategy', 'Branding', 'UI/UX', 'Animation', 'Social Assets'],
@@ -482,52 +485,62 @@ export const moonpay: Project = {
     },
   ],
   challenge: {
-    title: 'The Challenge',
+    title: 'The Market Gap',
     description:
-      '',
+      'There was no home for the "Professional Degen"—the trader who demands the raw speed of a bot but the stability of a legitimate platform.',
     bullets: [],
     items: [
+      {
+        title: 'Safety vs. Speed',
+        description: 'pump.fun offered viral speed but regulatory risk. Traditional aggregators were safe but too slow for 100x moves. We needed to close this gap.'
+      },
       {
         title: 'Dual-Stakeholder Alignment',
         description: 'Harmonizing strategic priorities between a regulated fintech (MoonPay) and a data-heavy aggregator (DexScreener), each with distinct timelines and success metrics.'
       },
       {
-        title: 'The Velocity Trap',
-        description: 'Meme coin markets move in seconds. The UI required zero-latency interactions where any friction meant missed profit for the user.'
-      },
-      {
         title: 'Zero Foundation',
-        description: 'No existing design system, brand identity, or patterns. Moonit required a defined visual language and product DNA while sprinting toward launch.'
+        description: 'No existing design system, brand identity, or patterns. Moonit required a complete visual language and product DNA while sprinting toward launch.'
       },
       {
         title: 'The Credibility Gap',
-        description: 'The platform needed to feel "native" to crypto-degenerates (Degens) while maintaining the institutional trust of the MoonPay parent brand.'
+        description: 'The platform needed to feel "native" to crypto-degenerates while maintaining the institutional trust of the MoonPay parent brand.'
       }
     ],
   },
   approach: {
-    title: 'The Strategy: Performance as UX',
+    title: 'The Strategy: Achieving "Bot-Parity" Execution',
     description:
-      'To win in a crowded market, the brand had to be distinct. I developed a visual identity that balanced institutional credibility with meme-culture personality while prioritizing execution speed over decoration.',
+      'In this market, profit and loss are defined in milliseconds. My primary design KPI was Time-to-Trade. We hypothesized that the standard pattern (Browse → Click → Details Page → Buy) was a primary friction point.',
     subsections: [
       {
-        title: '\'Credible Degen\' Branding',
+        title: 'The "Pro Mode" Architecture',
         bullets: [
-          'Built a flexible design system that worked equally well on high-density trading dashboards and viral social marketing assets.',
-          'Developed a visual identity that balanced institutional credibility with meme-culture personality.',
+          'Direct Injection (Zero-Nav): Implemented "Quick Buy" inputs directly on index cards. Users can qualify and execute a trade without ever loading a secondary page—reducing interaction cost from 4 clicks to 1.',
+          'Session Mode: Designed a flow where users sign once to unlock a 1-hour trading window, eliminating the intrusive wallet pop-ups that break flow during high-volatility moments.',
+          'Signal Density: Curated data hierarchy to surface only execution-critical metrics (Liquidity, Market Cap, Volume), filtering out vanity metrics to support split-second decisions.',
+        ],
+        images: [
+          {
+            src: '/projects/moonpay/pro-mode-card.png',
+            alt: 'The Pro Card acts as a self-contained terminal, allowing users to snipe tokens the instant they hit the feed.',
+            caption: 'The Pro Card acts as a self-contained terminal, allowing users to snipe tokens the instant they hit the feed.',
+            layout: 'medium-left',
+          },
         ],
       },
       {
-        title: 'Prioritizing Speed over Decoration',
+        title: 'The "Pro-Degen" Visual Identity',
         bullets: [
-          'Stripped away decorative UI elements to prioritize Data Density and Actionability.',
-          'Designed "One-Click" flows that minimized the steps between Discovery and Execution (on Moonit).',
+          'Adopted a "Space Terminal" aesthetic—dark modes, monospace data density, and neon signal colors to match the mental model of a high-frequency trading desk.',
+          'Enforced rigid grid systems and explicit error handling to signal that while assets might be volatile, the infrastructure was solid.',
+          'Built a flexible design system that worked equally well on high-density trading dashboards and viral social marketing assets.',
         ],
       },
       {
         title: 'Department of One',
         bullets: [
-          'Ownership of the full vertical: Product Strategy → UI/UX → Animation → Marketing. This required ruthlessly prioritizing "must-have" flows over "nice-to-haves" to meet aggressive profit targets.',
+          'Ownership of the full vertical: Product Strategy → UI/UX → Animation → Marketing. Ruthlessly prioritized "must-have" flows over "nice-to-haves" to meet aggressive profit targets.',
         ],
       },
       {
@@ -549,27 +562,27 @@ export const moonpay: Project = {
       {
         value: '$100m+',
         label: 'Trading Volume',
-        description: 'Processed via the UI to date',
+        description: 'Processed via the UI',
       },
       {
-        value: '0 to 1',
-        label: 'Delivery',
-        description: 'Ownership from concept to launch',
+        value: '<2s',
+        label: 'Time-to-Trade',
+        description: 'Achieving bot-parity execution',
       },
     ],
     bullets: [],
     items: [
       {
-        title: 'Commercial Velocity',
-        description: 'The design system enabled rapid iteration, allowing us to ship features faster than competitors and capture $10m+ in profit.'
+        title: 'Bot-Parity Achieved',
+        description: 'The "Pro Mode" architecture reduced Time-to-Trade to under 2 seconds, matching the speed of automated trading bots.'
+      },
+      {
+        title: 'Power User Retention',
+        description: 'Successfully captured the "Professional Degen" segment exiting pump.fun for a more stable, regulated environment.'
       },
       {
         title: 'Brand Elasticity',
         description: 'Created a visual language that successfully bridged the gap between "Corporate Fintech" and "Crypto Native" audiences.'
-      },
-      {
-        title: 'High-Fidelity Adoption',
-        description: 'The frictionless UX drove over $100m in volume, proving that users preferred a structured, designed experience over raw, clunky tools.'
       }
     ],
   },
