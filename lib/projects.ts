@@ -129,9 +129,9 @@ export interface Project {
 export const phutureFinance: Project = {
   metadata: {
     slug: 'phuture-finance',
-    title: 'Phuture Finance - A new age of investing',
+    title: 'Phuture Finance - Designing the Passive Lane for DeFi',
     description:
-      'Head of Design at Phuture Finance, leading the product\'s UX and UI, balancing the complexity of Web3 with an intuitive, user-friendly experience.',
+      'Head of Design at Phuture Finance. Abstracted complex rebalancing logic into a "Set & Forget" investment interface, reaching $8M TVL in a bear market.',
     keywords: [
       'crypto investing',
       'DeFi',
@@ -140,11 +140,13 @@ export const phutureFinance: Project = {
       'fintech',
       'design system',
       'UX design',
+      'index funds',
+      'passive investing',
     ],
   },
   card: {
-    title: 'Making Crypto Index Investing Accessible',
-    description: "Led design for a DeFi platform that brought institutional-grade index investing to retail users — balancing Web3 complexity with the simplicity investors expect.",
+    title: 'Designing the "Passive Lane" for DeFi',
+    description: "Abstracted complex rebalancing logic into a 'Set & Forget' investment interface, reaching $8M TVL in a bear market.",
     backgroundImage: '/project-covers/phuture.png',
     backgroundImages: {
       mobile: '/project-covers/phuture-mobile.png',
@@ -155,9 +157,9 @@ export const phutureFinance: Project = {
   color: '#3e1fff',
   hero: {
     company: 'Phuture',
-    tagline: 'A new age of investing.',
+    tagline: 'Designing the "Passive" Lane for DeFi.',
     intro:
-      'As Head of Design at Phuture Finance, I led the creation of a DeFi investment platform that made crypto index investing accessible. The challenge: balance Web3 complexity with the simplicity retail investors expect.',
+      'In 2021, crypto was loud, unregulated, and demanded full-time attention. To have a diversified portfolio, a user had to manage 10+ tokens, approve 10+ contracts, and manually rebalance positions. My goal was to build the "ETF of Crypto"—moving users from managing assets to owning an index.',
     meta: {
       role: 'Head of Design',
       duration: '2021-2023',
@@ -208,22 +210,22 @@ export const phutureFinance: Project = {
     },
   ],
   challenge: {
-    title: 'The Challenge',
+    title: 'The "Active Management" Tax',
     description:
-      'While platforms like Robinhood and Freetrade had revolutionised fiat investing with user-friendly experiences, DeFi platforms remained fragmented and intimidating for newcomers.',
+      'This cognitive tax" made DeFi inaccessible to passive investors. The challenge: How do we make a highly volatile, complex instrument feel as safe and manageable as a savings account?',
     bullets: [],
     items: [
       {
         title: 'Cognitive Overload',
-        description: 'Users were forced to navigate gas fees, slippage settings, and token approvals before making a single trade.'
+        description: 'Users were forced to manage 10+ tokens, approve 10+ contracts, and manually rebalance positions before making a single trade.'
       },
       {
         title: 'Fragmented Journeys',
-        description: 'Protocols separated their "Sales" site from their "App," forcing context-switching that broke the acquisition funnel.'
+        description: 'Protocols separated their marketing site from their product, forcing context-switching that broke the acquisition funnel.'
       },
       {
         title: 'The Trust Deficit',
-        description: '"Gamified" competitor interfaces signalled volatility and risk, alienating investors looking for passive growth.'
+        description: 'Gamified competitor interfaces signalled volatility and risk, alienating investors looking for passive growth.'
       },
       {
         title: 'Technical Barriers',
@@ -232,22 +234,30 @@ export const phutureFinance: Project = {
     ]
   },
   approach: {
-    title: 'The Strategy: Progressive Disclosure',
+    title: 'The Strategy: Simplification via Abstraction',
     description:
-      'My mandate was to reduce "Time-to-Invest" while increasing "Trust-to-Hold." To achieve this, I implemented a strategy of Progressive Disclosure—keeping the interface simple by default to lower entry barriers, while retaining advanced power (slippage, gas settings) in secondary menus for power users.',
+      'The primary design challenge was concealing the technical heaviness of the protocol. A single purchase of PDI (Phuture DeFi Index) actually triggered multiple swaps and smart contract interactions in the background. The UI was designed to hide this "plumbing" entirely.',
     subsections: [
       {
-        title: 'The "Swiss Army Knife" Widget',
+        title: 'The "Black Box" Architecture',
         bullets: [
-          'Transaction Abstraction: We bundled complex on-chain actions (Wrap, Approve, Swap, Mint) into a single "Buy" button.',
-          'Friction Hiding: Relocated intimidating variables like gas fees and slippage tolerance into a secondary "Advanced" menu.'
+          'The "One-Token" Heuristic: Shifted the interface focus from the constituents (AAVE, UNI, COMP) to the product (PDI), reducing decision fatigue.',
+          'Invisible Rebalancing: Visualized monthly auto-rebalancing events not as "actions required" but as "value delivered," reinforcing the hands-off value prop.',
+          'Educational Tooltips: Integrated a learning platform, alongside an integrated tooltip system to explain intermediate/advanced concepts like "Yield" and "Weighting" in-context, allowing users to onboard without forcing them to read in-depthdocumentation.',
         ],
       },
       {
-        title: 'The "App-less" Architecture',
+        title: 'The "Anti-Crypto" Brand',
         bullets: [
-          'Zero-Click Launch: integrated the trading engine directly into the marketing site architecture.',
-          'Funnel Efficiency: Users could connect wallets and invest instantly from the landing page, removing the drop-off caused by external "Launch App" subdomains.'
+          'Institutional Typography: Used balanced, well-spaced layouts, sans-serif typography and calm, muted palettes to evoke the feeling of a fintech neobank (like Revolut) rather than a degen casino.',
+          'Transparency First: While we hid the mechanics, we exposed the data. Designed "Transparency Modules" that showed exact index compositions and fees, building trust through radical clarity.',
+        ],
+      },
+      {
+        title: 'Scaling the Architecture',
+        bullets: [
+          'The design system had to scale beyond just one index. The design system was architected to support the launch of additional products, such as CAI (Colony Avalanche Index) and Yield products without breaking the core navigation.',
+          'This modular approach allowed us to launch new investment vehicles in weeks, not months.',
         ],
       },
     ],
@@ -256,30 +266,30 @@ export const phutureFinance: Project = {
     title: 'Impact',
     metrics: [
       {
-        value: '$8m',
-        label: 'Assets Under Management',
-        description: 'Reached in <12 months',
+        value: '$8m+',
+        label: 'Total Value Locked',
+        description: 'Achieved post-launch in a bear market',
       },
       {
         value: '211 days',
         label: 'Average User Retention',
-        description: 'Significantly above industry avg',
+        description: 'Significantly above industry average',
       },
       {
-        value: '40%',
-        label: 'Friction Reduction',
-        description: 'Via streamlined onboarding',
+        value: '114%',
+        label: 'Social Growth',
+        description: '7k → 15k followers via trusted content',
       },
     ],
     bullets: [],
     items: [
       {
         title: 'Macro-Trend Visualization',
-        description: 'Designed analytics to emphasize long-term growth over micro-volatility (candlesticks). This psychologically reduced panic selling, driving high retention.'
+        description: 'Designed analytics to emphasize long-term growth over micro-volatility (candlesticks). This psychologically reduced panic selling, driving the 211-day retention.'
       },
       {
         title: 'Institutional Credibility',
-        description: 'The "financial-grade" aesthetic differentiated Phuture from "gamified" competitors, securing key ecosystem partnerships by signalling safety.'
+        description: 'The "Anti-Crypto" aesthetic differentiated Phuture from "gamified" competitors, signalling safety to passive investors.'
       },
       {
         title: 'Hypothesis Validated',

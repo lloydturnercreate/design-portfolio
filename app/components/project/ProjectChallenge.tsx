@@ -59,27 +59,31 @@ export default function ProjectChallenge({ challenge, color, projectSlug }: Proj
       return moonpayIcons[index] || moonpayIcons[0];
     }
 
-    // Future-specific icons
-    if (projectSlug === 'future') {
-      const futureIcons = [
-        // Icon 1: Overloading / Brain (Cognitive Overload)
+    // Phuture Finance-specific icons
+    if (projectSlug === 'phuture-finance') {
+      const phutureIcons = [
+        // Icon 1: Stacked layers / piling up (Cognitive Overload - too many things to manage)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          <rect x="4" y="14" width="16" height="4" rx="1" strokeWidth={1.5} />
+          <rect x="6" y="9" width="12" height="4" rx="1" strokeWidth={1.5} />
+          <rect x="8" y="4" width="8" height="4" rx="1" strokeWidth={1.5} />
         </svg>,
-        // Icon 2: Broken path / Zigzag (Fragmented Journeys)
+        // Icon 2: Broken link / disconnected (Fragmented Journeys)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 6l2 2m8 8l2 2" />
         </svg>,
-        // Icon 3: Down arrow (The Trust Deficit / Volatility)
+        // Icon 3: Chart trending down (The Trust Deficit - gamified volatility)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
         </svg>,
-        // Icon 4: Fencing / Barrier (Technical Barriers)
+        // Icon 4: Wall / blocked path (Technical Barriers)
         <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={index}>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
         </svg>,
       ];
-      return futureIcons[index] || futureIcons[0];
+      return phutureIcons[index] || phutureIcons[0];
     }
 
     // Sukiyaki-specific icons
