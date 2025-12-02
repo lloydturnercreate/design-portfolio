@@ -212,12 +212,12 @@ export const phutureFinance: Project = {
   challenge: {
     title: 'The "Active Management" Tax',
     description:
-      'This cognitive tax" made DeFi inaccessible to passive investors. The challenge: How do we make a highly volatile, complex instrument feel as safe and manageable as a savings account?',
+      'This cognitive tax made DeFi inaccessible to passive investors. The challenge: How do we make a highly volatile, complex instrument feel as safe and manageable as a savings account?',
     bullets: [],
     items: [
       {
         title: 'Cognitive Overload',
-        description: 'Users were forced to manage 10+ tokens, approve 10+ contracts, and manually rebalance positions before making a single trade.'
+        description: 'Users were forced to manage multiple tokens, approve multiple contracts, and manually rebalance positions before making a single trade.'
       },
       {
         title: 'Fragmented Journeys',
