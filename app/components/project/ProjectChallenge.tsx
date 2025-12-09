@@ -17,29 +17,32 @@ interface ProjectChallengeProps {
  * Challenge/problem statement section
  * Displays the core challenges as icon cards and optional images
  */
-export default function ProjectChallenge({ challenge, color, projectSlug }: ProjectChallengeProps) {
-  // Create flat array of all images for lightbox (preserving order: singles first, then grouped)
-  const allImages: ImageBlockType[] = [];
+// Helper to process images into singles and grouped
+function processImages(images: ImageBlockType[] | undefined) {
   const singleImages: ImageBlockType[] = [];
-  let groupedData: { layout: 'two-up' | 'three-up', images: ImageBlockType[], startIndex: number } | null = null;
+  let groupedImages: ImageBlockType[] | null = null;
+  let groupedLayout: 'two-up' | 'three-up' | null = null;
 
-  challenge.images?.forEach((image) => {
+  images?.forEach((image) => {
     if (image.layout === 'two-up' || image.layout === 'three-up') {
-      if (!groupedData) {
-        groupedData = { layout: image.layout, images: [], startIndex: singleImages.length };
-      }
-      groupedData.images.push(image);
+      if (!groupedLayout) groupedLayout = image.layout;
+      if (!groupedImages) groupedImages = [];
+      groupedImages.push(image);
     } else {
       singleImages.push(image);
     }
   });
 
-  // Build allImages array in display order
-  singleImages.forEach((img) => allImages.push(img));
-  if (groupedData) {
-    groupedData.startIndex = allImages.length;
-    groupedData.images.forEach((img) => allImages.push(img));
-  }
+  // Build allImages in display order (singles first, then grouped)
+  const allImages = [...singleImages, ...(groupedImages || [])];
+  const groupedStartIndex = singleImages.length;
+
+  return { singleImages, groupedImages, groupedLayout, groupedStartIndex, allImages };
+}
+
+export default function ProjectChallenge({ challenge, color, projectSlug }: ProjectChallengeProps) {
+  // Process images for display and lightbox
+  const { singleImages, groupedImages, groupedLayout, groupedStartIndex, allImages } = processImages(challenge.images);
 
   // Lightbox state
   const { isOpen, currentIndex, openLightbox, closeLightbox } = useLightbox(
@@ -204,11 +207,11 @@ export default function ProjectChallenge({ challenge, color, projectSlug }: Proj
                   onClick={() => openLightbox(index)}
                 />
               ))}
-              {groupedData && (
+              {groupedImages && groupedLayout && (
                 <ImageBlockGroup 
-                  images={groupedData.images} 
-                  layout={groupedData.layout}
-                  onImageClick={(groupIndex) => openLightbox(groupedData!.startIndex + groupIndex)}
+                  images={groupedImages} 
+                  layout={groupedLayout}
+                  onImageClick={(groupIndex) => openLightbox(groupedStartIndex + groupIndex)}
                 />
               )}
             </div>
