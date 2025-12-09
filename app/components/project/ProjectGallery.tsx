@@ -1,8 +1,9 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { useHorizontalScroll } from '@/lib/hooks/useHorizontalScroll';
+import ImageLightbox from './ImageLightbox';
 
 export interface GalleryImage {
   src: string;
@@ -24,6 +25,15 @@ interface ProjectGalleryProps {
 export default function ProjectGallery({ images, projectSlug }: ProjectGalleryProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const scrollInnerRef = useRef<HTMLDivElement>(null);
+  
+  // Lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
 
   // Use horizontal scroll hook with custom logic for last item
   const { 
@@ -132,7 +142,12 @@ export default function ProjectGallery({ images, projectSlug }: ProjectGalleryPr
                 key={index} 
                 className="flex-shrink-0 first:pl-0"
               >
-                <GalleryItem image={image} index={index} projectSlug={projectSlug} />
+                <GalleryItem 
+                  image={image} 
+                  index={index} 
+                  projectSlug={projectSlug}
+                  onClick={() => openLightbox(index)}
+                />
               </div>
             ))}
             {/* Spacer after last image to allow centering */}
@@ -165,6 +180,14 @@ export default function ProjectGallery({ images, projectSlug }: ProjectGalleryPr
           </div>
         </div>
       )}
+
+      {/* Lightbox */}
+      <ImageLightbox
+        images={images}
+        initialIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
     </section>
   );
 }
@@ -173,9 +196,10 @@ interface GalleryItemProps {
   image: GalleryImage;
   index: number;
   projectSlug?: string;
+  onClick: () => void;
 }
 
-function GalleryItem({ image, index, projectSlug }: GalleryItemProps) {
+function GalleryItem({ image, index, projectSlug, onClick }: GalleryItemProps) {
   const isVideo = image.src.match(/\.(mp4|webm|mov|avi)$/i);
   const isMoonpay = projectSlug === 'moonpay';
   const isPhuture = projectSlug === 'phuture-finance';
@@ -189,7 +213,19 @@ function GalleryItem({ image, index, projectSlug }: GalleryItemProps) {
     : 'h-[50vh] md:h-[60vh] lg:h-[70vh]';
   
   return (
-    <div className="relative group">
+    <div 
+      className="relative group cursor-pointer"
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      aria-label={`View ${image.alt} in fullscreen`}
+    >
       {/* Media container with consistent height, width hugs content */}
       <div 
         className={`relative ${heightClasses} bg-card border border-border rounded-2xl overflow-hidden hover:border-muted-dark hover:shadow-premium transition-all duration-300 inline-flex`}

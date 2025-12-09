@@ -1,6 +1,10 @@
+'use client';
+
 import { ProjectResults as ProjectResultsType } from '@/lib/projects';
 import ImageBlock from './ImageBlock';
 import StatBlock from './StatBlock';
+import ImageLightbox from './ImageLightbox';
+import { useLightbox } from '@/lib/hooks/useLightbox';
 
 interface ProjectResultsProps {
   results: ProjectResultsType;
@@ -13,6 +17,11 @@ interface ProjectResultsProps {
  * Shows outcomes, metrics, optional conclusion, and images
  */
 export default function ProjectResults({ results, color }: ProjectResultsProps) {
+  // Lightbox state
+  const allImages = results.images || [];
+  const { isOpen, currentIndex, openLightbox, closeLightbox } = useLightbox(
+    allImages.map(img => ({ src: img.src, alt: img.alt, caption: img.caption }))
+  );
   return (
     <section className="py-20 md:py-32 lg:py-40 bg-background w-full">
       <div className="container mx-auto px-6 sm:px-8 lg:px-12">
@@ -70,7 +79,11 @@ export default function ProjectResults({ results, color }: ProjectResultsProps) 
           {results.images && results.images.length > 0 && (
             <div className="space-y-8 md:space-y-10 mb-12 md:mb-16">
               {results.images.map((image, index) => (
-                <ImageBlock key={index} image={image} />
+                <ImageBlock 
+                  key={index} 
+                  image={image}
+                  onClick={() => openLightbox(index)}
+                />
               ))}
             </div>
           )}
@@ -85,6 +98,14 @@ export default function ProjectResults({ results, color }: ProjectResultsProps) 
           )}
         </div>
       </div>
+
+      {/* Lightbox */}
+      <ImageLightbox
+        images={allImages.map(img => ({ src: img.src, alt: img.alt, caption: img.caption }))}
+        initialIndex={currentIndex}
+        isOpen={isOpen}
+        onClose={closeLightbox}
+      />
     </section>
   );
 }

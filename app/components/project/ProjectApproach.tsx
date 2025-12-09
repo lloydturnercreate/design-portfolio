@@ -1,9 +1,10 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
-import { ProjectApproach as ProjectApproachType } from '@/lib/projects';
+import { useRef, useEffect, useState, useMemo } from 'react';
+import { ProjectApproach as ProjectApproachType, ImageBlock as ImageBlockType } from '@/lib/projects';
 import ImageBlock, { ImageBlockGroup } from './ImageBlock';
 import { getApproachIcon } from '@/lib/approachIcons';
+import ImageLightbox from './ImageLightbox';
 
 interface ProjectApproachProps {
   approach: ProjectApproachType;
@@ -19,6 +20,42 @@ export default function ProjectApproach({ approach, color }: ProjectApproachProp
   const sectionRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const activatedElementsRef = useRef<Set<string>>(new Set());
+
+  // Lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  // Collect all images across subsections and approach.images with their indices
+  const { allImages, imageIndexMap } = useMemo(() => {
+    const images: ImageBlockType[] = [];
+    const indexMap: Map<string, number> = new Map(); // Maps "subsection-X-image-Y" or "approach-image-X" to flat index
+
+    // First collect subsection images
+    approach.subsections.forEach((subsection, subsectionIdx) => {
+      subsection.images?.forEach((img, imgIdx) => {
+        const key = `subsection-${subsectionIdx}-image-${imgIdx}`;
+        indexMap.set(key, images.length);
+        images.push(img);
+      });
+    });
+
+    // Then collect overall approach images
+    approach.images?.forEach((img, imgIdx) => {
+      const key = `approach-image-${imgIdx}`;
+      indexMap.set(key, images.length);
+      images.push(img);
+    });
+
+    return { allImages: images, imageIndexMap: indexMap };
+  }, [approach.subsections, approach.images]);
+
+  const openLightbox = (key: string) => {
+    const index = imageIndexMap.get(key);
+    if (index !== undefined) {
+      setLightboxIndex(index);
+      setLightboxOpen(true);
+    }
+  };
 
   useEffect(() => {
     if (!sectionRef.current || !progressBarRef.current) return;
@@ -201,7 +238,11 @@ export default function ProjectApproach({ approach, color }: ProjectApproachProp
                     {subsection.images && subsection.images.length > 0 && (
                       <div className="space-y-8 md:space-y-10">
                         {subsection.images.map((image, imgIndex) => (
-                          <ImageBlock key={imgIndex} image={image} />
+                          <ImageBlock 
+                            key={imgIndex} 
+                            image={image}
+                            onClick={() => openLightbox(`subsection-${index}-image-${imgIndex}`)}
+                          />
                         ))}
                       </div>
                     )}
@@ -212,8 +253,12 @@ export default function ProjectApproach({ approach, color }: ProjectApproachProp
               {/* Overall approach images (after all subsections) */}
               {approach.images && approach.images.length > 0 && (
                 <div className="mt-16 md:mt-20 space-y-8 md:space-y-10">
-                  {approach.images.map((image, index) => (
-                    <ImageBlock key={index} image={image} />
+                  {approach.images.map((image, imgIndex) => (
+                    <ImageBlock 
+                      key={imgIndex} 
+                      image={image}
+                      onClick={() => openLightbox(`approach-image-${imgIndex}`)}
+                    />
                   ))}
                 </div>
               )}
@@ -221,6 +266,14 @@ export default function ProjectApproach({ approach, color }: ProjectApproachProp
           </div>
         </div>
       </div>
+
+      {/* Lightbox */}
+      <ImageLightbox
+        images={allImages.map(img => ({ src: img.src, alt: img.alt, caption: img.caption }))}
+        initialIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
     </section>
   );
 }

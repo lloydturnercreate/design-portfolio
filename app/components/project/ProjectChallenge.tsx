@@ -1,6 +1,10 @@
-import { ProjectChallenge as ProjectChallengeType } from '@/lib/projects';
+'use client';
+
+import { ProjectChallenge as ProjectChallengeType, ImageBlock as ImageBlockType } from '@/lib/projects';
 import ImageBlock, { ImageBlockGroup } from './ImageBlock';
 import ChallengeCard from './ChallengeCard';
+import ImageLightbox from './ImageLightbox';
+import { useLightbox } from '@/lib/hooks/useLightbox';
 
 interface ProjectChallengeProps {
   challenge: ProjectChallengeType;
@@ -14,16 +18,33 @@ interface ProjectChallengeProps {
  * Displays the core challenges as icon cards and optional images
  */
 export default function ProjectChallenge({ challenge, color, projectSlug }: ProjectChallengeProps) {
-  // Group images by layout type
-  const groupedImages = challenge.images?.reduce((acc, image) => {
+  // Create flat array of all images for lightbox (preserving order: singles first, then grouped)
+  const allImages: ImageBlockType[] = [];
+  const singleImages: ImageBlockType[] = [];
+  let groupedData: { layout: 'two-up' | 'three-up', images: ImageBlockType[], startIndex: number } | null = null;
+
+  challenge.images?.forEach((image) => {
     if (image.layout === 'two-up' || image.layout === 'three-up') {
-      if (!acc.grouped) acc.grouped = { layout: image.layout, images: [] };
-      acc.grouped.images.push(image);
+      if (!groupedData) {
+        groupedData = { layout: image.layout, images: [], startIndex: singleImages.length };
+      }
+      groupedData.images.push(image);
     } else {
-      acc.single.push(image);
+      singleImages.push(image);
     }
-    return acc;
-  }, { single: [] as typeof challenge.images, grouped: null as { layout: 'two-up' | 'three-up', images: typeof challenge.images } | null });
+  });
+
+  // Build allImages array in display order
+  singleImages.forEach((img) => allImages.push(img));
+  if (groupedData) {
+    groupedData.startIndex = allImages.length;
+    groupedData.images.forEach((img) => allImages.push(img));
+  }
+
+  // Lightbox state
+  const { isOpen, currentIndex, openLightbox, closeLightbox } = useLightbox(
+    allImages.map(img => ({ src: img.src, alt: img.alt, caption: img.caption }))
+  );
 
   // Icons for each challenge type - project-specific
   const getIcon = (index: number) => {
@@ -176,19 +197,32 @@ export default function ProjectChallenge({ challenge, color, projectSlug }: Proj
           {/* Images */}
           {challenge.images && challenge.images.length > 0 && (
             <div className="space-y-8 md:space-y-10">
-              {groupedImages?.single.map((image, index) => (
-                <ImageBlock key={index} image={image} />
+              {singleImages.map((image, index) => (
+                <ImageBlock 
+                  key={index} 
+                  image={image} 
+                  onClick={() => openLightbox(index)}
+                />
               ))}
-              {groupedImages?.grouped && (
+              {groupedData && (
                 <ImageBlockGroup 
-                  images={groupedImages.grouped.images} 
-                  layout={groupedImages.grouped.layout}
+                  images={groupedData.images} 
+                  layout={groupedData.layout}
+                  onImageClick={(groupIndex) => openLightbox(groupedData!.startIndex + groupIndex)}
                 />
               )}
             </div>
           )}
         </div>
       </div>
+
+      {/* Lightbox */}
+      <ImageLightbox
+        images={allImages.map(img => ({ src: img.src, alt: img.alt, caption: img.caption }))}
+        initialIndex={currentIndex}
+        isOpen={isOpen}
+        onClose={closeLightbox}
+      />
     </section>
   );
 }

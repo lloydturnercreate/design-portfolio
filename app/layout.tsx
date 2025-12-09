@@ -20,17 +20,17 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://lloydturner.co.uk'),
   title: {
-    default: 'Lloyd Turner | Senior Product Designer',
+    default: 'Lloyd Turner | Strategic Design Partner',
     template: '%s | Lloyd Turner',
   },
-  description: 'Ex-Google, Ex-MoonPay Senior Product Designer helping fintech & Web3 teams ship investor-grade products.',
+  description: 'Ex-Google, Ex-MoonPay Strategic Design Partner helping fintech & Web3 teams ship investor-grade products.',
   keywords: [
     'product design',
     'fintech',
     'Web3',
     'design systems',
     'UX design',
-    'Senior Product Designer',
+    'Strategic Design Partner',
     'Google',
     'MoonPay',
     'startup design',
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
   authors: [{ name: 'Lloyd Turner', url: 'https://lloydturner.co.uk' }],
   creator: 'Lloyd Turner',
   openGraph: {
-    title: 'Lloyd Turner | Senior Product Designer',
-    description: 'Ex-Google, Ex-MoonPay Senior Product Designer helping fintech & Web3 teams ship investor-grade products.',
+    title: 'Lloyd Turner | Strategic Design Partner',
+    description: 'Ex-Google, Ex-MoonPay Strategic Design Partner helping fintech & Web3 teams ship investor-grade products.',
     type: 'website',
     url: 'https://lloydturner.co.uk',
     siteName: 'Lloyd Turner Portfolio',
@@ -47,8 +47,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Lloyd Turner | Senior Product Designer',
-    description: 'Ex-Google, Ex-MoonPay Senior Product Designer helping fintech & Web3 teams ship investor-grade products.',
+    title: 'Lloyd Turner | Strategic Design Partner',
+    description: 'Ex-Google, Ex-MoonPay Strategic Design Partner helping fintech & Web3 teams ship investor-grade products.',
   },
   robots: {
     index: true,

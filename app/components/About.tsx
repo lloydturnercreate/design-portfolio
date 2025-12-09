@@ -41,7 +41,7 @@ export default function About() {
           {/* Content */}
           <div className="flex-1 space-y-6 md:space-y-7">
             <p className="text-lg md:text-xl lg:text-2xl text-muted leading-[1.6] font-light tracking-tight-1">
-              I&apos;m Lloyd Turner — a Senior Product & Visual Designer with over a
+              I&apos;m Lloyd Turner — a Strategic Design Partner with over a
               decade of experience at companies like Google, Amazon and MoonPay.
             </p>
 

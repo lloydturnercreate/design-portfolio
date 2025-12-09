@@ -441,7 +441,7 @@ export const moonpay: Project = {
     intro:
       'The Solana meme coin market was polarised. On one extreme was pump.fun—hyper-viral but plagued by regulatory risk. On the other were traditional aggregators—safe, but too slow for 100x moves. My role was to architect a terminal for the "Professional Degen": the trader who demands bot-speed execution with institutional stability.',
     meta: {
-      role: 'Senior Product Designer',
+      role: 'Product Design Lead',
       duration: '2024-Present',
       team: 'Sole Designer (Moonit), Core Team (Labs)',
       scope: ['Product Strategy', 'Branding', 'UI/UX', 'Animation', 'Social Assets'],

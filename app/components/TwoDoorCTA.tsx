@@ -62,7 +62,7 @@ export default function TwoDoorCTA() {
             >
               <span className="lava-layer-3" />
               <span className="lava-layer-4" />
-              <span>Book a 15-min Call</span>
+              <span>Book a Consultation</span>
             </a>
           </div>
 
@@ -77,7 +77,7 @@ export default function TwoDoorCTA() {
                 For Agencies
               </h3>
               <p className="text-lg md:text-xl text-muted mb-4 leading-[1.6] font-light tracking-tight-1">
-                Need a senior product designer to slot seamlessly into your team?
+                Need a strategic design partner to elevate your product vision?
               </p>
               <p className="text-lg md:text-xl text-muted mb-5 leading-[1.6] font-light tracking-tight-1">
                 I provide high-level design systems and UX execution support for fintech,

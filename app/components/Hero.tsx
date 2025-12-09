@@ -51,7 +51,7 @@ export default function Hero() {
             <span className="w-1 h-1 rounded-full bg-muted-dark opacity-50"></span>
             <span className="text-xs md:text-sm font-medium text-muted uppercase tracking-[0.08em]">MoonPay</span>
             <span className="w-1 h-1 rounded-full bg-muted-dark opacity-50"></span>
-            <span className="text-xs md:text-sm font-medium text-muted uppercase tracking-[0.08em]">Senior Product Designer</span>
+            <span className="text-xs md:text-sm font-medium text-muted uppercase tracking-[0.08em]">Strategic Design Partner</span>
           </div>
 
           {/* Main Headline */}
@@ -81,7 +81,7 @@ export default function Hero() {
               >
                 <span className="lava-layer-3" />
                 <span className="lava-layer-4" />
-                <span className="tracking-tight-1 whitespace-nowrap">Book a 15-min Call</span>
+                <span className="tracking-tight-1 whitespace-nowrap">Book a Consultation</span>
               </a>
               <span className="hidden sm:block text-xs font-medium text-muted uppercase tracking-[0.08em] pointer-events-none">For Founders</span>
             </div>

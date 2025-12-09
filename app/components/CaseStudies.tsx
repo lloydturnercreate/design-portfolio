@@ -6,9 +6,10 @@ import { useHorizontalScroll } from '@/lib/hooks/useHorizontalScroll';
 import CaseStudyCard from './CaseStudyCard';
 
 // Transform projects into case study card format
-// Filter to only include case study projects (exclude ai-projects and experiments)
+// Filter to only include case study projects (exclude ai-projects, experiments, and hidden projects)
 const caseStudies = allProjects
   .filter((project) => !project.metadata.category || project.metadata.category === 'case-study')
+  .filter((project) => project.metadata.slug !== 'sukiyaki') // Hide Sukiyaki from home page
   .map((project) => ({
     company: project.hero!.company, // Safe to use ! because case studies always have hero
     title: project.card.title,
@@ -25,7 +26,7 @@ const caseStudies = allProjects
 
 /**
  * CaseStudies
- * Four case study cards (MoonPay, Phuture, Raptor, Sukiyaki)
+ * Case study cards (MoonPay, Phuture, Raptor)
  * Horizontal scroll layout with navigation controls
  */
 export default function CaseStudies() {
