@@ -20,11 +20,13 @@ export const enterpriseContent = {
     }
   },
   process: {
+    headline: 'Technical Approach',
+    subheadline: 'A systems-led workflow that reduces engineering overhead and accelerates delivery.',
     steps: [
       {
         step: '01',
         title: 'Definition',
-        description: 'I partner with Product and Engineering leads early to stress-test requirements against technical constraints. I turn ambiguous business goals into validated logic before a single pixel is polished.',
+        description: 'I partner with Engineering Leads during the definition phase to audit technical constraints early. We validate logic and feasibility before pixel-pushing begins, preventing costly re-writes later.',
       },
       {
         step: '02',
@@ -34,7 +36,7 @@ export const enterpriseContent = {
       {
         step: '03',
         title: 'Implementation',
-        description: 'I work inside the staging environment alongside engineers, polishing CSS and interaction logic to ensure the shipped binary matches the prototype perfectly.',
+        description: 'I work inside the staging environment, pushing CSS fixes and polishing interaction logic to ensure the shipped binary is pixel-perfect and performance-optimized.',
       },
     ]
   },
@@ -51,7 +53,7 @@ export const enterpriseContent = {
   },
   sections: {
     showCredibilityStrip: true,
-    showValueSection: true,
+    showValueSection: false, // Hide for enterprise - using Process section instead
     showCaseStudies: true,
     showAIProjects: false, // Hide AI projects for enterprise
     showProcess: true,

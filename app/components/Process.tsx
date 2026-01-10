@@ -39,6 +39,8 @@ export default function Process() {
   
   // Use enterprise process steps if available, otherwise use default
   const processSteps = content.process?.steps || defaultProcessSteps;
+  const headline = content.process?.headline || 'How I Work';
+  const subheadline = content.process?.subheadline || 'A repeatable approach that scales with your team';
 
   return (
     <Section className="relative py-20 md:py-32 lg:py-40 overflow-hidden">
@@ -54,10 +56,10 @@ export default function Process() {
         {/* Section header */}
         <div className="text-center mb-16 md:mb-20">
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter-1 text-foreground mb-5 md:mb-6 text-balance">
-            How I Work
+            {headline}
           </h2>
           <p className="text-lg md:text-xl lg:text-2xl text-muted max-w-3xl mx-auto leading-[1.6] font-light tracking-tight-1">
-            A repeatable approach that scales with your team
+            {subheadline}
           </p>
         </div>
 

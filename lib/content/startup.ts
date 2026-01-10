@@ -21,6 +21,8 @@ export const startupContent = {
   },
   process: {
     // No overrides for startup version - uses default from Process component
+    headline: null,
+    subheadline: null,
     steps: null
   },
   projects: {
