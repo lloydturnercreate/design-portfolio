@@ -6,16 +6,16 @@
 export const enterpriseContent = {
   hero: {
     tagline: 'Staff Product Designer',
-    headline: 'I\'m Lloyd Turner — a Staff Product Designer & Technologist with over a decade of experience shipping scalable infrastructure at Google, Amazon, and MoonPay.',
-    subheadline: 'I specialize in the "Implementation Gap" — the space where design often breaks. I don\'t just hand off static files; I build React prototypes and tokenized design systems that de-risk engineering builds and ensure the final product matches the architectural vision. I thrive in complex technical domains like High-Frequency Trading and DeFi, where system logic and latency matter just as much as visual polish. I am looking for a technical product team where I can contribute as a high-impact Individual Contributor.',
+    headline: 'High-Scale Financial Infrastructure & Design Systems',
+    subheadline: 'Specializing in bridging the gap between design and engineering. I build React-based prototypes and accessible design systems that allow teams to ship complex financial products faster.',
     primaryCTA: {
-      text: 'Download Resume',
-      url: '/resume/Lloyd Turner _ Product Designer.pdf',
+      text: 'View Case Studies',
+      url: '#case-studies',
       label: null // No label for enterprise version
     },
     secondaryCTA: {
-      text: 'Connect on LinkedIn',
-      url: 'https://www.linkedin.com/in/lloydturner',
+      text: 'Download Resume',
+      url: '/resume/Lloyd Turner _ Product Designer.pdf',
       label: null // No label for enterprise version
     }
   },
