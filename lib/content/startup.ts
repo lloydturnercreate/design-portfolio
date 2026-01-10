@@ -19,6 +19,9 @@ export const startupContent = {
       label: 'For Agencies'
     }
   },
+  projects: {
+    // No overrides for startup version - uses default from projects.ts
+  } as Record<string, { title?: string; description?: string }>,
   sections: {
     showCredibilityStrip: true,
     showValueSection: true,

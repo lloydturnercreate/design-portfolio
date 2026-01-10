@@ -19,6 +19,17 @@ export const enterpriseContent = {
       label: null // No label for enterprise version
     }
   },
+  projects: {
+    // Enterprise-specific project card overrides
+    moonpay: {
+      title: 'High-Velocity Trading Infrastructure ($100M+ VOL)',
+      description: 'Architected the core trading terminal and design system that processed $100m+ in volume. Reduced trade execution time by abstracting complex liquidity logic into a single-click UI.',
+    },
+    'phuture-finance': {
+      title: 'Institutional DeFi Investment Protocol',
+      description: "Abstracted complex rebalancing logic into a 'Set & Forget' investment interface, reaching $8M TVL in a bear market.",
+    }
+  },
   sections: {
     showCredibilityStrip: true,
     showValueSection: true,

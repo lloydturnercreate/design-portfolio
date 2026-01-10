@@ -4,25 +4,7 @@ import { useRef } from 'react';
 import { allProjects } from '@/lib/projects';
 import { useHorizontalScroll } from '@/lib/hooks/useHorizontalScroll';
 import CaseStudyCard from './CaseStudyCard';
-
-// Transform projects into case study card format
-// Filter to only include case study projects (exclude ai-projects, experiments, and hidden projects)
-const caseStudies = allProjects
-  .filter((project) => !project.metadata.category || project.metadata.category === 'case-study')
-  .filter((project) => project.metadata.slug !== 'sukiyaki') // Hide Sukiyaki from home page
-  .map((project) => ({
-    company: project.hero!.company, // Safe to use ! because case studies always have hero
-    title: project.card.title,
-    description: project.card.description,
-    slug: project.metadata.slug,
-    color: project.color,
-    backgroundImage: project.card.backgroundImage,
-    backgroundImages: project.card.backgroundImages,
-    imageAlignment: project.card.imageAlignment,
-    // Add noise overlay to all project cards
-    noiseOverlay: true,
-    noiseOpacity: 0.85,
-  }));
+import { getContent } from '@/lib/content';
 
 /**
  * CaseStudies
@@ -32,6 +14,31 @@ const caseStudies = allProjects
 export default function CaseStudies() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const scrollInnerRef = useRef<HTMLDivElement>(null);
+  const content = getContent();
+
+  // Transform projects into case study card format
+  // Filter to only include case study projects (exclude ai-projects, experiments, and hidden projects)
+  const caseStudies = allProjects
+    .filter((project) => !project.metadata.category || project.metadata.category === 'case-study')
+    .filter((project) => project.metadata.slug !== 'sukiyaki') // Hide Sukiyaki from home page
+    .map((project) => {
+      // Check if there's an enterprise override for this project
+      const override = content.projects?.[project.metadata.slug as keyof typeof content.projects];
+      
+      return {
+        company: project.hero!.company, // Safe to use ! because case studies always have hero
+        title: override?.title || project.card.title,
+        description: override?.description || project.card.description,
+        slug: project.metadata.slug,
+        color: project.color,
+        backgroundImage: project.card.backgroundImage,
+        backgroundImages: project.card.backgroundImages,
+        imageAlignment: project.card.imageAlignment,
+        // Add noise overlay to all project cards
+        noiseOverlay: true,
+        noiseOpacity: 0.85,
+      };
+    });
 
   // Use horizontal scroll hook for navigation
   const {
