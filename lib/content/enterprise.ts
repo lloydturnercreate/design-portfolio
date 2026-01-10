@@ -66,6 +66,20 @@ export const enterpriseContent = {
           scope: ['Design Systems', 'React Prototyping', 'Data Visualization', 'Product Strategy', 'UI/UX'],
         },
       }
+    },
+    'phuture-finance': {
+      hero: {
+        company: 'Phuture',
+        tagline: 'Architecting a Non-Custodial Index Protocol.',
+        intro:
+          'The technical barrier to DeFi entry was fragmentation: users had to manage 10+ smart contract approvals and manually rebalance positions. My role was to abstract this backend complexity into a unified dashboard. I designed the "Smart Basket" interaction model, compressing a 15-step transaction flow into a single signature, which drove the platform to $8M TVL.',
+        meta: {
+          role: 'Head of Design',
+          duration: '2021-2023',
+          team: '1 designer, 5 engineers',
+          scope: ['Product Design', 'Design System', 'User Research', 'Data Visualization', 'Interaction Design'],
+        },
+      }
     }
   },
   sections: {
