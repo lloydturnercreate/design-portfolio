@@ -19,6 +19,25 @@ export const enterpriseContent = {
       label: null // No label for enterprise version
     }
   },
+  process: {
+    steps: [
+      {
+        step: '01',
+        title: 'Definition',
+        description: 'I partner with Product and Engineering leads early to stress-test requirements against technical constraints. I turn ambiguous business goals into validated logic before a single pixel is polished.',
+      },
+      {
+        step: '02',
+        title: 'Architecture',
+        description: 'I ship tokenized component libraries that act as the single source of truth between Figma and the Codebase. This eliminates \'drift\' and allows engineers to ship UI changes with 0% regression.',
+      },
+      {
+        step: '03',
+        title: 'Implementation',
+        description: 'I work inside the staging environment alongside engineers, polishing CSS and interaction logic to ensure the shipped binary matches the prototype perfectly.',
+      },
+    ]
+  },
   projects: {
     // Enterprise-specific project card overrides
     moonpay: {

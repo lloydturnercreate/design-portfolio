@@ -4,8 +4,10 @@ import { motion, useReducedMotion } from 'framer-motion';
 import Section from './Section';
 import CursorRevealGrid from './CursorRevealGrid';
 import { cardLoopBounceVariants, cardReducedMotionVariants } from '@/lib/animationConfig';
+import { getContent } from '@/lib/content';
 
-const processSteps = [
+// Default process steps for startup version
+const defaultProcessSteps = [
   {
     step: '01',
     title: 'Discover',
@@ -29,9 +31,14 @@ const processSteps = [
  * Simple, scannable approach
  * Features continuous looping bounce animation for added life
  * Background grid revealed by cursor
+ * Content adapts based on site type (startup vs enterprise)
  */
 export default function Process() {
   const shouldReduceMotion = useReducedMotion();
+  const content = getContent();
+  
+  // Use enterprise process steps if available, otherwise use default
+  const processSteps = content.process?.steps || defaultProcessSteps;
 
   return (
     <Section className="relative py-20 md:py-32 lg:py-40 overflow-hidden">

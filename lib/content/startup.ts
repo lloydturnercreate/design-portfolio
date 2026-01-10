@@ -19,6 +19,10 @@ export const startupContent = {
       label: 'For Agencies'
     }
   },
+  process: {
+    // No overrides for startup version - uses default from Process component
+    steps: null
+  },
   projects: {
     // No overrides for startup version - uses default from projects.ts
   } as Record<string, { title?: string; description?: string }>,
