@@ -46,7 +46,7 @@ export default function CaseStudies() {
   });
 
   return (
-    <section id="work" className="py-20 md:py-32 lg:py-40 bg-secondary border-y border-border w-full">
+    <section id="case-studies" className="py-20 md:py-32 lg:py-40 bg-secondary border-y border-border w-full">
       {/* Header container - centered with padding */}
       <div className="container mx-auto px-6 sm:px-8 lg:px-12">
         <div className="max-w-7xl mx-auto">
