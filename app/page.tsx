@@ -22,9 +22,9 @@ export default function Home() {
         <main className="min-h-screen w-full overflow-x-hidden bg-background relative">
           {content.sections.showCredibilityStrip && <CredibilityStrip />}
           {content.sections.showValueSection && <ValueSection />}
-          {content.sections.showProcess && <Process />}
           {content.sections.showCaseStudies && <CaseStudies />}
           {content.sections.showAIProjects && <AIProjects />}
+          {content.sections.showProcess && <Process />}
           {content.sections.showAbout && <About />}
           {content.sections.showTwoDoorCTA && <TwoDoorCTA />}
         </main>
