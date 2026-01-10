@@ -1,12 +1,18 @@
+'use client';
+
 import Image from 'next/image';
 import Section from './Section';
+import { getContent } from '@/lib/content';
 
 /**
  * About
  * About section with personal background and CV download
  * Clean, approachable layout
+ * Content adapts based on site type (startup vs enterprise)
  */
 export default function About() {
+  const content = getContent();
+  const aboutContent = content.about;
   return (
     <Section className="py-20 md:py-32 lg:py-40 bg-secondary border-y border-border">
       <div className="max-w-6xl mx-auto">
@@ -40,39 +46,30 @@ export default function About() {
 
           {/* Content */}
           <div className="flex-1 space-y-6 md:space-y-7">
-            <p className="text-lg md:text-xl lg:text-2xl text-muted leading-[1.6] font-light tracking-tight-1">
-              I&apos;m Lloyd Turner — a Strategic Design Partner with over a
-              decade of experience at companies like Google, Amazon and MoonPay.
-            </p>
-
-            <p className="text-lg md:text-xl lg:text-2xl text-muted leading-[1.6] font-light tracking-tight-1">
-              I now help fast-moving startups and agencies build fintech and Web3
-              products that stand out for clarity, usability, and scale.
-            </p>
-
-            <p className="text-lg md:text-xl lg:text-2xl text-muted leading-[1.6] font-light tracking-tight-1">
-              My background lets me work both strategically and hands-on — from
-              early-stage discovery through to developer handoff.
-            </p>
+            {aboutContent?.paragraphs?.map((paragraph, index) => (
+              <p key={index} className="text-lg md:text-xl lg:text-2xl text-muted leading-[1.6] font-light tracking-tight-1">
+                {paragraph}
+              </p>
+            ))}
 
             {/* Action buttons */}
             <div className="pt-4 flex flex-col sm:flex-row gap-4">
               <a
-                href="/resume/Lloyd Turner _ Product Designer.pdf"
+                href={aboutContent?.primaryCTA?.url || '/resume/Lloyd Turner _ Product Designer.pdf'}
                 download
                 className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white font-semibold rounded-2xl hover:bg-primary-hover transition-all duration-200 min-h-[60px] hover:scale-[1.02] tracking-tight-1"
-                aria-label="Download CV"
+                aria-label={aboutContent?.primaryCTA?.text || 'Download CV'}
               >
-                Download CV
+                {aboutContent?.primaryCTA?.text || 'Download CV'}
               </a>
               <a
-                href="https://www.linkedin.com/in/lloyd-turner-370837110/"
+                href={aboutContent?.secondaryCTA?.url || 'https://www.linkedin.com/in/lloyd-turner-370837110/'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-10 py-5 bg-blue-950 text-white font-semibold rounded-2xl hover:bg-slate-950 transition-all duration-200 min-h-[60px] hover:scale-[1.02] tracking-tight-1"
                 aria-label="Visit Lloyd Turner's LinkedIn profile"
               >
-                Connect on LinkedIn
+                {aboutContent?.secondaryCTA?.text || 'Connect on LinkedIn'}
               </a>
             </div>
           </div>

@@ -31,6 +31,21 @@ export const startupContent = {
   projectDetails: {
     // No detail page overrides for startup version
   } as Record<string, any>,
+  about: {
+    paragraphs: [
+      "I'm Lloyd Turner — a Strategic Design Partner with over a decade of experience at companies like Google, Amazon and MoonPay.",
+      "I now help fast-moving startups and agencies build fintech and Web3 products that stand out for clarity, usability, and scale.",
+      "My background lets me work both strategically and hands-on — from early-stage discovery through to developer handoff."
+    ],
+    primaryCTA: {
+      text: 'Download CV',
+      url: '/resume/Lloyd Turner _ Product Designer.pdf'
+    },
+    secondaryCTA: {
+      text: 'Connect on LinkedIn',
+      url: 'https://www.linkedin.com/in/lloyd-turner-370837110/'
+    }
+  },
   sections: {
     showCredibilityStrip: true,
     showValueSection: true,
