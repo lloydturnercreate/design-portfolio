@@ -28,6 +28,9 @@ export const startupContent = {
   projects: {
     // No overrides for startup version - uses default from projects.ts
   } as Record<string, { title?: string; description?: string }>,
+  projectDetails: {
+    // No detail page overrides for startup version
+  } as Record<string, any>,
   sections: {
     showCredibilityStrip: true,
     showValueSection: true,

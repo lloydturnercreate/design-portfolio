@@ -51,6 +51,23 @@ export const enterpriseContent = {
       description: "Abstracted complex rebalancing logic into a 'Set & Forget' investment interface, reaching $8M TVL in a bear market.",
     }
   },
+  // Full project detail page overrides for enterprise
+  projectDetails: {
+    moonpay: {
+      hero: {
+        company: 'MoonPay',
+        tagline: 'Scaling a Zero-Latency Trading Platform to $10M+ Profit in 12 months.',
+        intro:
+          'The Solana market faced a fragmentation problem: viral aggregators were fast but risky, while traditional platforms were safe but slow. My role was to architect a terminal for high-frequency traders: users who demand sub-second execution speed with institutional-grade stability. I bridged the gap between complex liquidity data and a simplified, single-click execution UI.',
+        meta: {
+          role: 'Lead Product Designer (End-to-End)',
+          duration: '2024-Present',
+          team: 'Sole Designer (Moonit), Core Team (Labs)',
+          scope: ['Design Systems', 'React Prototyping', 'Data Visualization', 'Product Strategy', 'UI/UX'],
+        },
+      }
+    }
+  },
   sections: {
     showCredibilityStrip: true,
     showValueSection: false, // Hide for enterprise - using Process section instead

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import ProjectTemplate from '../components/ProjectTemplate';
 import { allProjects, getProjectBySlug } from '@/lib/projects';
 import { siteConfig } from '@/lib/siteConfig';
+import { getContent } from '@/lib/content';
 
 interface PageProps {
   params: {
@@ -53,6 +54,15 @@ export default function ProjectPage({ params }: PageProps) {
     notFound();
   }
 
-  return <ProjectTemplate project={project} />;
+  // Apply enterprise overrides if available (matching pattern from CaseStudies.tsx)
+  const content = getContent();
+  const detailOverrides = content.projectDetails?.[params.slug as keyof typeof content.projectDetails];
+  
+  const finalProject = detailOverrides ? {
+    ...project,
+    hero: detailOverrides.hero ? { ...project.hero, ...detailOverrides.hero } : project.hero,
+  } : project;
+
+  return <ProjectTemplate project={finalProject} />;
 }
 
