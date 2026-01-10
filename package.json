@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:enterprise": "NEXT_PUBLIC_SITE_TYPE=enterprise next dev",
+    "dev:startup": "NEXT_PUBLIC_SITE_TYPE=startup next dev",
     "build": "next build",
+    "build:enterprise": "NEXT_PUBLIC_SITE_TYPE=enterprise next build",
+    "build:startup": "NEXT_PUBLIC_SITE_TYPE=startup next build",
     "start": "next start",
     "lint": "next lint",
     "build:analyze": "ANALYZE=true next build",

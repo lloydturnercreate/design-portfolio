@@ -1,8 +1,9 @@
 import { MetadataRoute } from 'next';
 import { allProjects } from '@/lib/projects';
+import { siteConfig } from '@/lib/siteConfig';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://lloydturner.co.uk';
+  const baseUrl = siteConfig.domain;
   
   // Base routes
   const routes: MetadataRoute.Sitemap = [

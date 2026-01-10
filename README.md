@@ -156,15 +156,51 @@ Custom colors, typography scales, shadows, and utility classes.
 
 ## 🚢 Deployment
 
-This project is configured for Vercel deployment:
+This project supports **two versions** of the site with different targeting:
 
-1. Push to your Git repository
-2. Connect repository to Vercel
-3. Automatic deployments on push to main
+### 🌐 Two Site Versions
+
+| Version | Domain | Branch | Target Audience |
+|---------|--------|--------|-----------------|
+| Startup | lloydturner.co.uk | `main` | Fintech & Web3 startups |
+| Enterprise | work.lloydturner.co.uk | `enterprise` | Established enterprise clients |
+
+The versions share the same codebase but use different content, messaging, and keywords optimized for their respective audiences.
+
+### Vercel Setup
+
+#### Main Branch (Startup Version)
+1. Connect repository to Vercel
+2. Set production branch to `main`
+3. Add domain: `lloydturner.co.uk`
+4. Environment Variable (optional):
+   - `NEXT_PUBLIC_SITE_TYPE` = `startup`
+
+#### Enterprise Branch
+1. In Vercel project settings → Git
+2. Add branch deployment for `enterprise`
+3. In Domains, add: `work.lloydturner.co.uk`
+4. In Environment Variables:
+   - `NEXT_PUBLIC_SITE_TYPE` = `enterprise`
+   - Set scope to: Production (enterprise branch)
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed setup instructions.
 
 ### Environment Variables
 
-No environment variables required for basic deployment.
+| Variable | Values | Description |
+|----------|--------|-------------|
+| `NEXT_PUBLIC_SITE_TYPE` | `startup` or `enterprise` | Determines site version (defaults to `startup`) |
+
+### Local Development
+
+```bash
+# Test startup version (default)
+npm run dev
+
+# Test enterprise version
+NEXT_PUBLIC_SITE_TYPE=enterprise npm run dev
+```
 
 ## 📈 Performance Metrics
 

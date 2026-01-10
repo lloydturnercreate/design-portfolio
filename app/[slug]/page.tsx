@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ProjectTemplate from '../components/ProjectTemplate';
 import { allProjects, getProjectBySlug } from '@/lib/projects';
+import { siteConfig } from '@/lib/siteConfig';
 
 interface PageProps {
   params: {
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: project.metadata.title,
       description: project.metadata.description,
       type: 'website',
-      url: `https://lloydturner.co.uk/${project.metadata.slug}`,
+      url: `${siteConfig.domain}/${project.metadata.slug}`,
     },
     twitter: {
       card: 'summary_large_image',
