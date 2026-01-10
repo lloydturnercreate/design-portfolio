@@ -7,7 +7,7 @@ export const enterpriseContent = {
   hero: {
     tagline: 'Staff Product Designer',
     headline: 'High-Scale Financial Infrastructure & Design Systems',
-    subheadline: 'Specializing in bridging the gap between design and engineering. I build React-based prototypes and accessible design systems that allow teams to ship complex financial products 40% faster.',
+    subheadline: 'Specializing in bridging the gap between design and engineering. I build React-based prototypes and accessible design systems that allow teams to ship complex financial products faster.',
     primaryCTA: {
       text: 'View Case Studies',
       url: '#case-studies',
