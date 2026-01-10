@@ -33,7 +33,7 @@ export const startupContent = {
     showValueSection: true,
     showCaseStudies: true,
     showAIProjects: true,
-    showProcess: true,
+    showProcess: false, // Hide on startup version
     showAbout: true,
     showTwoDoorCTA: true
   }
