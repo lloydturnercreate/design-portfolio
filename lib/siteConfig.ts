@@ -23,7 +23,7 @@ export const siteConfig = {
   },
   description: getSiteType() === 'enterprise'
     ? 'Ex-Google, Ex-MoonPay Enterprise Design Partner helping established companies transform their digital products and design systems.'
-    : 'Ex-Google, Ex-MoonPay Strategic Design Partner helping fintech & Web3 teams ship investor-grade products.',
+    : 'Ex-Google, Ex-MoonPay Strategic Design Partner helping tech & finance teams ship investor-grade products.',
   keywords: getSiteType() === 'enterprise'
     ? [
         'enterprise design',

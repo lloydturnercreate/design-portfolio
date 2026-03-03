@@ -896,8 +896,46 @@ export const warble: Project = {
   },
 };
 
+// Writer - Focused Markdown Writing App
+export const writer: Project = {
+  metadata: {
+    slug: 'writer',
+    title: 'Writer - Focused Markdown Editor',
+    description:
+      'A distraction-free markdown writing app with focus mode, typewriter mode, and minimal UI — built for deep work.',
+    keywords: [
+      'markdown editor',
+      'writing app',
+      'focus mode',
+      'typewriter mode',
+      'distraction-free',
+      'productivity tool',
+    ],
+    category: 'experiment',
+  },
+  card: {
+    title: 'WRITER',
+    description:
+      'A distraction-free markdown editor with focus mode, typewriter scrolling, and light/dark themes. Deep work, simplified.',
+    backgroundImage: '/project-covers/writer.png',
+  },
+  color: '#e2e8f0', // Soft white/slate — clean and editorial
+  hero: {
+    company: 'Writer',
+    tagline: 'Write Without Distraction',
+    intro:
+      'A lightweight, focused markdown editor built for deep work. Focus mode dims everything but your current paragraph. Typewriter mode locks the cursor to the vertical centre of the screen. No clutter, no noise — just you and the words.',
+    meta: {
+      role: 'Product Designer & Developer',
+      duration: 'Coming Soon',
+      team: 'Solo',
+      scope: ['Product Design', 'UI/UX', 'Typography', 'Accessibility'],
+    },
+  },
+};
+
 // Export all projects as an array for navigation
-export const allProjects: Project[] = [moonpay, phutureFinance, raptor, sukiyaki, typerunner, warble, twist, rooftops];
+export const allProjects: Project[] = [moonpay, phutureFinance, raptor, sukiyaki, typerunner, warble, twist, rooftops, writer];
 
 // Helper function to get project by slug
 export function getProjectBySlug(slug: string): Project | undefined {

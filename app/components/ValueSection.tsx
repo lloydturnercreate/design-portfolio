@@ -78,7 +78,7 @@ export default function ValueSection() {
 
         {/* Closing statement */}
         <p className="text-lg md:text-xl lg:text-2xl text-muted text-center max-w-3xl mx-auto leading-[1.6] font-light tracking-tight-1">
-          If you&apos;re building in fintech, Web3 or SaaS, I bridge the gap between messy
+          If you&apos;re building in tech or finance, I bridge the gap between messy
           MVP and scalable product design.
         </p>
       </div>

@@ -6,7 +6,7 @@
 export const startupContent = {
   hero: {
     tagline: 'Strategic Design Partner',
-    headline: 'Investor-grade products for fintech & Web3',
+    headline: 'Investor-grade products for tech & finance',
     subheadline: 'I help founders and product teams turn complex ideas into clear, scalable interfaces — design systems, launch-ready UX, and hands-on strategy for growth-stage startups.',
     primaryCTA: {
       text: 'Book a Consultation',

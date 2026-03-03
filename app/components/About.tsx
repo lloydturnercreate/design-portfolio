@@ -46,7 +46,7 @@ export default function About() {
             </p>
 
             <p className="text-lg md:text-xl lg:text-2xl text-muted leading-[1.6] font-light tracking-tight-1">
-              I now help fast-moving startups and agencies build fintech and Web3
+              I now help fast-moving startups and agencies build tech and finance
               products that stand out for clarity, usability, and scale.
             </p>
 
