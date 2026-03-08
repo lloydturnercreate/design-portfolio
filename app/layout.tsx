@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import { TransitionProvider } from '@/lib/context/TransitionContext';
 import TransitionOverlay from './components/transitions/TransitionOverlay';
@@ -64,6 +65,7 @@ export default function RootLayout({
           <LogoTransitionOverlay />
           {children}
         </TransitionProvider>
+        <Analytics />
       </body>
     </html>
   );
