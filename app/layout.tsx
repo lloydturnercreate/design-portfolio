@@ -6,6 +6,7 @@ import { TransitionProvider } from '@/lib/context/TransitionContext';
 import TransitionOverlay from './components/transitions/TransitionOverlay';
 import LogoTransitionOverlay from './components/transitions/LogoTransitionOverlay';
 import { siteConfig } from '@/lib/siteConfig';
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({
   subsets: ['latin'],
