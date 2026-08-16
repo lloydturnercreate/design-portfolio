@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+/**
+ * Dark, restrained, one luminous element. The page is a near-black field the
+ * shader sits inside, so the neutrals carry no colour of their own — the only
+ * saturation on the page comes from the effect and the per-project accents.
+ */
+:root {
+  --background: #060606;
+  --surface: #0b0b0b;
+  --border: #1c1c1c;
+  --foreground: #f4f4f4;
+  --muted: #9a9a9a;
+  --muted-dark: #6a6a6a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-dark: var(--muted-dark);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-mono);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+
+  /*
+   * No CSS scroll-snap, and the hero no longer wants any. It was a pinned
+   * multi-screen sequence that snapped between statements; it is now a single
+   * screen that cycles on a timer, so there is nothing to snap to.
+   *
+   * Worth keeping if it ever comes back: `proximity` is unreliable under macOS
+   * momentum scrolling — a hard fling ends far from an anchor and the UA's
+   * threshold never fires — and `mandatory` makes the browser responsible for
+   * landing on a snap point from anywhere in the document, which drags the
+   * visitor back out of the pinned work track below.
+   */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* A focus ring that survives a near-black background. */
+:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/**
+ * A rule that draws itself under a link on hover.
+ *
+ * **It enters from the left and leaves to the right**, rather than retracting
+ * the way it came. That is the whole detail: the origin flips between the two
+ * states, so a line that has been drawn left-to-right on the way in keeps
+ * travelling in the same direction on the way out instead of rewinding itself.
+ * Rewinding reads as an undo; continuing reads as something passing through.
+ *
+ * `scaleX` on a pseudo-element, so the whole thing is one composited transform
+ * and no layout is touched. Animating `width` here would relayout the line on
+ * every frame of every hover.
+ *
+ * `--link-reveal-offset` is where the rule sits relative to the text baseline.
+ * It defaults to just under the descenders, which is right for a small link with
+ * no rule of its own; the contact address overrides it to -1px so the drawn line
+ * lands exactly on the hairline border it already carries, rather than beside it.
+ */
+@utility link-reveal {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--link-reveal-offset, -0.32em);
+    height: 1px;
+    background: var(--foreground);
+    transform: scaleX(0);
+    transform-origin: right;
+    /* Quint-out: most of the travel happens immediately, so it feels drawn
+       rather than played. */
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/**
+ * Grain over the whole document, not just the hero. Without it the shader and
+ * the flat sections below read as two separate pages stacked on each other.
+ */
+@utility page-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}

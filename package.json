@@ -1,36 +1,26 @@
 {
-  "name": "lloyd-turner-portfolio",
-  "version": "1.0.0",
+  "name": "portfolio-next",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:enterprise": "NEXT_PUBLIC_SITE_TYPE=enterprise next dev",
-    "dev:startup": "NEXT_PUBLIC_SITE_TYPE=startup next dev",
     "build": "next build",
-    "build:enterprise": "NEXT_PUBLIC_SITE_TYPE=enterprise next build",
-    "build:startup": "NEXT_PUBLIC_SITE_TYPE=startup next build",
     "start": "next start",
-    "lint": "next lint",
-    "build:analyze": "ANALYZE=true next build",
-    "type-check": "tsc --noEmit"
+    "lint": "eslint"
   },
   "dependencies": {
-    "@vercel/analytics": "^1.6.1",
-    "framer-motion": "^11.0.0",
-    "lucide-react": "^0.555.0",
-    "next": "^14.2.0",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "next": "16.2.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "@types/node": "^20.11.0",
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.2.0",
-    "autoprefixer": "^10.4.0",
-    "eslint": "^8.56.0",
-    "eslint-config-next": "^14.2.0",
-    "postcss": "^8.4.0",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^5.3.0"
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
