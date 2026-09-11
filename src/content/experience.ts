@@ -74,12 +74,12 @@ export const roles: Role[] = [
     period: '2019',
     company: 'Office Freedom',
     title: 'Lead Designer',
-    summary: 'A brand overhaul and a rebuild of the core user journeys.',
+    summary: 'Rebranded and rebuilt the booking flow from search to checkout.',
   },
   {
     period: '2018',
     company: 'Netrix',
     title: 'Visual Designer',
-    summary: 'Campaign work across property and retail.',
+    summary: 'Campaign design across property and retail for a London agency.',
   },
 ]

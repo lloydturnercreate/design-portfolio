@@ -103,7 +103,7 @@ export const site = {
       // earns me money. Shaders, not wallets." See the note at the top of this
       // file, which was rewritten the same day.
       'Over ten years designing and shipping digital brands and interactive products. I enjoy taking complex problems and turning them into something beautiful and usable.',
-      'I build as well as design. Most of what’s above I shipped myself, using AI to close the gap between the Figma file and the thing that actually runs. I like working with ambitious brands that have a lot of imagination.',
+      'I build as well as design. Most of what’s above I shipped myself, using AI to close the gap between the Figma file and the final product.',
     ],
   },
 

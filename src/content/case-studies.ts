@@ -822,7 +822,7 @@ export const phuture: CaseStudy = {
           kind: 'prose',
           paragraphs: [
             'Two things made it worse. Protocols split their marketing site from their product, so the moment someone became interested they were made to switch context and start again, which broke the funnel at its narrowest point. And the interfaces they landed on were gamified — leaderboards, confetti, numbers that flashed. Every one of those signals says "this is a game" to an audience deciding whether to trust something with money.',
-            'So the brief I set was this: make a genuinely volatile instrument feel as manageable as a savings account, without misrepresenting a single thing about the risk. The second half of that sentence is what made it a design problem rather than a marketing one.',
+            'So the brief I set was this: make a genuinely volatile instrument feel as manageable as a savings account, without misrepresenting a single thing about the risk.',
           ],
         },
       ],
@@ -1104,7 +1104,7 @@ export const raptor: CaseStudy = {
 export const sukiyaki: CaseStudy = {
   slug: 'sukiyaki',
   name: 'Sukiyaki',
-  claim: 'The joy of eating together',
+  claim: 'Brand and menu system for a Japanese restaurant',
   role: 'Brand and product design',
   period: '2024',
   scope: 'Self-directed — research, identity, art direction, interface, motion',
@@ -1132,7 +1132,7 @@ export const sukiyaki: CaseStudy = {
   next: 'warble',
 
   meta: {
-    title: 'Sukiyaki — the joy of eating together',
+    title: 'Sukiyaki — brand and menu system for a Japanese restaurant',
     description:
       'Self-directed brand and site design for a Japanese restaurant built around a communal dish: cultural research, a closed type and colour system, and a booking flow that stays out of the way.',
     keywords: [
@@ -1149,7 +1149,7 @@ export const sukiyaki: CaseStudy = {
     {
       kind: 'prose',
       paragraphs: [
-        'Sukiyaki is a communal dish — a pot in the middle of the table that everyone cooks from at once — so the identity is built on the meal as a social event rather than a menu item. The research went into Edo-period printing and traditional palettes, and what it kept returning was not motif but discipline: balance, negative space, a refusal to fill the frame. That finding is useful precisely because it is unglamorous. The obvious move with a Japanese restaurant is decoration, and decoration is what makes hospitality sites look the same as each other.',
+        'Sukiyaki is a communal dish — a pot in the middle of the table that everyone cooks from at once — so the identity is built on the meal as a social event rather than a menu item. The research went into Edo-period printing and traditional palettes, and what it kept returning was not motif but discipline: balance, negative space, a refusal to fill the frame. So the identity borrows the discipline, not the decoration. The obvious move with a Japanese restaurant is decoration, and decoration is what makes hospitality sites look the same as each other.',
       ],
     },
     {
@@ -1178,7 +1178,7 @@ export const sukiyaki: CaseStudy = {
           src: '/projects/sukiyaki/sukiyaki-6.webp',
           alt: 'The six-colour palette, each swatch named and given a hex value',
           caption:
-            'Six colours, named and closed. A palette that can be added to is not a constraint, and a project without constraints looks different on every page by the end of it.',
+            'Six colours as a constraint helps 30 screens to look like one system.',
         },
       ],
     },
@@ -1306,7 +1306,16 @@ export const phasmatic: CaseStudy = {
     ],
   },
 
-  note: 'Every good shader background already exists as a React component, which is no help to the people who most want one — marketers, founders, anyone shipping in Webflow or a CMS, none of whom can run npm install. Phasmatic is that library hosted rather than published: more than fifteen full-bleed effects, each with real controls and named presets, and an iframe you can paste into anything that takes HTML. Everything resolves to a single config, so the no-code embed and the React usage stay the same product instead of drifting into two. The bar is Stripe and Linear rather than gradient meshes, and holding that while a non-technical person drags a slider is the actual problem. It is live and free to use — the field behind this page is one of them.',
+  note: [
+    {
+      kind: 'prose',
+      paragraphs: [
+        'Static pages look dead, but shipping real interaction — shaders, particle fields, responsive motion — still means a build step, a bundle, and a lot of code.',
+        'Phasmatic is a free, growing library of interactive effects that drop into any HTML page with one script tag. No build tools, no framework, no dependencies.',
+        'Every effect is designed to sit behind your content, not fight it. Ambient enough for a hero background, responsive enough to follow a cursor.',
+      ],
+    },
+  ],
 }
 
 /* The study links here twice, and a bare vercel.app subdomain may get a real domain. */
@@ -1325,7 +1334,7 @@ const WARBLE_SITE = 'https://warbleton.vercel.app'
 export const warble: CaseStudy = {
   slug: 'warble',
   name: 'Warble',
-  claim: 'Everyone has the same ringtone',
+  claim: 'A generative ringtone maker',
   role: 'Designed and built solo',
   period: '2025 — ongoing',
   scope: 'Concept, interface, audio engine and export — two builds, and a fork chasing harmony',
@@ -1333,8 +1342,8 @@ export const warble: CaseStudy = {
   fieldHue: 0,
   next: 'raptor',
   live: [
-    { label: 'Play it', href: WARBLE_SITE },
-    { label: 'Play the 2025 version', href: `${WARBLE_SITE}/v1` },
+    { label: 'Play v2 (2026)', href: WARBLE_SITE },
+    { label: 'Play v1 (2025)', href: `${WARBLE_SITE}/v1` },
   ],
   // 1778×2000, composed to the card's 8:9 with the wordmark under the app.
   // `app.jpg` is still the study's `lead` — it is the same interface, shot for a
@@ -1366,7 +1375,7 @@ export const warble: CaseStudy = {
       paragraphs: [
         'Apple\u2019s ringtones are well crafted and charming. The trouble is that everyone has exactly the same one.',
         'I understand why they are kept on rails \u2014 it guarantees the thing sounds good, and it gives every phone in the room a family resemblance. It did not stop me wanting my own. And it could not be that difficult to make a simple ringtone, right?',
-        'That is the path that led to Warble. I wanted a tool that made something with the depth and whimsy of Apple\u2019s ringtones, while being fun enough to play with and easy enough that anyone could make their own. The eight rows are degrees of a scale rather than a chromatic keyboard, so there is no wrong note to place \u2014 which is the constraint that lets two minutes of fiddling produce something you would actually set as your ringtone.',
+        'I wanted a tool that made something with the depth and whimsy of Apple\u2019s ringtones, while being fun enough to play with and easy enough that anyone could make their own. The eight rows are degrees of a scale rather than a chromatic keyboard, so there is no wrong note to place \u2014 which is the constraint that lets two minutes of fiddling produce something you would actually set as your ringtone.',
         'It has kept growing since, mostly by gaining layers. I used v1 to make the one that is on my phone. v2 has far more in it \u2014 struck-bar voices with their own overtones instead of plain oscillators, three parts instead of one, repeats that develop rather than repeat \u2014 and somewhere in all of that it stopped making ringtones.',
         'What comes out of the Random button now is short game music. The Mario and Zelda register. I did not aim at that, and no single change caused it: notes locked to a scale so nothing can clash, short bright percussion that does not smear when it moves quickly, and phrases that state an idea and then answer it. Every one of those went in for its own unrelated reason, and together they turn out to be the conditions for a game loop. Which means it is reproducible rather than a lucky seed \u2014 and the thirty-second cap and the WAV export are now the only parts of this that are about ringtones at all.',
         'I do not know where it goes next, or whether there is a point beyond the fact that I am learning a great deal and enjoying myself. For this one, that is reason enough.',
