@@ -127,6 +127,12 @@ export type Block =
       tint?: boolean
     }
 
+/** A link to something running, shown at the foot of a lite entry. */
+export interface LiveLink {
+  label: string
+  href: string
+}
+
 export interface Chapter {
   /** A story beat. "Two bad options", not "The Challenge". */
   title: string
@@ -232,8 +238,22 @@ export interface CaseStudy {
    * wide dark frame.
    */
   lead?: { src?: string; alt: string; aspect?: string; tall?: boolean; narrow?: boolean }
-  /** Set on lite entries: a link to the running thing. */
-  live?: { label: string; href: string }
+  /**
+   * Set on lite entries: a link to the running thing, or to more than one of
+   * them.
+   *
+   * **It became a list on 2026-09-11, when Warble moved to its own domain.**
+   * The app used to be a route on this site and one link was the whole of it.
+   * It is now a separate product with its frozen 2025 build deployed alongside
+   * it, and the case study is the only thing that links to that build — the
+   * product's own front door deliberately does not offer you an older, worse
+   * version of itself. So the study has to carry two links, and a second
+   * optional field beside `live` would have been two ways to say one thing.
+   *
+   * A bare object still works and still renders identically; order is the order
+   * they appear, current build first.
+   */
+  live?: LiveLink | LiveLink[]
   meta: {
     title: string
     description: string
@@ -1299,18 +1319,40 @@ export const phasmatic: CaseStudy = {
   note: 'Every good shader background already exists as a React component, which is no help to the people who most want one — marketers, founders, anyone shipping in Webflow or a CMS, none of whom can run npm install. Phasmatic is that library hosted rather than published: more than fifteen full-bleed effects, each with real controls and named presets, and an iframe you can paste into anything that takes HTML. Everything resolves to a single config, so the no-code embed and the React usage stay the same product instead of drifting into two. The bar is Stripe and Linear rather than gradient meshes, and holding that while a non-technical person drags a slider is the actual problem. It is live and free to use — the field behind this page is one of them.',
 }
 
+/*
+ * Where Warble is deployed, since it left this repo on 2026-09-11.
+ *
+ * One constant because the study links to it twice — the current build and the
+ * frozen 2025 one — and a bare `vercel.app` subdomain is the kind of thing that
+ * gets a real domain later. One place to change it then, rather than two.
+ */
+const WARBLE_SITE = 'https://warbleton.vercel.app'
+
 /**
- * Warble — 2025. A lite entry, like Phasmatic.
+ * Warble — 2025, still going. A lite entry, like Phasmatic.
  *
- * **The app is the argument, so the page gets out of the way.** One paragraph
- * and a link to `/warble/play`, which is the thing itself.
+ * **It left this repo on 2026-09-11.** The app used to be a route here, at
+ * `/warble/play`, and it is now its own deployment with its own root. The
+ * reason is not tidiness: a tool that is actively being built wants to be a
+ * thing you can send someone, and a route nested two levels inside a portfolio
+ * is not that. `src/app/warble/` and `src/components/warble/` are deleted, and
+ * this entry is the only trace left.
  *
- * It was briefly two chapters about scale constraints and export design. Both
- * were true and neither was the point: the reason this exists is that Apple's
- * ringtones are good and everyone therefore has the same one. That premise is
- * one sentence, it is his, and it does more work than a retrospective on a tool
- * that is still early — which the last line says outright rather than implying
- * a finish it has not reached.
+ * **`live` carries two links now.** The current build, and the frozen 2025
+ * build — which is deployed but unlinked and `noindex`, so this page is the
+ * only route to it. That is deliberate on both ends: the product should not
+ * offer a visitor an older, worse version of itself, and the study is the one
+ * place where having two of something is the interesting part.
+ *
+ * **The note was rewritten on 2026-09-11, away from the tool and toward the
+ * idea.** The previous version explained what Warble does — pick an instrument,
+ * draw a pattern, export a WAV — which is a product description, and which the
+ * app now does for itself one click away. With MoonPay carrying the weight of
+ * paid work on this site, this entry's job changed: it is the one that is
+ * allowed to be curious in public, including about whether it has a point. So
+ * the interesting thing is given the room instead — it stopped making ringtones
+ * and started making game music, nobody aimed at that, and the reason it
+ * happened is the actual content.
  *
  * The hero was captured from the running app rather than designed — Warble is
  * plain DOM and Web Audio, so unlike Phasmatic it photographs fine from an
@@ -1321,12 +1363,15 @@ export const warble: CaseStudy = {
   name: 'Warble',
   claim: 'Everyone has the same ringtone',
   role: 'Designed and built solo',
-  period: '2025',
-  scope: 'Concept, interface, audio engine and export — six instruments, four scales',
+  period: '2025 — ongoing',
+  scope: 'Concept, interface, audio engine and export — two builds, and a fork chasing harmony',
   color: '#8b5cf6',
   fieldHue: 0,
   next: 'raptor',
-  live: { label: 'Play it', href: '/warble/play' },
+  live: [
+    { label: 'Play it', href: WARBLE_SITE },
+    { label: 'Play the 2025 version', href: `${WARBLE_SITE}/v1` },
+  ],
   // 1778×2000, composed to the card's 8:9 with the wordmark under the app.
   // `app.jpg` is still the study's `lead` — it is the same interface, shot for a
   // wide slot instead of this one.
@@ -1338,19 +1383,32 @@ export const warble: CaseStudy = {
   },
 
   meta: {
-    title: 'Warble — make a ringtone that is actually yours',
+    title: 'Warble — a ringtone that is actually yours',
     description:
-      'A tool for making a ringtone in the Apple house style but personal to you: pick an instrument and a scale, draw a pattern, export a WAV. Built solo on the Web Audio API.',
+      'A tool for making a ringtone in the Apple house style but personal to you. It has since stopped making ringtones and started making game music, which nobody planned.',
     keywords: [
       'Web Audio API',
       'generative audio',
       'procedural music',
+      'game music',
       'interaction design',
       'constraint design',
     ],
   },
 
-  note: 'I like Apple\u2019s ringtones \u2014 the marimba, the xylophone, that whole sound. The trouble is everyone has the same one, so the thing that is supposed to tell you it is your phone ringing tells you nothing at all. Warble is a tool for making one in that aesthetic that is actually yours: pick an instrument and a scale, draw a pattern, export a WAV. The eight rows are the notes of a scale rather than a chromatic keyboard, so there is no wrong note to place \u2014 which is the thing that makes it possible to sit down for two minutes and come away with something you would genuinely set. There is plenty still to do to it. It is fun, it is quick to pick up, and what comes out is good enough to use, which was the bar for putting it up here at all.',
+  note: [
+    {
+      kind: 'prose',
+      paragraphs: [
+        'Apple\u2019s ringtones are well crafted and charming. The trouble is that everyone has exactly the same one.',
+        'I understand why they are kept on rails \u2014 it guarantees the thing sounds good, and it gives every phone in the room a family resemblance. It did not stop me wanting my own. And it could not be that difficult to make a simple ringtone, right?',
+        'That is the path that led to Warble. I wanted a tool that made something with the depth and whimsy of Apple\u2019s ringtones, while being fun enough to play with and easy enough that anyone could make their own. The eight rows are degrees of a scale rather than a chromatic keyboard, so there is no wrong note to place \u2014 which is the constraint that lets two minutes of fiddling produce something you would actually set as your ringtone.',
+        'It has kept growing since, mostly by gaining layers. I used v1 to make the one that is on my phone. v2 has far more in it \u2014 struck-bar voices with their own overtones instead of plain oscillators, three parts instead of one, repeats that develop rather than repeat \u2014 and somewhere in all of that it stopped making ringtones.',
+        'What comes out of the Random button now is short game music. The Mario and Zelda register. I did not aim at that, and no single change caused it: notes locked to a scale so nothing can clash, short bright percussion that does not smear when it moves quickly, and phrases that state an idea and then answer it. Every one of those went in for its own unrelated reason, and together they turn out to be the conditions for a game loop. Which means it is reproducible rather than a lucky seed \u2014 and the thirty-second cap and the WAV export are now the only parts of this that are about ringtones at all.',
+        'I do not know where it goes next, or whether there is a point beyond the fact that I am learning a great deal and enjoying myself. For this one, that is reason enough.',
+      ],
+    },
+  ],
 }
 
 /**

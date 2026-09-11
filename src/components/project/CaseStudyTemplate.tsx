@@ -13,6 +13,7 @@ import {
   type Chapter,
   type Figure,
   type Frame,
+  type LiveLink,
   type Outcome,
 } from '@/content/case-studies'
 
@@ -365,6 +366,18 @@ export default function CaseStudyTemplate({ study }: { study: CaseStudy }) {
       ? [{ kind: 'prose', paragraphs: [study.note] }]
       : study.note
 
+  /*
+    Same sugar, same reason: `live` is one link on almost every entry that has
+    one, and a list only where a study has to point at two running things. See
+    `LiveLink` in `case-studies.ts` for why Warble is that case.
+  */
+  const liveLinks: LiveLink[] = !study.live
+    ? []
+    : Array.isArray(study.live)
+      ? study.live
+      : [study.live]
+
+
   return (
     <>
       <Field score={CASE_STUDY_KEYFRAMES} hueOffset={study.fieldHue ?? 0} />
@@ -578,10 +591,17 @@ export default function CaseStudyTemplate({ study }: { study: CaseStudy }) {
             Set at reading scale rather than as small print, and sitting in the
             prose column so it reads as the last line of the argument.
 
-            Internal targets get a `Link` and no new tab: Warble's app is at
-            `/warble/play`, on this site, and throwing a tab for a same-origin
-            route reads as carelessness. External ones still open away, because
-            the reader is being sent somewhere they will not come back from.
+            Internal targets get a `Link` and no new tab — throwing a tab for a
+            same-origin route reads as carelessness. External ones open away,
+            because the reader is being sent somewhere they will not come back
+            from. Nothing sets an internal one today: Warble was the case and it
+            left for its own domain on 2026-09-11. The branch stays because the
+            rule is about same-origin, not about Warble.
+
+            There can be more than one. Warble ships its current build and its
+            frozen 2025 build as separate deployments, and the study is the only
+            route to the second — so `live` normalises to a list. One link is
+            unchanged by this; two sit on one row and wrap to two on a phone.
           */}
           {/*
             The bottom padding matters as much as the top. `ChapterBlock` closes
@@ -590,25 +610,29 @@ export default function CaseStudyTemplate({ study }: { study: CaseStudy }) {
             matching bottom the rule landed directly on this link's baseline.
             Same values, so both endings sit on the same rhythm.
           */}
-          {study.live && (
+          {liveLinks.length > 0 && (
             <div className={`${GRID} pt-10 pb-20 lg:pt-12 lg:pb-28`}>
-              <div className={TEXT_COL}>
-                {study.live.href.startsWith('/') ? (
-                  <Link
-                    href={study.live.href}
-                    className="link-reveal text-lg text-foreground transition-colors hover:text-foreground"
-                  >
-                    {study.live.label} →
-                  </Link>
-                ) : (
-                  <a
-                    href={study.live.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="link-reveal text-lg text-foreground transition-colors hover:text-foreground"
-                  >
-                    {study.live.label} ↗
-                  </a>
+              <div className={`${TEXT_COL} flex flex-wrap gap-x-10 gap-y-3`}>
+                {liveLinks.map((link) =>
+                  link.href.startsWith('/') ? (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="link-reveal text-lg text-foreground transition-colors hover:text-foreground"
+                    >
+                      {link.label} →
+                    </Link>
+                  ) : (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="link-reveal text-lg text-foreground transition-colors hover:text-foreground"
+                    >
+                      {link.label} ↗
+                    </a>
+                  )
                 )}
               </div>
             </div>
