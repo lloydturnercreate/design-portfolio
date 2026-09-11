@@ -31,11 +31,7 @@ export const roles: Role[] = [
     company: 'MoonPay',
     title: 'Senior Product Designer',
     summary:
-      // Ranges, not figures. The exact volume and profit numbers were never
-      // externally disclosed, so they are not published here, on the case study,
-      // or in its meta description. The seniority signal survives the vagueness;
-      // publishing someone else's undisclosed numbers would not.
-      'Design lead on a real-time trading terminal built 0 to 1 — nine figures in volume, profitable inside a year — and on the payments platform underneath it.',
+      'Design lead across Commerce — the deposit, withdrawal and checkout flows in the widget — the internal dashboard, and the partner dashboard. Previously built a trading terminal 0 to 1.',
   },
   {
     period: '2023 — 2024',
