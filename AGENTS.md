@@ -8,8 +8,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # lloydturner.co.uk
 
-Personal portfolio. Rebuilt 2026-08-05 to replace `~/Documents/AI/Portfolio`, which is
-still the deployed site — **nothing here has shipped yet.** It is ready to.
+Personal portfolio. **The deployed site**, live at lloydturner.co.uk.
 
 Strategy, copy rationale and what's next: `~/Documents/AI/rebirth/portfolio/PORTFOLIO_PLAN.md`.
 Read it before changing content or positioning; the wording is deliberate and most of it is
@@ -61,14 +60,10 @@ blocks rather than a string plus a figure array. Paragraphs-then-pictures is the
 `{ body[], figures[] }` shape this model was built to replace: it makes every image a
 footnote to a paragraph, and it is most of why the old page read as a well-set document.
 
-**`live` takes one link or a list.** A lite entry usually points at one running thing. Warble
-points at two: its current build at [warbleton.vercel.app](https://warbleton.vercel.app) and
-the frozen 2025 build at `/v1`, which is deployed but unlinked and `noindex` — so the study
-is the only route in. The template normalises both forms exactly as it normalises `note`, so
-a bare object still works and reads identically.
-
-**Warble's app is not in this repo.** It was `app/warble/play/` until 2026-09-11 and is now
-its own deployment, source at `../warble`. Only the study is left here.
+**`live` takes one link or a list**, normalised the way `note` is. Warble needs two. Its app
+is not in this repo — it is at [warbleton.vercel.app](https://warbleton.vercel.app), source at
+`../warble` — and its frozen 2025 build at `/v1` is unlinked and `noindex`, so the study is
+the only route in.
 
 Four studies are lite, for two different reasons. **Still moving** — Phasmatic and Warble
 are live and unfinished, so a structured retrospective would be writing a conclusion neither
@@ -126,10 +121,8 @@ Every hero and figure goes through `components/project/Media.tsx`, which resolve
 entire 3D content is a quad, and fighting r3f for control of its render loop cost three
 separate bugs. Dependencies are `next`, `react`, `react-dom` and nothing else.
 
-That rule is why Warble's icons were inline SVGs rather than `lucide-react` — twelve icons,
-each used once, rewritten with lucide's geometry and defaults so a thirteenth could be
-lifted straight from source. They left with the app on 2026-09-11 and `components/warble/`
-is gone from this repo, but the rule that forced them is the one that keeps three.js out.
+It is the same rule that had Warble inline twelve icons rather than take `lucide-react`.
+Warble has left the repo; the rule has not.
 
 **Springs, not easing curves.** An ease can only approach its target, so it can never
 overshoot, and overshoot is the character the whole site is built on. Every animated system

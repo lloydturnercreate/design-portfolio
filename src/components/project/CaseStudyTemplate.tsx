@@ -366,11 +366,7 @@ export default function CaseStudyTemplate({ study }: { study: CaseStudy }) {
       ? [{ kind: 'prose', paragraphs: [study.note] }]
       : study.note
 
-  /*
-    Same sugar, same reason: `live` is one link on almost every entry that has
-    one, and a list only where a study has to point at two running things. See
-    `LiveLink` in `case-studies.ts` for why Warble is that case.
-  */
+  /* Same sugar as `note` above: one link is the common case, a list the exception. */
   const liveLinks: LiveLink[] = !study.live
     ? []
     : Array.isArray(study.live)
@@ -591,17 +587,12 @@ export default function CaseStudyTemplate({ study }: { study: CaseStudy }) {
             Set at reading scale rather than as small print, and sitting in the
             prose column so it reads as the last line of the argument.
 
-            Internal targets get a `Link` and no new tab — throwing a tab for a
-            same-origin route reads as carelessness. External ones open away,
-            because the reader is being sent somewhere they will not come back
-            from. Nothing sets an internal one today: Warble was the case and it
-            left for its own domain on 2026-09-11. The branch stays because the
-            rule is about same-origin, not about Warble.
+            Internal targets get a `Link` and no new tab; external ones open
+            away. Nothing sets an internal one today, but the rule is about
+            same-origin rather than about any one study.
 
-            There can be more than one. Warble ships its current build and its
-            frozen 2025 build as separate deployments, and the study is the only
-            route to the second — so `live` normalises to a list. One link is
-            unchanged by this; two sit on one row and wrap to two on a phone.
+            `live` normalises to a list. One link renders as it always did; two
+            sit on a row and wrap on a phone.
           */}
           {/*
             The bottom padding matters as much as the top. `ChapterBlock` closes

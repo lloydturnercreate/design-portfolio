@@ -239,19 +239,9 @@ export interface CaseStudy {
    */
   lead?: { src?: string; alt: string; aspect?: string; tall?: boolean; narrow?: boolean }
   /**
-   * Set on lite entries: a link to the running thing, or to more than one of
-   * them.
-   *
-   * **It became a list on 2026-09-11, when Warble moved to its own domain.**
-   * The app used to be a route on this site and one link was the whole of it.
-   * It is now a separate product with its frozen 2025 build deployed alongside
-   * it, and the case study is the only thing that links to that build — the
-   * product's own front door deliberately does not offer you an older, worse
-   * version of itself. So the study has to carry two links, and a second
-   * optional field beside `live` would have been two ways to say one thing.
-   *
-   * A bare object still works and still renders identically; order is the order
-   * they appear, current build first.
+   * Set on lite entries: a link to the running thing, or to several. Warble
+   * needs two — its current build and its frozen 2025 one, which nothing else
+   * links to. Order is the order they render; a bare object still works.
    */
   live?: LiveLink | LiveLink[]
   meta: {
@@ -1319,44 +1309,18 @@ export const phasmatic: CaseStudy = {
   note: 'Every good shader background already exists as a React component, which is no help to the people who most want one — marketers, founders, anyone shipping in Webflow or a CMS, none of whom can run npm install. Phasmatic is that library hosted rather than published: more than fifteen full-bleed effects, each with real controls and named presets, and an iframe you can paste into anything that takes HTML. Everything resolves to a single config, so the no-code embed and the React usage stay the same product instead of drifting into two. The bar is Stripe and Linear rather than gradient meshes, and holding that while a non-technical person drags a slider is the actual problem. It is live and free to use — the field behind this page is one of them.',
 }
 
-/*
- * Where Warble is deployed, since it left this repo on 2026-09-11.
- *
- * One constant because the study links to it twice — the current build and the
- * frozen 2025 one — and a bare `vercel.app` subdomain is the kind of thing that
- * gets a real domain later. One place to change it then, rather than two.
- */
+/* The study links here twice, and a bare vercel.app subdomain may get a real domain. */
 const WARBLE_SITE = 'https://warbleton.vercel.app'
 
 /**
- * Warble — 2025, still going. A lite entry, like Phasmatic.
+ * Warble — a lite entry, like Phasmatic.
  *
- * **It left this repo on 2026-09-11.** The app used to be a route here, at
- * `/warble/play`, and it is now its own deployment with its own root. The
- * reason is not tidiness: a tool that is actively being built wants to be a
- * thing you can send someone, and a route nested two levels inside a portfolio
- * is not that. `src/app/warble/` and `src/components/warble/` are deleted, and
- * this entry is the only trace left.
+ * The app is not in this repo; `live` points at it and at the frozen 2025
+ * build, which nothing else links to.
  *
- * **`live` carries two links now.** The current build, and the frozen 2025
- * build — which is deployed but unlinked and `noindex`, so this page is the
- * only route to it. That is deliberate on both ends: the product should not
- * offer a visitor an older, worse version of itself, and the study is the one
- * place where having two of something is the interesting part.
- *
- * **The note was rewritten on 2026-09-11, away from the tool and toward the
- * idea.** The previous version explained what Warble does — pick an instrument,
- * draw a pattern, export a WAV — which is a product description, and which the
- * app now does for itself one click away. With MoonPay carrying the weight of
- * paid work on this site, this entry's job changed: it is the one that is
- * allowed to be curious in public, including about whether it has a point. So
- * the interesting thing is given the room instead — it stopped making ringtones
- * and started making game music, nobody aimed at that, and the reason it
- * happened is the actual content.
- *
- * The hero was captured from the running app rather than designed — Warble is
- * plain DOM and Web Audio, so unlike Phasmatic it photographs fine from an
- * automated browser. The transport reads as playing because it was.
+ * The note is about the idea rather than the tool — what the tool does is one
+ * click away, and this is the entry allowed to be curious in public. The hero
+ * was captured from the running app rather than designed.
  */
 export const warble: CaseStudy = {
   slug: 'warble',
