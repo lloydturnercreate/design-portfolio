@@ -72,14 +72,37 @@ keeping every figure; they are there for range until newer work replaces them.
 
 Two things in `case-studies.ts` look like mistakes and are not:
 
-- **`moonpay` is exported and never used.** A scaffold of bracketed briefs, parked — nothing
-  routes to `/moonpay` and it is absent from `caseStudies`. Do not add it to the array until
-  it has real copy.
-- **`featured` exists and nothing sets it.** All six are on the index. The field stays
-  because the reasoning does: the index takes its standard from its weakest entry, so it is
-  the one place where an extra entry actively costs something. Set it rather than deleting a
-  study when that changes — the page keeps working, the *next* chain keeps running through
-  it, and nothing 404s.
+- **`moonpay` is routed but unreachable.** Real copy since 2026-09-11, so it is in
+  `caseStudies` and `/moonpay` builds — but `featured: false` keeps it off the work index
+  and `unlisted: true` drops it from `sitemap.ts` and adds `robots: noindex` in
+  `[slug]/page.tsx`. Nothing links to it and no study's `next` points at it. That is
+  deliberate: it is a study of unshipped work at the current employer, written as a link to
+  hand to one person. **Every one of its figures is a `src`-less placeholder** — ten frames
+  plus the lead — rendering as briefs; see below. To make it an ordinary page, drop both
+  flags and add it to the array order you want it to appear in.
+
+  Its copy carries constraints that are not stylistic and must not be edited away. No client
+  is described in any form; two partners are named and both are publicly announced, with the
+  Pump.fun sentence worded to rest on what that product publicly *is* rather than on usage
+  data; deposit growth is qualitative only, never a figure or a percentage. The reasoning for
+  each is in the doc comment above the object, and the fuller version — plus the shot briefs
+  and what is deliberately held back for interviews — is in
+  `~/Documents/AI/moonpay/case-study.md`.
+- **`featured` exists and only `moonpay` sets it.** The other six are on the index. The
+  field stays because the reasoning does: the index takes its standard from its weakest
+  entry, so it is the one place where an extra entry actively costs something. Set it rather
+  than deleting a study when that changes — the page keeps working, the *next* chain keeps
+  running through it, and nothing 404s.
+
+**`featured: false` and `unlisted: true` are not the same lever.** Unfeatured means off the
+curated index but public, indexed, and fine to find — Raptor and Sukiyaki were both, once.
+Unlisted means nobody is meant to find it at all. Neither is security; anyone with the link
+has the page, which is the point.
+
+**A figure with no `src` is a feature.** It renders a placeholder at the real aspect in the
+real slot, with its `alt` printed into the frame as the brief for the shot that goes there.
+So a study can be written and laid out before any art exists, and dropping a picture in is a
+one-line change that moves nothing around it. `moonpay` is currently entirely this.
 
 **`content/built.ts` exports an empty array, deliberately.** Solo work is not a section
 below the client work — it is on the same track, and the `role` line ("Designed and built
@@ -159,6 +182,15 @@ Each has a comment at the site explaining it. They look wrong and are not.
   field silently kills it and the type renders plain white. That is exactly what it did,
   unnoticed, for the whole life of the previous hero. With the blend gone, `opacity` is safe
   again.
+- **The detail row's last cell spans the leftover columns, from a lookup keyed by count.**
+  The grid is a fixed four across and `outcome` is optional, so a study without one used to
+  leave a quarter of the row empty while `Owned` — much the longest of the four values —
+  wrapped to five lines beside the gap. MoonPay and Warble are both three-item rows. The
+  span is a `Record<number, string>` of complete class strings rather than a computed
+  `lg:col-span-${n}`, because Tailwind scans source for whole class names and an
+  interpolated one compiles to nothing. Widening the grid instead (three columns for three
+  items) is the obvious tidy and is worse: it gives `Period` a third of the row to hold four
+  characters.
 - **Tailwind 4 puts the important modifier at the END: `opacity-100!`, not `!opacity-100`.**
   The v3 spelling compiles to nothing. `Projects.tsx` lost its entire hover state to this
   and looked broken rather than unstyled, which is much harder to spot.

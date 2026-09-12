@@ -26,6 +26,17 @@ export async function generateMetadata({
     title: study.meta.title,
     description: study.meta.description,
     keywords: study.meta.keywords,
+    /*
+     * An unlisted study is one nobody is meant to find. It is already out of
+     * the sitemap; this is the half that actually instructs a crawler rather
+     * than hinting to one. `follow: false` as well as `index: false`, because
+     * the page links onward to Moonit and there is no reason to advertise the
+     * path it was reached by.
+     *
+     * Omitted entirely on every other study, so the default stays "index this"
+     * and nothing has to opt in to being public.
+     */
+    ...(study.unlisted ? { robots: { index: false, follow: false } } : {}),
   }
 }
 

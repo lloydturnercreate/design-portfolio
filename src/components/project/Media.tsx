@@ -79,6 +79,7 @@ export default function Media({
           alt={alt}
           width={2400}
           height={1500}
+          quality={90}
           priority={priority}
           /*
             Figures are bounded by the page container (88rem, less its padding)

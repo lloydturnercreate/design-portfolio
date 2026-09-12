@@ -33,8 +33,9 @@
  *   why the page read as a well-set document rather than as the work.
  *
  * A short study is not a second template. It is the same `Chapter` used twice
- * instead of five times — see `moonit` below, which is deliberately half the
- * length of `moonpay` because it is no longer the lead.
+ * instead of five times. `moonit` is **lite** — the chaptered version was a
+ * structured retrospective on a sunsetted product, and the format was doing
+ * more work than the content.
  */
 
 export interface Figure {
@@ -201,6 +202,26 @@ export interface CaseStudy {
    * *next* chain keeps running through it, and nothing 404s.
    */
   featured?: boolean
+  /**
+   * Reachable only by someone holding the URL.
+   *
+   * **This is a different thing from `featured: false`, and the difference is
+   * the point.** An unfeatured study is off the work index because the index is
+   * a curated argument — the page is still public, still in the sitemap, still
+   * a page you would be pleased to have found. An unlisted study is one nobody
+   * is meant to find: it is dropped from `sitemap.ts` and rendered with
+   * `robots: noindex` in `[slug]/page.tsx`, both driven off this flag.
+   *
+   * Both mechanisms are needed. The sitemap is a hint a crawler may ignore; the
+   * meta tag is an instruction. And neither is security — anyone with the link
+   * has the page, which is exactly what it is for. It is a link to hand to one
+   * person, not a thing that is hidden.
+   *
+   * `moonpay` is the case: a study of work at the current employer that has not
+   * shipped, written to send to a hiring manager rather than to publish. Unset
+   * this and drop `featured` when it becomes an ordinary page.
+   */
+  unlisted?: boolean
   color: string
   /**
    * Degrees to shift the field's hue on this study's page, so the surface
@@ -252,67 +273,158 @@ export interface CaseStudy {
 }
 
 /**
- * MoonPay — the platform work. **SCAFFOLD, PARKED, NOT ROUTED.**
+ * MoonPay Commerce — the deposit flow. **ROUTED, UNLISTED, NOINDEX.**
  *
- * Every `body` paragraph and every `figure` here is a brief in square brackets,
- * written to be replaced. It is deliberately **not** in `caseStudies`, so this
- * object is exported and unrendered: nothing routes to `/moonpay` and nothing
- * appears in the work index. That was the launch decision — a first entry
- * leading to bracketed briefs is worse than one study fewer, and a detailed
- * study of in-flight work at the current employer is the loudest possible
- * signal to colleagues while still employed and interviewing.
+ * A real page at `/moonpay` since 2026-09-11, reachable only by someone holding
+ * the URL. Three mechanisms, because they do three different jobs:
  *
- * Moonit carried the employer name for a while as "Moonit (MoonPay)", so the
- * credential still landed on the index without a study that could not yet be
- * written. That parenthetical went on 2026-08-16 — the site stopped leading on
- * credentials, and bracketing a company onto a product name to make sure a
- * reader notices the employer is the move being dropped. MoonPay is named in
- * the experience list a scroll below the index, which is enough.
+ * - **`featured: false`** keeps it out of `featuredCaseStudies`, which is what
+ *   `flow.ts` builds the work index from. Nothing on the site links here.
+ * - **`unlisted: true`** keeps it out of `sitemap.ts`.
+ * - **`robots: noindex`**, applied in `[slug]/page.tsx` off the same flag. The
+ *   sitemap is a hint; the meta tag is the instruction. Without it a page this
+ *   quotable gets found and the URL stops being private the first time anyone
+ *   shares it.
  *
- * Add this back to the array when the copy exists and the timing suits.
+ * The launch decision this reverses was: "a first entry leading to bracketed
+ * briefs is worse than one study fewer, and a detailed study of in-flight work
+ * at the current employer is the loudest possible signal to colleagues while
+ * still employed and interviewing." The copy exists now, which settles the
+ * first half. The second half is settled by the page being unlinked and
+ * unindexed rather than by it not existing — a link to hand to one person, not
+ * an announcement.
  *
- * The spine is kept below, so the chapters have something to hold when it does:
+ * **The copy is Lloyd's, and the structure is his.** Chapters, headings and
+ * paragraph order all track the Figma source (file `DVM9PicEDmyqjwgZFNQNWC`,
+ * node `15:2`), which is where editing happens — revised there 2026-09-11 and
+ * brought across the same day. Do not restructure this to match the other
+ * studies. Changes that came from the author and are load-bearing:
  *
- * MoonPay's surface is mostly somebody else's screen. The widget is the entire
- * product from a partner's point of view, so time-to-transaction is not a UX
- * nicety — it is the partner's conversion rate, which is what wins and loses
- * the contract. That is a materially stronger argument than Moonit's, because
- * it ends at revenue rather than at seconds, and it is the one thing on this
- * site that evidences design decisions with a commercial consequence.
+ * - "The thing everyone had got wrong" became **"We were all working
+ *   backwards"**, which implicates him along with the category. The first
+ *   version was the only arrogant line on the page.
+ * - The competitor-flow figure is **new, and it is the first image on the
+ *   page** — the claim about the category convention was previously asserted
+ *   and now opens on its evidence.
+ * - Competitors are described (`most of the biggest`) and never named. Two
+ *   partners **are** named, and both are checked against the bar the scaffold
+ *   set — publicly announced, and only the announced part:
  *
- * Two constraints carried over from the conversation this came out of:
+ *   - **World Series of Poker.** Announced; confirmed with the author.
+ *   - **Pump.fun.** Announced 2026-03-11, `moonpay.com/en-gb/newsroom/
+ *     moonpay-pumpfun-deposits`, and it is live on MoonPay Deposits — the
+ *     product this study is about.
  *
- * - **Shipped work only.** No in-flight designs, no roadmap.
- * - **No named partners** unless the relationship is publicly announced, and
- *   then only the announced part. An unannounced client name on a personal site
- *   is the kind of mistake that ends a conversation rather than starting one.
+ *   The Pump.fun sentence is worded structurally on purpose. That announcement
+ *   says nothing about repeat usage, returning users, top-ups or volume, so it
+ *   cannot carry the repeat-customer claim; what it does support is that the
+ *   product is account funding, and topping up an account is what that product
+ *   is. The claim rests on what Pump.fun publicly *is*, never on internal
+ *   numbers. **Do not strengthen this into a usage or frequency claim** — that
+ *   evidence exists but is not public.
+ *
+ *   Nothing else on the page names a partner.
+ *
+ * **No client is referred to, in any form, deliberately.** Removed 2026-09-11:
+ * the `outcome` line and a paragraph in "Where it landed" both described a
+ * customer who had declined on the strength of the old UI and reopened talks
+ * after the redesign, and Helio was described as losing enterprise deals.
+ *
+ * The reason is not that the client was named — it never was. It is that this
+ * page exists to be sent to hiring managers, one of whom sits inside the group
+ * the description pointed at. To that reader the anonymity does not hold, and
+ * what they would be reading is the employer's private account of a live
+ * negotiation, handed to the other side of it. Nothing here is worth that.
+ * **Do not restore it, soften it, or reach for a nearby paraphrase** — the
+ * problem was never the wording.
+ *
+ * **`outcome` is unset on purpose, and the slot is labelled "Outcome".** The
+ * detail row filters out empty values, so it renders Role / Period / Owned and
+ * nothing is styled for the absence. Do not fill it with the deposit-growth
+ * line: that is **stakes, not outcome** — all of that volume ran through the
+ * old flow and the redesign has not shipped — and putting it under a label
+ * saying "Outcome" is exactly the dressing-up the closing chapter takes credit
+ * for refusing. It lives in "The problem" instead, where it explains why a
+ * rebuild rather than a tidy-up.
+ *
+ * **The deposit claim is deliberately qualitative.** "The fastest-growing part
+ * of the Commerce business" and nothing more. The underlying figures — share of
+ * processed transactions, monthly volume — are unpublished company financials
+ * and are not going in this file in any form, including as a percentage or a
+ * range. Directional beats numeric here anyway: the sentence has to size the
+ * bet, not evidence a result it cannot evidence.
+ *
+ * Two things this study still does not have:
+ *
+ * - **No failure states.** There is a marked gap in chapter 03, "Input led",
+ *   after the confirmation and before the returning user. Payments is the one
+ *   category a reader looks for it in, and it is now the largest remaining hole
+ *   in the writing. It is in the solution chapter and not in "What it cost"
+ *   because a failure state is something designed, not something conceded.
+ * - **No shipped numbers**, by definition. "Where it stands" closes on the two
+ *   things being watched instead — the first-time conversion cost of the extra
+ *   step, and the QR handoff. That close is the study's substitute for results
+ *   and it has to stay decisive in tone: naming a falsifiable bet reads as
+ *   rigour, hedging about one reads as an apology, and they are the same
+ *   content.
+ *
+ * One further line to test rather than trust: "the widget serves over a million
+ * visitors a month" is the same class of unpublished operational metric as the
+ * deposit figures above, and it has not had the same scrutiny.
+ *
+ * **Every figure is a placeholder.** The author's shot list has eight items;
+ * two of them are pairs, so that is ten frames, plus the lead. No `src` on any
+ * of them, and each `alt` is written as the brief for the shot that goes in it
+ * — which is what the optional `src` on `Figure` is for. The lead is the only
+ * frame not on the shot list; drop it if it is not going to be shot, since a
+ * study without a `lead` opens on the detail row perfectly well.
+ *
+ * One line here cannot survive launch: "It hasn't shipped yet." Update the
+ * opening of "Where it landed" the week it does, and add the numbers.
  */
 export const moonpay: CaseStudy = {
   slug: 'moonpay',
   name: 'MoonPay',
-  claim: '[The claim — one line, the problem rather than the product]',
-  role: 'Product Design Lead',
-  period: '2024 — now',
-  scope: '[What was owned, in one line]',
-  outcome: '[The one fact worth putting above the fold]',
+  claim: 'Rebuilding MoonPay’s deposit flow',
+  role: 'Sole designer, MoonPay Commerce',
+  // The author's file still reads "[Month]–[Month] 2026". A bracket is worse on
+  // a live page than a year is imprecise, so the year stands until he fills it.
+  period: '2026',
+  scope:
+    'Research, flows, UI, prototypes and execution with engineering — with design reviews across the wider team, and brand rebranding the suite in parallel',
+  /*
+   * No `outcome`, and the field is omitted rather than filled with something
+   * softer. It previously carried a commercial fact about a named-in-all-but-
+   * name client; that was removed on 2026-09-11 along with every other
+   * reference to a lost or reopened deal — see the note above the chapters.
+   *
+   * The detail row simply drops the slot when this is unset, so nothing needs
+   * styling for the absence. Fill it once there is a shipped number, or once
+   * the deposit-growth figures are cleared to publish.
+   */
   color: '#7B3FF2',
-  // 0 on purpose. Tinting the field toward the project's violet was tried and
-  // reverted — see the note on CASE_STUDY_KEYFRAMES. The page should read as the
-  // same surface as the home page, and the accent already appears where it
-  // belongs, on the dot beside the company name.
+  // 0 on purpose, as on the scaffold. Tinting the field toward the project's
+  // violet was tried and reverted — see the note on CASE_STUDY_KEYFRAMES.
   fieldHue: 0,
-  // Payments imagery — a card reader and coins. It suits this study rather than
-  // Moonit, which is why it stayed here when Moonit split off with its own.
   cover: '/project-covers/moonpay.png',
+  featured: false,
+  unlisted: true,
   next: 'moonit',
 
+  lead: {
+    alt: 'Hero crop of the new config screen at rest — amount focused, nothing open, payment method sitting below it as a setting. Not on the shot list: this is the same subject as figure 03, framed for the opening slot rather than for the argument.',
+    aspect: '16 / 9',
+  },
+
   meta: {
-    title: '[Title — the claim, once written]',
-    description: '[Description — one sentence, no unannounced partner names]',
+    title: 'MoonPay — rebuilding the deposit flow',
+    description:
+      'Checkouts clarify the price before asking what you are paying with. Deposits ran the other way round — and fixing that meant rethinking the first decision the user makes.',
     keywords: [
       'product design',
       'payments',
-      'conversion',
+      'crypto on-ramp',
+      'checkout',
       'design systems',
       'embedded interfaces',
       'MoonPay',
@@ -321,37 +433,28 @@ export const moonpay: CaseStudy = {
 
   chapters: [
     {
-      title: 'The transaction is somebody else\u2019s screen',
+      title: 'The problem',
       blocks: [
         {
           kind: 'prose',
           paragraphs: [
-            '[The setup. What the on-ramp actually is and where it appears \u2014 embedded inside partner products rather than visited directly. This is the chapter that has to make a reader who has never thought about payments infrastructure understand why the surface area is small and the stakes are not.]',
-            '[Why that framing changes the design problem: the widget is the whole product from the buyer\'s point of view, so it is simultaneously the interface, the sales asset and the integration. Name the constraint that follows \u2014 you are designing inside a container you do not control.]',
-          ],
-        },
-        {
-          kind: 'figure',
-          tall: true,
-          figures: [
-            {
-              aspect: '21 / 9',
-              alt: 'Establishing shot \u2014 the widget in situ, inside a real partner surface, at full width. The single image that has to land the idea that this runs inside other people\u2019s products. Shipped integrations only.',
-              caption: '[Caption \u2014 what this is evidence of, not what it depicts]',
-            },
+            'Checkouts clarify the price before asking what you were paying with. Deposits ran the other way round, and fixing that meant rethinking the first decision the user makes.',
+            'MoonPay acquired Helio Pay — a Solana-based checkout — alongside a suite of other products. Helio worked well for what it was built for: crypto-native users, moving crypto, one transaction at a time.',
+            'It didn’t work for MoonPay, and there were three problems stacked on each other. It didn’t look or feel like MoonPay — customers using it often didn’t know they were using MoonPay at all, so none of the trust we’d spent years building transferred across. It didn’t share anything with the rest of the suite either: separate dashboards, separate accounts, separate KYB and KYC, so a customer using two MoonPay products onboarded twice for mostly the same information. And it was never built for enterprise. Enterprise was never Helio’s target. It is MoonPay’s.',
+            'So this wasn’t a reskin. We needed one product, one brand, one account — and a deposit flow that could hold enterprise weight.',
+            'What follows is the deposit flow in the MoonPay Commerce widget — the fastest-growing part of the Commerce business, and the reason this was worth rebuilding rather than tidying. Checkouts and withdrawals share the config pattern that came out of it, but the problem this piece is about is specific to deposits.',
           ],
         },
       ],
     },
 
     {
-      title: 'Time to transaction',
+      title: 'We were all working backwards',
       blocks: [
         {
           kind: 'prose',
           paragraphs: [
-            '[The core mechanism chapter. The metric, why it was the right one, and what it made arguable that was previously a matter of taste. Same move as Moonit\'s time-to-trade, but this one has a commercial consequence attached \u2014 say what it is.]',
-            '[What was cut, moved or collapsed. Be specific about the interactions removed and what each cost, because the specificity is the whole difference between this and a redesign write-up.]',
+            'Every crypto deposit flow I looked at leads with intent — including ours. Most of the biggest open on a list of rails: transfer crypto, connect wallet, pay with exchange.',
           ],
         },
         {
@@ -359,22 +462,80 @@ export const moonpay: CaseStudy = {
           figures: [
             {
               aspect: '16 / 9',
-              alt: 'The flow before and after, annotated. The argument is a subtraction, and subtraction is the one thing a single screenshot cannot show.',
-              caption: '[Caption]',
+              alt: 'Two competitor deposit flows side by side, both opening on a method or token list before any amount is entered. Shoot them at matching crop so the shared convention is the obvious thing about the pair. Not named anywhere in the copy — the caption should not name them either.',
+              caption:
+                'Two of the biggest, side by side. Both open on a list of rails, before there is an amount to attach one to.',
             },
           ],
         },
         {
           kind: 'prose',
           paragraphs: [
-            '[The trade-off you accepted. Every real speed decision has one; the chapter is not credible without it.]',
+            'That’s a reasonable model if you treat every interaction as a brand new transaction — but it aligns with what makes sense for the transaction, not for the user.',
+            'The odd part is that we already knew better. Our own checkout has always been input led (it has to be, because the amount is set before you arrive). You see what you’re paying, then you choose how to pay it. Deposits ran the other way round.',
           ],
         },
         {
-          kind: 'outcomes',
-          items: [
-            { value: '[Figure]', label: '[What it measures \u2014 externally disclosed numbers only]' },
-            { value: '[Figure]', label: '[What it measures]' },
+          kind: 'figure',
+          figures: [
+            {
+              aspect: '16 / 9',
+              alt: 'MoonPay’s old deposit flow, annotated — payment-method selection called out as step one, before the user has entered anything. The annotation is doing the work; an unmarked screenshot does not show that anything is wrong with it.',
+              caption:
+                'And ours did the same thing. Payment method as step one, before anything has been entered.',
+            },
+          ],
+        },
+        {
+          kind: 'prose',
+          paragraphs: [
+            'And most of our users aren’t new — I had two sources telling me the same thing. The companies we host payments for said it directly. MoonPay Commerce powers tournament buy-ins for the World Series of Poker, where the same players come back and buy in again and again; Pump.fun runs on MoonPay Deposits, and topping up an account there isn’t a behaviour some of the users have, it’s the whole interaction model. Our own transaction data said it more broadly — anywhere topping up is the norm, prediction markets being the obvious current example, the same accounts keep coming back.',
+            'Every one of those people was picking their payment method again, from scratch, every single time.',
+            'Traditional payments solved this years ago. You don’t choose your card network before you know what you’re paying.',
+          ],
+        },
+      ],
+    },
+
+    {
+      title: 'Input led',
+      blocks: [
+        {
+          kind: 'prose',
+          paragraphs: ['So I flipped it. Now, you start with the amount.'],
+        },
+        {
+          kind: 'figure',
+          figures: [
+            {
+              aspect: '16 / 9',
+              alt: 'The new config screen. Amount first, with the payment method sitting below it as a setting rather than as the opening question. Frame it to match the annotated old flow above, so the reversal is the only difference between the two shots.',
+              caption:
+                'The new config screen. The amount leads; the payment method is a setting on the transaction, not the question that opens it.',
+            },
+          ],
+        },
+        {
+          kind: 'prose',
+          paragraphs: [
+            'Payment methods are still right there and still easy to get to — they’re just not the leading decision. Configuration lives in drawers, so the config screen stays clean no matter how complex the transaction underneath it is.',
+          ],
+        },
+        {
+          kind: 'figure',
+          frame: 'column',
+          figures: [
+            {
+              aspect: '4 / 3',
+              alt: 'A drawer open on payment-method selection, with the config screen still visible behind it. The point of the shot is the part that has not moved, so keep the amount field in view above the drawer.',
+              caption: 'The config screen stays behind the drawer rather than being replaced by it.',
+            },
+          ],
+        },
+        {
+          kind: 'prose',
+          paragraphs: [
+            'The confirmation screen adapts per transaction type, showing only what’s relevant to that one. No ambiguity about what you’re about to sign.',
           ],
         },
         {
@@ -382,13 +543,56 @@ export const moonpay: CaseStudy = {
           figures: [
             {
               aspect: '4 / 3',
-              alt: 'The shipped surface, close in. Detail rather than establishing \u2014 this sits beside the paragraph it is evidence for.',
-              caption: '[Caption]',
+              alt: 'Confirmation screen for a cash transaction. Pair shot — identical crop and scale to the crypto one beside it, or the difference reads as inconsistency rather than as adaptation.',
+              caption: 'A cash confirmation.',
             },
             {
               aspect: '4 / 3',
-              alt: 'The same surface under a harder condition \u2014 an error, a slow network, an unsupported region. Failure states are where a payments interface earns its trust.',
-              caption: '[Caption]',
+              alt: 'Confirmation screen for a crypto transaction, same crop and scale as the cash one. Different fields, same structure.',
+              caption: 'And a crypto one. Same screen, different contents.',
+            },
+          ],
+        },
+        /*
+         * MISSING, AND THE PAGE KNOWS IT: one paragraph on failure states,
+         * which belongs here — after the confirmation, before the returning
+         * user.
+         *
+         * It was briefly marked in "What it cost", next to the paragraph about
+         * every method ending differently, and that was the wrong chapter. A
+         * failure state is not a cost or a compromise; it is a surface that was
+         * designed, so it sits with the config screen, the drawers and the
+         * confirmation. Moonit does the same thing — its error-states paragraph
+         * is in the craft chapter, not in anything about what the work cost.
+         *
+         * The slot is here specifically because the confirmation is the moment
+         * of commitment, so what happens when commitment fails is the next
+         * beat, and the returning-user payoff then closes the chapter instead
+         * of being interrupted by it. As it stands this chapter is the happy
+         * path start to finish, which for a payments flow is conspicuous.
+         *
+         * What goes in: an abandoned QR handoff, an under-funded manual
+         * transfer, a wallet that rejects. What each one tells you about what
+         * happened, whether the money moved, and what to do next. Left empty
+         * rather than filled with something plausible — only the person who
+         * designed them can write it.
+         */
+        {
+          kind: 'prose',
+          paragraphs: [
+            'The pattern generalised further than the problem did — the same config now carries withdrawals too, cash and crypto alike. But deposits were the flow that needed the rethink.',
+            'For returning users it goes further. The config holds the details of your last transfer — method, token, funding option — so a repeat transaction takes seconds rather than a full walk through the flow.',
+          ],
+        },
+        {
+          kind: 'figure',
+          tint: true,
+          figures: [
+            {
+              aspect: '16 / 9',
+              alt: 'The returning-user state: config pre-filled from the last transfer, ready to confirm. This is the payoff shot for the whole study, so it should be the most finished image on the page.',
+              caption:
+                'The returning-user state, pre-filled from the last transfer. This is the case the reversal was for.',
             },
           ],
         },
@@ -396,41 +600,37 @@ export const moonpay: CaseStudy = {
     },
 
     {
-      title: 'Coming back',
+      title: 'What it cost',
       blocks: [
         {
           kind: 'prose',
           paragraphs: [
-            '[Retention. The dashboard and account work, and the shift it represents \u2014 from a one-time on-ramp somebody passes through to a surface with a reason to return. Say what the reason is; that is the design argument.]',
+            'Choreographing it was the hard part. MoonPay is well kitted out — connect a wallet, connect an exchange or make a manual transfer on the crypto side; Apple Pay, Google Pay, Venmo, bank transfer, Faster Payments on the cash side. Nice coverage, but they all end differently. Some hand you off to your phone with a QR code and finish there; others complete inside the widget whatever device you’re on. Some need a lot more information from you than others.',
+            'That made a core skeleton hard to pin down. The config screen has to hold every one of those endings without reshaping itself each time you pick a different one.',
+            'First-time users pay an extra click. That’s the honest drawback of input-led — you set your payment method a step later than you used to. I took the trade, because it buys you context from the first screen no matter which path you’re on, and for repeat customers it disappears entirely.',
+          ],
+        },
+        {
+          kind: 'prose',
+          paragraphs: [
+            'Iteration. The first input-led layout put everything on the surface: a row for cards with Apple Pay, Google Pay, Venmo and bank transfer tiled across it, a row underneath for crypto with wallet connect and manual transfer. A rectangle full of squares.',
           ],
         },
         {
           kind: 'figure',
           figures: [
             {
-              aspect: '2 / 1',
-              alt: 'The dashboard at full width. Shipped state, real structure \u2014 this is the chapter\u2019s main piece of evidence and the one most likely to be skimmed to.',
-              caption: '[Caption]',
+              aspect: '16 / 9',
+              alt: 'The tile-wall version that got killed — every payment method on the surface at once, cash row above crypto row. Worth shooting properly rather than pulling a rough from version history; a dead end you can explain is more convincing than a solution that arrives fully formed.',
+              caption: 'The tile wall. Everything on the surface, and nowhere obvious to look.',
             },
           ],
         },
         {
           kind: 'prose',
           paragraphs: [
-            '[What you built to support it, and what you deliberately did not. The restraint is as much the point here as on Moonit \u2014 a dashboard is the easiest place in a product to add everything.]',
-          ],
-        },
-      ],
-    },
-
-    {
-      title: 'Selling with the product',
-      blocks: [
-        {
-          kind: 'prose',
-          paragraphs: [
-            '[The commercial chapter, and the reason this study outranks everything else on the site. Design decisions that made the platform the thing a corporate buyer chose \u2014 the interface as the pitch rather than a thing that supports one.]',
-            '[Evidence, without naming anyone unannounced. "A prediction-market platform" is a legitimate way to describe a client whose name is not yours to publish, and it costs less force than it appears to.]',
+            'It was great if you knew exactly what you wanted. If you didn’t, it read like a bookshelf — too many colours, nowhere obvious to look. That one went, along with the other input-led variants that tried to push the main payment methods up to the surface.',
+            'Customisable for partners, unmistakably MoonPay. This is a partner product, so it’s a kind of faux white label — it has to be unmistakably MoonPay and disappear into someone else’s UI at the same time. Those two pull against each other, and every decision here had to satisfy both.',
           ],
         },
         {
@@ -438,13 +638,13 @@ export const moonpay: CaseStudy = {
           figures: [
             {
               aspect: '4 / 3',
-              alt: 'Customisation or theming across partner surfaces \u2014 the same system inside two visibly different products. Shipped integrations only.',
-              caption: '[Caption]',
+              alt: 'The widget themed for one partner, inside that partner’s surface. Announced integrations only — an unannounced client name on a personal site ends a conversation rather than starting one.',
+              caption: 'The same widget, themed for one partner.',
             },
             {
               aspect: '4 / 3',
-              alt: 'Second integration, for the same comparison. The argument is that one system absorbs both, which is only visible when they sit side by side.',
-              caption: '[Caption]',
+              alt: 'The widget themed for a visibly different second partner, same crop and scale. The argument is that one structure absorbs both, which is only visible side by side.',
+              caption: 'And for another. The theming changes; the structure doesn’t.',
             },
           ],
         },
@@ -452,12 +652,14 @@ export const moonpay: CaseStudy = {
     },
 
     {
-      title: 'Looking back',
+      title: 'Where it stands',
       blocks: [
         {
           kind: 'prose',
           paragraphs: [
-            '[The reflection. One decision you would take further and one you would make differently, both specific. This is the chapter that reads as senior, because it is the one nobody can write unless they made the calls \u2014 the Moonit study\'s version is a working model.]',
+            'It hasn’t shipped yet, so I don’t have live numbers — and I’d rather say that than dress something up.',
+            'For scale: the widget serves over a million visitors a month, and now looks and behaves like the rest of MoonPay.',
+            'Two things will tell me whether I got this right. The first is whether the extra step costs first-time conversion — that is the trade I chose, and it is the one most likely to be wrong. The second is the QR handoff, because it is the ending we control least, and the one most able to make an otherwise coherent flow feel like it stopped halfway.',
           ],
         },
       ],
@@ -466,29 +668,17 @@ export const moonpay: CaseStudy = {
 }
 
 /**
- * Moonit — 2024. Its own entry, not MoonPay's.
+ * Moonit — 2024. Sunsetted; its own entry, not MoonPay’s.
  *
- * It was written as the lead MoonPay study and is neither any more: the product
- * has been sunset, and it is not the work the site should be arguing from. So
- * it is separated rather than deleted — the reasoning in it is good, and a
- * shipped 0-to-1 trading product is still worth a page. It just is not the
- * headline, and it should not be what the MoonPay name resolves to.
+ * **Lite.** The story is the arc: a product rescued from someone else’s
+ * roadmap, branded and shipped into a cultural moment, profitable, then
+ * sunset when the moment passed. A structured retrospective fought that
+ * shape — the format kept asking for a conclusion the arc itself already is.
  *
- * Two consequences of the split, both deliberate:
- *
- * **Halved.** Two chapters instead of five. The scope line now carries what the
- * "One designer, two companies" chapter used to argue, and the reflection that
- * closed the study is the last paragraph of the second chapter rather than a
- * chapter of its own. Nothing was cut for being weak — it was cut for being
- * long, which is the correct reason on a study that is no longer leading.
- *
- * **The domain vocabulary comes back, on purpose.** The previous version fought
- * to keep "meme coin" and "degen" off a page whose own screenshots are full of
- * both, and the copy lost that fight the moment anyone looked at the pictures.
- * Named as its own thing, the artwork matches its subject and the tension is
- * gone. What is still true is that this vocabulary appears *here* and nowhere
- * else on the site — not on the home page, not in the CV list, not in MoonPay's
- * study above.
+ * **DexScreener is named.** The origin story — Moonshot as a tab on Dex,
+ * Helio processing their payments, the handoff — is the interesting part
+ * and the part only the person who was there can tell. Pump.fun is named
+ * as the cultural reference point it was.
  *
  * **The figures stay ranges.** The exact profit and volume numbers were never
  * externally disclosed, so they are not published here or in the meta
@@ -496,62 +686,15 @@ export const moonpay: CaseStudy = {
  */
 export const moonit: CaseStudy = {
   slug: 'moonit',
-  // Just "Moonit" as of 2026-08-16. It read "Moonit (MoonPay)", a parenthetical
-  // added to get the current employer onto the index at all while the MoonPay
-  // platform study sat parked as an unrouted scaffold.
-  //
-  // That was an argument about credentials, and credentials stopped being what
-  // this site leads on — the reframe the same day put Phasmatic at 01 and took
-  // the job titles out of the metadata. A company name bracketed onto a product
-  // name to make sure a reader notices the employer is exactly the move being
-  // dropped. It is still named where it is doing real work — in the study's own
-  // copy, where the Helio acquisition is the reason the brief looked the way it
-  // did, and in the experience list a scroll under the work index. Not in
-  // `scope` or the meta, which is fine: those describe what was made.
-  //
-  // It comes back as its own entry when the platform study is written.
   name: 'Moonit',
-  claim: 'A real-time trading terminal, 0 to 1',
-  // The job title from the CV, verbatim. It was "Product Design Lead", which
-  // described what was owned on this project rather than the title on payroll —
-  // defensible, but the experience list sits on the same page a scroll away and
-  // said something different. That is the exact shape of the Amazon problem:
-  // a reader who can find the discrepancy without leaving the page. What was
-  // owned is stated properly in `scope` below, where it costs nothing.
+  claim: 'A meme coin trading platform, branded from scratch',
   role: 'Senior Product Designer',
   period: '2024',
   scope: 'Sole designer — strategy, brand, interface, motion',
-  outcome: 'Nine figures in volume. Profitable inside a year.',
+  outcome: 'Built, profitable and sunset in under 18 months.',
   color: '#D6FF00',
   fieldHue: 0,
-  // The lead image doing double duty as the card, cropped to fill. The two
-  // product screenshots tried before it both failed at card size for the same
-  // reason: `home-fun.png` centres on a "your wallet is ready" modal, so the
-  // crop delivered a dialog box, and `home-pro.png` is a dense token list whose
-  // rows dissolve into noise at 300px. The signage is the one Moonit asset
-  // built to be read at a distance, which is exactly what a cursor preview is.
   cover: '/projects/moonit/signage-2025.jpg',
-  /*
-   * Exported from the source Figma at 2x on 2026-08-15, replacing screenshots
-   * that were visibly soft at content width.
-   *
-   * **The signage typo was never in the artwork.** `signage.png` on disk reads
-   * "TOKEN TRASING PLATFORM" and was recorded as a launch blocker needing a
-   * redraw; the Figma source says "TRADING" correctly, so the misspelling only
-   * ever existed in that one export. `signage-2025.jpg` is the re-export and it
-   * is back on the page. The old file is unused and can go.
-   *
-   * Still at the old resolution and worth re-exporting from the same file:
-   * `card-annotated.png`, `buy-sell-cards.png`, `04.png`, `launch-asset.png`.
-   */
-  // The signage still, at 2400x1664 and sharp. Three generated video versions
-  // of this shot were tried on 2026-08-16 and all three were dropped — none was
-  // good enough to be worth trading a crisp 2400px still for a soft upscale.
-  // The best of them was 2080x1440 and still lost on the loop. Revisit with a
-  // properly rendered pass rather than a generated one.
-  //
-  // The card uses the same file, so the index and the page open on the same
-  // image. `Media` resolves video by extension, so a good take drops straight in.
   lead: {
     src: '/projects/moonit/signage-2025.jpg',
     alt: 'The Moonit mark on two illuminated light boxes, in acid yellow and blue',
@@ -559,9 +702,9 @@ export const moonit: CaseStudy = {
   next: 'phuture-finance',
 
   meta: {
-    title: 'Moonit — a real-time trading terminal, 0 to 1',
+    title: 'Moonit — a trading platform built, shipped and sunset inside 18 months',
     description:
-      'Sole designer on Moonit, a real-time Solana trading terminal built from nothing in 2024 — nine figures in volume, profitable inside a year.',
+      'Sole designer on Moonit, a Solana trading terminal rescued from another company\'s roadmap, branded from scratch, profitable, and sunset when the moment passed.',
     keywords: [
       'product design',
       '0-to-1',
@@ -572,150 +715,89 @@ export const moonit: CaseStudy = {
     ],
   },
 
-  chapters: [
+  note: [
     {
-      title: 'Two products, and traders wanted both',
-      blocks: [
+      kind: 'prose',
+      paragraphs: [
+        'Moonit started as Moonshot, a tab on DexScreener for trading Solana tokens on the bonding curve. When DexScreener decided to cut it and focus on their core product, we could see what they were walking away from. Pump.fun was blowing up, the market was moving fast, and the product still had life in it. We took it: spun it off, ran it ourselves, routed bonded tokens back to DexScreener. A partnership rather than a shutdown.',
+        'The positioning problem was immediate. Pump.fun was on the bleeding edge of social culture: aggressive, chaotic, very much of its moment. DexScreener were the opposite: reserved, institutional, fintech. We were in acquisition talks with MoonPay, so everything I designed had to hold up across three sets of stakeholders with three different appetites for risk. We couldn\'t be as reckless as Pump, but DexScreener had cut it because they didn\'t have the traffic. We couldn\'t be that passive either. The sweet spot was excitement without the landmines.',
+      ],
+    },
+    {
+      kind: 'figure',
+      figures: [
         {
-          kind: 'prose',
-          paragraphs: [
-            'Moonit traded Solana meme coins — an asset class where a position can double or evaporate inside a minute, and where the people trading are doing it all day, at speed, with their own money. Everything interesting about the product is a consequence of that clock.',
-            'The market had settled into two shapes and neither was right. One was the power tool: deep functionality, extended trading controls, a heavy layout that assumed you knew what you were doing. The other was the social one — lighter, funnier, built around memes and community, with a fraction of the tooling. Traders used both, for different things, and the assessment I opened with said so plainly.',
-            'So the brief contradicted itself on purpose: a powerful trading tool with deep functionality, and at the same time fewer tools, more fun, more replies than stats. MoonPay had just acquired Helio, and with it the credibility of a regulated payments company — which made the opening narrow and specific. Build the fast, social thing as infrastructure rather than as a casino.',
-            'I made time-to-trade the design KPI. Not satisfaction, not task success — the number of seconds between a trader seeing something and being in a position. It was the only metric that described the actual job, and it turned every layout argument into an arithmetic one.',
-          ],
-        },
-        {
-          kind: 'figure',
-          figures: [
-            {
-              src: '/projects/moonit/home-fun.png',
-              alt: 'The Moonit home screen in fun mode — a meme banner, condensed navigation, and stacked token cards',
-              caption:
-                'Fun mode. Condensed navigation, imagery given room, and the trade controls still on every card — the light end of the range, without giving up the tooling that makes it usable.',
-            },
-          ],
+          src: '/projects/moonit/home-fun.png',
+          alt: 'The Moonit home screen in fun mode — a meme banner, condensed navigation, and stacked token cards with trade controls on every card',
+          caption:
+            'Fun mode. Trade controls on every card, so you never leave the view you\'re in.',
         },
       ],
     },
-
     {
-      title: 'The first designs were too childish',
-      blocks: [
+      kind: 'figure',
+      figures: [
         {
-          kind: 'prose',
-          paragraphs: [
-            'That is close to a direct quote from the feedback, and it was right. The early work leaned so far into the social read that it stopped signalling a powerful tool — and for a product asking people to move real money at speed, looking playful is not a neutral cost. The same round asked for the three-column view serious traders already worked in, and for the original brand colour back.',
-            'The obvious response is to split the difference and land somewhere bland. Instead the interface got two modes. Fun is the screen above: condensed navigation, imagery given room, and the trade controls still on every card. Pro is three columns pinned to the three moments a token passes through — new, lifting off, graduated — each with its own filters, so a trader can watch all three entry points at once instead of switching between them.',
-            'What makes that affordable rather than two products is that the token card is the same component in all of it: fun, pro, desktop, mobile. One thing to build, one thing to change, and the layout around it carries the difference in tone. It also means a trader moving between modes never has to relearn the row they actually make decisions from.',
-          ],
-        },
-        {
-          kind: 'figure',
-          figures: [
-            {
-              src: '/projects/moonit/home-pro.png',
-              alt: 'Pro mode — three columns headed New tokens, Lift off and Graduated, each with its own filter control',
-              caption:
-                'Pro mode. The three columns are the three states a token moves through, so the screen is a pipeline rather than a list — and every card in it is the same component fun mode uses.',
-            },
-          ],
-        },
-        {
-          kind: 'prose',
-          paragraphs: [
-            'Measured against time-to-trade, the conventional pattern was indefensible. Browse, click, load a detail page, buy: four interactions, one of them a page load, at exactly the moment a price is moving. So the trade went onto the card — every row carries its own amount input and execute control, and quick buy bypasses the token page entirely and goes straight to the transaction.',
-            'The cost of putting more on a card is that it stops being scannable, so the secondary controls — watchlist, quick buy — only appear on hover. Hover does not exist on touch, where the same controls come in on a swipe. That is more work than one layout for both, and it is the difference between a card that works on a phone and a card that was designed on a desktop.',
-          ],
-        },
-        {
-          kind: 'outcomes',
-          items: [
-            { value: 'Under 2s', label: 'From seeing a token to holding it' },
-            { value: '4 → 1', label: 'Interactions to take a position' },
-          ],
-        },
-        {
-          kind: 'figure',
-          figures: [
-            {
-              src: '/projects/moonit/card-annotated.png',
-              alt: 'Annotated feed rows showing the inline amount input and execute control',
-              caption:
-                'The card is the terminal. Putting the amount and the execute control on the row itself removed the detail page from the critical path — the single change that did most of the work on time-to-trade.',
-            },
-            {
-              src: '/projects/moonit/buy-sell-cards.png',
-              alt: 'Two token cards carrying inline buy and sell controls',
-              caption:
-                'Both directions live on the card. Exit matters more than entry in this market, so selling was never allowed to cost more interactions than buying did.',
-            },
-          ],
+          src: '/projects/moonit/home-pro.png',
+          alt: 'The Moonit home screen in pro mode — a dense three-column grid of token cards with key metrics and quick-buy controls',
+          caption:
+            'Pro mode. Same tokens, stripped to the data.',
         },
       ],
     },
-
     {
-      title: 'Volatile asset, solid instrument',
-      blocks: [
+      kind: 'prose',
+      paragraphs: [
+        'Another app called Moonshot had gained traction, so we renamed and rebuilt the identity while the product was live and traders were on it.',
+        'Time to transaction was the whole problem. These traders were competing against bots and riding social momentum. A position can double or disappear inside a minute.',
+      ],
+    },
+    {
+      kind: 'figure',
+      figures: [
         {
-          kind: 'prose',
-          paragraphs: [
-            'The hardest problem was not speed, it was tone. Traders had to believe the platform was quick enough to be worth using and stable enough to hold their money — and the visual language that signals the first usually undermines the second.',
-            'So I built it as an instrument. A dark surface where colour only ever means something — direction and state, never decoration — and a grid that holds its alignment as figures change width, so a moving number never moves anything around it. The reference point was a trading desk rather than a consumer app, because the promise it makes is the right one. An instrument does not ask you to trust it. It shows you it is measuring correctly and lets you conclude that yourself.',
-            'The chart is where that got negotiated. Left alone I would have drawn something more minimal than the category expects; traders expect TradingView and read anything else as a toy. What shipped is a lighter build of the thing they know — familiar enough to be trusted at a glance, quiet enough not to dominate a screen whose real job is the token list.',
-            'Error states carried more of this than anything else. On a product where a mistake is unrecoverable, the failures are the credibility: every rejection says what happened, whether the position was taken, and what to do next. Vague failure is the fastest way to make a fast product feel dangerous.',
-          ],
+          src: '/projects/moonit/card-annotated.png',
+          alt: 'A single Moonit token card annotated with callouts — key metrics at top level, quick-buy button for instant purchases, copy and share links for organic traffic',
         },
+      ],
+    },
+    {
+      kind: 'figure',
+      figures: [
         {
-          kind: 'figure',
-          figures: [
-            {
-              src: '/projects/moonit/04.png',
-              alt: 'Search results across chains, each row carrying market cap, age and contract address in aligned columns',
-              caption:
-                'The grid is the argument. Every figure sits in a fixed column with tabular numerals, so a price updating mid-scan changes the number and moves nothing around it — the difference between an instrument and a feed.',
-            },
-          ],
+          src: '/projects/moonit/buy-sell-cards.png',
+          alt: 'Two expanded Moonit token cards showing buy and sell states — trade controls inline on the card, no routing to a separate view',
+          caption:
+            'Buy and sell without leaving the feed.',
         },
+      ],
+    },
+    {
+      kind: 'figure',
+      figures: [
         {
-          kind: 'prose',
-          paragraphs: [
-            'The identity ran the same problem in miniature. Three directions went up: a rocket, which was the most distinctive shape but would have dragged the whole brand into space imagery; a cursor, which was flexible and generic; and one that resolves as all three at once — cursor, rocket, and an M. The third won because it was the only one that could carry the tone without committing the marketing to a theme.',
-            'I was the only designer on it — strategy, brand, interface, motion and the launch assets — so the constraint was never craft, it was triage. Most of the value I added was in the argument about what did not get made rather than in the artefacts.',
-          ],
+          src: '/projects/moonit/banners.jpg',
+          alt: 'Moonit banners hung between the columns of a classical stone building',
+          caption:
+            'Hung against a bank rather than a billboard, on purpose. The environment a brand is photographed in says more about the positioning than any copy.',
         },
+      ],
+    },
+    {
+      kind: 'prose',
+      paragraphs: [
+        'It was a flash in the pan and we knew it going in. The meme coin frenzy was never going to last. Building a branded trading platform, turning it profitable and sunsetting it when the market moved on, all inside 18 months: you can only do that moving at the speed the culture does. We gave traders a fast, secure platform in a space full of rough tooling, an edge without the usual tradeoffs. When the moment passed, we let it go.',
+      ],
+    },
+    {
+      kind: 'figure',
+      tint: true,
+      figures: [
         {
-          // The other half of the scale argument. The light boxes lead the page,
-          // so this is the mark at four storeys rather than at signal size —
-          // together they make the claim that one arrow survives both ends.
-          kind: 'figure',
-          figures: [
-            {
-              src: '/projects/moonit/banners.jpg',
-              alt: 'Moonit banners hung between the columns of a classical stone building',
-              caption:
-                'Hung against a bank rather than a billboard, on purpose. The whole positioning argument was infrastructure rather than casino, and the environment a brand is photographed in makes that case before any copy does.',
-            },
-          ],
-        },
-        {
-          kind: 'figure',
-          tint: true,
-          figures: [
-            {
-              src: '/projects/moonit/launch-asset.png',
-              alt: 'A Moonit launch asset for a partner chain',
-              caption:
-                'The same system going outside. Campaign work runs loud and illustrative; the constraint keeping it one system is that the type, grid and signal colour are the interface’s, unchanged.',
-            },
-          ],
-        },
-        {
-          kind: 'prose',
-          paragraphs: [
-            'The decision I would take furthest is the two modes. They were scoped as a way to settle an argument about tone and turned out to be the product’s actual structure — but they shipped as two layouts rather than as a system that knows which one a given trader wants. The thing I would do differently is the cut list: a single metric applies pressure evenly to everything, including the moments where a trader ought to slow down — a first trade, an unusually large one — and those deserved friction I did not design, because the metric I had chosen counted friction as failure everywhere.',
-          ],
+          src: '/projects/moonit/launch-asset.png',
+          alt: 'A Moonit launch asset for a partner chain',
+          caption:
+            'Campaign work ran loud and illustrative; the type, grid and signal colour are the interface\'s, unchanged.',
         },
       ],
     },
@@ -723,28 +805,10 @@ export const moonit: CaseStudy = {
 }
 
 /**
- * Phuture — 2021–2023. Ported from the old `Project` model on 2026-08-15.
- *
- * The source was the copy running on the live site, reorganised rather than
- * rewritten: the old entry was four grid items, three bulleted subsections and
- * a three-metric results panel, and almost every sentence in it was worth
- * keeping. What it could not do was argue, because the shape it was in let a
- * reader skip the reasoning.
- *
- * **On the vocabulary.** The recorded blocker was that this page was
- * "crypto-native throughout" — "the ETF of Crypto", "degen casino", an
- * "Anti-Crypto" brand section. Those are gone, and so is every use of the
- * category as an identity. What is *not* gone is the plain naming of what the
- * product was, because this page hits exactly the wall Moonit hit: its own
- * screenshots read "Total exposure to Decentralised Finance" in 60px type, and
- * copy that talks around them loses the moment anyone looks at the pictures.
- * So the domain is stated where it is load-bearing and nowhere else — no
- * marketing vocabulary, and none of it on the card, the page title, the meta
- * description or the keyword list.
- *
- * The one paragraph with no source in the old copy is the reflection that
- * closes the last chapter. It is written from what the rest of the study
- * already argues, and it is the paragraph to check first.
+ * Phuture — 2021–2023. Rewritten 2026-09-12 from the owner's own account of
+ * the work, replacing the AI-written version that read as polished but
+ * impersonal. Four chapters, same structure, shorter throughout — the
+ * reflection paragraph and the 114% community-growth outcome were cut.
  */
 export const phuture: CaseStudy = {
   slug: 'phuture-finance',
@@ -798,8 +862,8 @@ export const phuture: CaseStudy = {
         {
           kind: 'prose',
           paragraphs: [
-            'In 2021, holding a diversified position in this market meant holding it piece by piece. Ten or more assets, a separate contract approval for each one, and a rebalance by hand every time the weights drifted away from the thing you actually wanted to own. The market moved continuously, so the work never finished. A portfolio was a maintenance job rather than a holding.',
-            'None of that cost had anything to do with the investment thesis. It was operational overhead, and it selected hard for the kind of person who enjoyed the operations — which is a small audience, and not the one the product was for. Everyone else either paid in time they did not want to spend or stayed out.',
+            'In 2021 this market was the wild west. Index investing did not exist. If you wanted a diversified position you held it piece by piece: ten or more assets, a separate contract approval for each, rebalancing by hand every time the weights drifted.',
+            'The product collapsed all of that into a single position. One purchase, automatic rebalancing. The design problem was how far I could simplify without losing what made it useful.',
           ],
         },
         {
@@ -814,15 +878,8 @@ export const phuture: CaseStudy = {
               src: '/projects/phuture/phuture-3.webp',
               alt: 'The Phuture site open on a laptop, showing the company page and its three principles',
               caption:
-                'Site and product were one continuous surface rather than two properties with a handoff between them. Someone who arrived interested never had to start again somewhere else — the fix to the leak, before any of the interface work began.',
+                'Site and product were one continuous surface. Someone who arrived interested never had to start again on a separate app to buy.',
             },
-          ],
-        },
-        {
-          kind: 'prose',
-          paragraphs: [
-            'Two things made it worse. Protocols split their marketing site from their product, so the moment someone became interested they were made to switch context and start again, which broke the funnel at its narrowest point. And the interfaces they landed on were gamified — leaderboards, confetti, numbers that flashed. Every one of those signals says "this is a game" to an audience deciding whether to trust something with money.',
-            'So the brief I set was this: make a genuinely volatile instrument feel as manageable as a savings account, without misrepresenting a single thing about the risk.',
           ],
         },
       ],
@@ -834,8 +891,7 @@ export const phuture: CaseStudy = {
         {
           kind: 'prose',
           paragraphs: [
-            'Underneath, buying a single unit of the index fired a basket of swaps and contract interactions. The design decision was to show none of it. The interface presents one product to buy, one number that matters, and one action.',
-            'That meant moving the interface\'s attention off the constituents — AAVE, UNI, COMP, and the rest of the basket — and onto the product itself. Decision fatigue is roughly proportional to the number of things a person believes they are supposed to have an opinion about, and the entire pitch of an index is that you are buying the decision not to have those opinions. An interface that keeps listing the holdings hands them back.',
+            'Underneath, buying one unit fired a basket of swaps and contract interactions. I showed none of it. One product, one action.',
           ],
         },
         {
@@ -844,16 +900,13 @@ export const phuture: CaseStudy = {
             {
               src: '/projects/phuture/phuture-1.avif',
               alt: 'The index product page — one buy panel, performance and returns below',
-              caption:
-                'One product, one panel, one action. Everything the basket is doing underneath happens between pressing confirm and the position existing, and none of it is the reader\'s problem.',
             },
           ],
         },
         {
           kind: 'prose',
           paragraphs: [
-            'Rebalancing followed the same rule inverted. The index rebalanced monthly, and every version of that event was framed as value delivered rather than action required: something that happened for you, reported afterwards, never a task sitting in a queue. It is the difference between a fund telling you it rebalanced and a wallet telling you it needs you.',
-            'The trade-off is real and the people on the wrong side of it are the loudest. Abstraction costs control, so the controls stayed — the asset you paid with, slippage tolerance, the rest of it — one layer down, behind a gear. Clean default path, escape hatch present, and the escape hatch designed properly rather than dumped in a settings screen. What it tested was whether retail investors would trade granular control for a one-click position, and they did.',
+            'We refined the widget over months, stripping it back. Slippage tolerance, the funding asset, fee breakdowns went behind a settings cog. The controls stayed one layer down, designed properly, because a product you can\'t see into asks for trust this audience was not handing out.',
           ],
         },
         {
@@ -863,7 +916,7 @@ export const phuture: CaseStudy = {
               src: '/projects/phuture/phuture-5.avif',
               alt: 'A sequence of panels: buy, settings with slippage tolerance, and the asset selector, in light and dark',
               caption:
-                'The escape hatch, designed. Slippage tolerance and the funding asset sit one layer down rather than being removed — abstraction that cannot be opened is a black box, and a black box asks for trust it has not earned.',
+                'Slippage tolerance and the funding asset stay accessible one layer down for anyone who wants to verify what they\'re buying.',
             },
           ],
         },
@@ -882,7 +935,7 @@ export const phuture: CaseStudy = {
               src: '/projects/phuture/phuture-2.avif',
               alt: 'The same product page on mobile, in dark and light themes',
               caption:
-                'The same hierarchy holds at phone width and in both themes: name, one sentence on what it tracks, three figures, then the action. Nothing reflows into a different argument.',
+                'The same hierarchy at phone width and in both themes.',
             },
           ],
         },
@@ -895,9 +948,8 @@ export const phuture: CaseStudy = {
         {
           kind: 'prose',
           paragraphs: [
-            'Hiding the plumbing creates an obvious risk: a product nobody can see into is asking to be taken on faith, and this audience had been burned by exactly that. So the rule was one-directional. The mechanics were hidden; the data was not.',
-            'Composition, weights and fees were stated on the surface rather than linked to a document — the things a sceptical reader goes looking for, put where they were looking. Transparency was doing competitive work as well as ethical work: the products this was up against were the ones that did not survive that question.',
-            'The visual language pushed the same way. Balanced layouts, generous spacing, a muted palette, quiet type. The reference point was a bank rather than a game, and it separated the product from the gamified set at a glance, before anyone read a word of it.',
+            'Hiding the plumbing creates a risk: if users can\'t see in, they have to take it on faith, and this audience had been burned by exactly that. The rule was simple. Hide the mechanics, show the data. Composition, weights and fees sat on the surface, not behind a link to a document.',
+            'The website was minimal and professional: Space Grotesk, whites and blues. It read closer to a bank than a game, and that distance from the gamified set did the positioning before anyone read a word.',
           ],
         },
         {
@@ -907,14 +959,14 @@ export const phuture: CaseStudy = {
               src: '/projects/phuture/phuture-6.webp',
               alt: 'A wall of Phuture social posts, campaign stickers and announcement graphics',
               caption:
-                'The same system going outside. Community growth ran on explanation rather than incentives — a whitepaper, a research thread, an accelerator announcement — which is slower and produces the kind of holder who is still there 200 days later.',
+                'The same system going outside. Community growth ran on explanation: whitepapers, research threads, accelerator announcements. Slower, but it produces holders who are still there 200 days later.',
             },
           ],
         },
         {
           kind: 'prose',
           paragraphs: [
-            'The charts mattered more than any of that. Analytics were designed to emphasise long-term movement rather than micro-volatility — candlesticks make a five-minute move look like an event, and a person shown an event will act on it. Damping that down is the single change most responsible for the retention figure, because the behaviour it suppressed was panic selling.',
+            'I designed the analytics to show long-term movement, not micro-volatility. Candlesticks make a five-minute move look like an event, and people act on events. Smoothing the chart was the single biggest factor in the retention number, because the behaviour it suppressed was panic selling.',
           ],
         },
         {
@@ -924,40 +976,14 @@ export const phuture: CaseStudy = {
       ],
     },
 
-    {
-      title: 'One system, more than one product',
-      blocks: [
-        {
-          kind: 'prose',
-          paragraphs: [
-            'The system had to outlive the first index, and design systems are only ever proven by the second thing. It was architected so that additional products — a second index, then yield products — could launch without renegotiating the core navigation, which took new vehicles from a quarter to a few weeks.',
-            'The other half of that was teaching. An interface that hides its mechanism explains nothing by itself, so concepts like weighting and yield were explained in place, at the point of use, rather than in documentation nobody opens. Someone could get through the whole product without reading anything, and still learn what they owned if they wanted to.',
-          ],
-        },
-        {
-          kind: 'outcomes',
-          items: [
-            {
-              value: '114%',
-              label: 'Community growth, 7k to 15k, on content rather than incentives',
-            },
-          ],
-        },
-        {
-          kind: 'prose',
-          paragraphs: [
-            'The decision I would take furthest is the transparency work. It was scoped as a trust device, and it turned out to be the thing the most valuable users read first — and it was still the least designed surface in the product when I left. The thing I would do differently is the first run. We leaned on tooltips to carry a job that needed a real explanation up front, and a holder who never quite learns what they own is a holder who sells on the first bad week. The retention number says that mostly worked; it does not say it could not have been better.',
-          ],
-        },
-      ],
-    },
   ],
 }
 
 /**
  * Raptor — 2023. Self-directed, not client work, and **lite** since 2026-08-15.
  *
- * On the work index. It was unfeatured on the grounds that the index takes its
+ * Off the work index as of 2026-09-12 — `featured: false`, pages still live
+ * and public. It was unfeatured on the grounds that the index takes its
  * standard from its weakest entry — still true, but the index lost Margin and
  * Refiner the same day, and a short, self-directed study of irreversible actions
  * is a stronger entry than a tool with no page at all.
@@ -985,6 +1011,7 @@ export const raptor: CaseStudy = {
   // sits in `scope` where Sukiyaki's does. This is what the study actually
   // proves, and it is the frame the whole second chapter rests on.
   outcome: 'At the point of commitment, one control and nothing else.',
+  featured: false,
   color: '#FFD226',
   fieldHue: 0,
   // 1984×2788 — the only genuinely portrait source art on the site. At 0.71
@@ -1089,8 +1116,9 @@ export const raptor: CaseStudy = {
  * Sukiyaki — 2024. Self-directed brand and site work for a restaurant, and
  * **lite** since 2026-08-15, like Raptor and for the same reason.
  *
- * On the index for range rather than for the argument the rest of the site is
- * making. It is the only thing here that is not a financial interface, which is
+ * Off the work index as of 2026-09-12 — `featured: false`, pages still live
+ * and public. Was on the index for range rather than for the argument the rest
+ * of the site is making. It is the only thing here that is not a financial interface, which is
  * exactly what it is useful for — four studies about money in a row invites the
  * reading that money is all there is. That job is done by the pictures, which is
  * most of why this one lost its chapters with nothing much lost.
@@ -1149,7 +1177,7 @@ export const sukiyaki: CaseStudy = {
     {
       kind: 'prose',
       paragraphs: [
-        'Sukiyaki is a communal dish — a pot in the middle of the table that everyone cooks from at once — so the identity is built on the meal as a social event rather than a menu item. The research went into Edo-period printing and traditional palettes, and what it kept returning was not motif but discipline: balance, negative space, a refusal to fill the frame. So the identity borrows the discipline, not the decoration. The obvious move with a Japanese restaurant is decoration, and decoration is what makes hospitality sites look the same as each other.',
+        'I first designed this as a concept when I was starting out. Came back to it in 2024 and treated it more like a product. Sukiyaki is a communal dish, a pot everyone cooks from at once. The identity is built on that: the meal as something shared, not something ordered.',
       ],
     },
     {
@@ -1160,14 +1188,14 @@ export const sukiyaki: CaseStudy = {
           src: '/projects/sukiyaki/sukiyaki-1.avif',
           alt: 'The Sukiyaki site open on a laptop, showing the story section between two photographs',
           caption:
-            'Photography carries the warmth; the type stays out of its way. The only colour in the layout is in the images themselves — a rule that also means the site can never fight the room it is advertising.',
+            'Photography carries the warmth. The type stays out of its way.',
         },
       ],
     },
     {
       kind: 'prose',
       paragraphs: [
-        'So almost nothing is ornamental: monospaced type set small, one vertical Japanese lockup as the only flourish, and six named colours in a closed palette. Closing it is what stops a project drifting once there are twenty screens instead of five. A fixed baseline grid is why a thirty-item menu with prices and long ingredient lists resolves without anything being placed by hand — and the billboard is the check on whether any of it was real, because a type and colour system that only works at screen scale was never a system.',
+        'The research went into Edo-period printing and traditional palettes. What kept coming back was discipline over decoration: balance, negative space, restraint. Most hospitality sites reach for ornament and end up looking like each other. I wanted to see what happened without it.',
       ],
     },
     {
@@ -1178,7 +1206,7 @@ export const sukiyaki: CaseStudy = {
           src: '/projects/sukiyaki/sukiyaki-6.webp',
           alt: 'The six-colour palette, each swatch named and given a hex value',
           caption:
-            'Six colours as a constraint helps 30 screens to look like one system.',
+            'Six named colours. The constraint keeps thirty screens feeling like one system.',
         },
       ],
     },
@@ -1189,7 +1217,7 @@ export const sukiyaki: CaseStudy = {
           src: '/projects/sukiyaki/sukiyaki-3.avif',
           alt: 'The menu page with its layout grid and spacing annotations overlaid',
           caption:
-            'The menu with the grid showing. Thirty items, three tiers and a column of prices resolve without manual placement because the spacing was decided once, at the system level, rather than per screen.',
+            'Thirty items, three tiers and a column of prices, all from one baseline grid.',
         },
       ],
     },
@@ -1201,7 +1229,7 @@ export const sukiyaki: CaseStudy = {
           src: '/projects/sukiyaki/sukiyaki-7.webp',
           alt: 'A Sukiyaki billboard on an ivy-covered wall, showing two pots photographed from above',
           caption:
-            'Outdoors, at the size where mistakes show. Same type, same palette, same restraint — and the photograph doing the selling, exactly as it does on the site.',
+            'Same type, same palette, same restraint, outdoors at scale.',
         },
       ],
     },
@@ -1288,7 +1316,7 @@ export const phasmatic: CaseStudy = {
   // and it would have to be maintained on a component every other study shares.
   // Any future screen capture needs the same treatment.
   lead: {
-    src: '/projects/phasmatic/hero.mp4',
+    src: '/projects/phasmatic/hero-2.mp4',
     alt: 'The Phasmatic site with an effect running full-bleed behind its headline, shifting through violet, magenta and amber',
   },
 
@@ -1310,7 +1338,7 @@ export const phasmatic: CaseStudy = {
     {
       kind: 'prose',
       paragraphs: [
-        'Static pages look dead, but shipping real interaction — shaders, particle fields, responsive motion — still means a build step, a bundle, and a lot of code.',
+        'Static pages are no longer enough, but developing and implementing real interaction — shaders, particle fields, responsive motion — these take time, consideration, and a lot of code.',
         'Phasmatic is a free, growing library of interactive effects that drop into any HTML page with one script tag. No build tools, no framework, no dependencies.',
         'Every effect is designed to sit behind your content, not fight it. Ambient enough for a hero background, responsive enough to follow a cursor.',
       ],
@@ -1337,10 +1365,10 @@ export const warble: CaseStudy = {
   claim: 'A generative ringtone maker',
   role: 'Designed and built solo',
   period: '2025 — ongoing',
-  scope: 'Concept, interface, audio engine and export — two builds, and a fork chasing harmony',
+  scope: 'Concept, interface, audio engine and export. Two builds, and a fork chasing harmony',
   color: '#8b5cf6',
   fieldHue: 0,
-  next: 'raptor',
+  next: 'refiner',
   live: [
     { label: 'Play v2 (2026)', href: WARBLE_SITE },
     { label: 'Play v1 (2025)', href: `${WARBLE_SITE}/v1` },
@@ -1356,9 +1384,9 @@ export const warble: CaseStudy = {
   },
 
   meta: {
-    title: 'Warble — a ringtone that is actually yours',
+    title: 'Warble — a ringtone you made yourself',
     description:
-      'A tool for making a ringtone in the Apple house style but personal to you. It has since stopped making ringtones and started making game music, which nobody planned.',
+      'A tool for making ringtones in the Apple house style, personal to you. It grew into a game music generator somewhere along the way.',
     keywords: [
       'Web Audio API',
       'generative audio',
@@ -1373,12 +1401,121 @@ export const warble: CaseStudy = {
     {
       kind: 'prose',
       paragraphs: [
-        'Apple\u2019s ringtones are well crafted and charming. The trouble is that everyone has exactly the same one.',
-        'I understand why they are kept on rails \u2014 it guarantees the thing sounds good, and it gives every phone in the room a family resemblance. It did not stop me wanting my own. And it could not be that difficult to make a simple ringtone, right?',
-        'I wanted a tool that made something with the depth and whimsy of Apple\u2019s ringtones, while being fun enough to play with and easy enough that anyone could make their own. The eight rows are degrees of a scale rather than a chromatic keyboard, so there is no wrong note to place \u2014 which is the constraint that lets two minutes of fiddling produce something you would actually set as your ringtone.',
-        'It has kept growing since, mostly by gaining layers. I used v1 to make the one that is on my phone. v2 has far more in it \u2014 struck-bar voices with their own overtones instead of plain oscillators, three parts instead of one, repeats that develop rather than repeat \u2014 and somewhere in all of that it stopped making ringtones.',
-        'What comes out of the Random button now is short game music. The Mario and Zelda register. I did not aim at that, and no single change caused it: notes locked to a scale so nothing can clash, short bright percussion that does not smear when it moves quickly, and phrases that state an idea and then answer it. Every one of those went in for its own unrelated reason, and together they turn out to be the conditions for a game loop. Which means it is reproducible rather than a lucky seed \u2014 and the thirty-second cap and the WAV export are now the only parts of this that are about ringtones at all.',
-        'I do not know where it goes next, or whether there is a point beyond the fact that I am learning a great deal and enjoying myself. For this one, that is reason enough.',
+        'Apple\u2019s ringtones are well crafted and charming. Most people have the same one.',
+        'I understand why they are kept on rails. The constraint guarantees the result sounds good, and it gives phones in the same room a family resemblance. It did not stop me wanting my own. Making a simple ringtone could not be that difficult.',
+        'I wanted a tool that made something with the depth and whimsy of Apple\u2019s ringtones, fun to play with and easy enough that anyone could make their own. The eight rows are scale degrees instead of a chromatic keyboard, so there is no wrong note to place. That constraint lets two minutes of fiddling produce something you would set as your ringtone.',
+        'It has kept growing since, through layers. I used v1 to make the one on my phone. v2 has far more in it: struck-bar voices with their own overtones instead of plain oscillators, three parts instead of one, repeats that develop rather than repeat. Somewhere in all of that, it stopped making ringtones.',
+        'The Random button produces short game music now. The Mario and Zelda register. I did not aim at that, and no single change caused it: notes locked to a scale so nothing can clash, short bright percussion that holds up at speed, phrases that state an idea and then answer it. Each went in for its own unrelated reason. Together they are the conditions for a game loop, which makes the output reproducible rather than a lucky seed. The thirty-second cap and the WAV export are the only parts still about ringtones.',
+        'I am still building it.',
+      ],
+    },
+  ],
+}
+
+/**
+ * Tunnel Run — 2026. A **lite** entry, like Phasmatic and Warble.
+ *
+ * A three.js endless tunnel racer built entirely from code — no imported models,
+ * textures, samples or assets of any kind. Procedural geometry, procedural audio,
+ * procedural surface materials, procedurally generated app icons. Native iOS via
+ * Capacitor with CoreMotion tilt. Aimed at the App Store as a free, no-ads game.
+ *
+ * No art yet — lead and cover are placeholders. No live link yet — local git only,
+ * no public deploy. Both land when the game is ready to show.
+ */
+export const tunnelRun: CaseStudy = {
+  slug: 'tunnel-run',
+  name: 'Tunnel Run',
+  claim: 'An endless racer where everything is generated',
+  role: 'Designed and built solo',
+  period: '2026',
+  scope: 'Game design, 3D, procedural audio, native iOS',
+  featured: false,
+  color: '#FF3B30',
+  fieldHue: 0,
+  next: 'warble',
+
+  lead: {
+    alt: 'Tunnel Run gameplay — the ship racing through a procedurally surfaced tunnel at speed, engine flames trailing',
+    aspect: '16 / 9',
+  },
+
+  meta: {
+    title: 'Tunnel Run — an endless racer where everything is generated',
+    description:
+      'A free, no-ads tunnel racer for iOS — procedural geometry, audio, textures and tilt controls, built from nothing and without a single imported asset.',
+    keywords: [
+      'game design',
+      'three.js',
+      'WebGL',
+      'procedural generation',
+      'mobile game',
+      'iOS',
+      'Web Audio',
+    ],
+  },
+
+  note: [
+    {
+      kind: 'prose',
+      paragraphs: [
+        'Commuting on the underground — limited space, no signal, twenty minutes to fill. Mobile games are perfect for this — engaging enough to make the journey disappear, simple enough to play one-handed in a crowd. The problem is that every one worth playing is either paid or ad-supported, and an ad every three minutes destroys the exact thing the game was doing for you.',
+        'This is a tunnel racer that does not do that. No ads, no payment, no interruption. It runs offline, plays in short bursts, and the only thing it asks for is your attention.',
+        'Everything in it is procedural — the geometry, the audio, the surfaces, even the app icons. That started as a constraint and turned out to be the reason it stays small and fast enough to actually belong on a phone.',
+      ],
+    },
+  ],
+}
+
+/**
+ * Refiner — 2025. A **lite** entry.
+ *
+ * A desktop image and video converter/compressor — Python + CustomTkinter,
+ * FFmpeg for video, pngquant for PNG. Built as a tool for the owner's own
+ * workflow, shipped as a free product (v2.0.0, 2026-09-12).
+ *
+ * Landing page at getrefiner.vercel.app, GitHub release at
+ * github.com/lloydturnercreate/Refiner/releases.
+ */
+export const refiner: CaseStudy = {
+  slug: 'refiner',
+  name: 'Refiner',
+  claim: 'Local image and video conversion, in one window',
+  role: 'Designed and built solo',
+  period: '2025',
+  scope: 'Interface, packaging as a native macOS app, and distribution',
+  color: '#FF6600',
+  fieldHue: 0,
+  cover: '/projects/refiner/card.png',
+  next: 'phasmatic',
+  live: { label: 'Get Refiner', href: 'https://getrefiner.vercel.app' },
+
+  lead: {
+    src: '/projects/refiner/cover.png',
+    alt: 'The Refiner interface — converter and compressor side by side, showing a file loaded with preview, format picker and compression slider',
+  },
+
+  meta: {
+    title: 'Refiner — local image and video conversion, in one window',
+    description:
+      'A desktop app for converting and compressing images and video. Runs offline, predicts the output size before you commit, and ships as a single macOS bundle.',
+    keywords: [
+      'desktop app',
+      'utility',
+      'image compression',
+      'video conversion',
+      'product design',
+      'tool design',
+    ],
+  },
+
+  note: [
+    {
+      kind: 'prose',
+      paragraphs: [
+        'I kept converting screen recordings to GIFs in the terminal, compressing PNGs through a website that imposed file limits and kept the originals. I built Refiner to stop doing both.',
+        'Drop in a file, pick a format or drag a compression slider, and see the predicted output size before you commit. PNG, JPG, WebP, AVIF, SVG and BMP for images. MP4, WebM, MOV and GIF for video, with palette-optimised GIF export and FPS control for compression. Everything runs on your machine.',
+        'I packaged it as a native macOS .app bundle with FFmpeg and pngquant bundled inside, so the download works without installing dependencies.',
       ],
     },
   ],
@@ -1411,7 +1548,23 @@ export const warble: CaseStudy = {
  * the system, Sukiyaki for brand and art direction, and the two shorter
  * self-directed pieces last.
  */
-export const caseStudies: CaseStudy[] = [phasmatic, moonit, phuture, sukiyaki, warble, raptor]
+/*
+ * `tunnelRun`, `raptor` and `moonpay` are unfeatured as of 2026-09-12 —
+ * pages still live, just off the work index. They sit after the featured
+ * entries so the array order matches the index order for featured studies.
+ * `moonpay` additionally has `unlisted: true` (noindex, out of sitemap).
+ */
+export const caseStudies: CaseStudy[] = [
+  phasmatic,
+  moonit,
+  phuture,
+  sukiyaki,
+  warble,
+  refiner,
+  tunnelRun,
+  raptor,
+  moonpay,
+]
 
 /**
  * The studies that appear in the work index.

@@ -373,7 +373,6 @@ export default function CaseStudyTemplate({ study }: { study: CaseStudy }) {
       ? study.live
       : [study.live]
 
-
   return (
     <>
       <Field score={CASE_STUDY_KEYFRAMES} hueOffset={study.fieldHue ?? 0} />
@@ -515,14 +514,40 @@ export default function CaseStudyTemplate({ study }: { study: CaseStudy }) {
         */}
         <section aria-label="Project details" className={`${CONTAINER} mt-16 lg:mt-24`}>
           <dl className="grid grid-cols-2 border-y border-border lg:grid-cols-4">
-            {[
-              { label: 'Role', value: study.role },
-              { label: 'Period', value: study.period, mono: true },
-              { label: 'Owned', value: study.scope },
-              { label: 'Outcome', value: study.outcome },
-            ]
-              .filter((item) => item.value)
-              .map((item, i) => (
+            {(() => {
+              const items = [
+                { label: 'Role', value: study.role },
+                { label: 'Period', value: study.period, mono: true },
+                { label: 'Owned', value: study.scope },
+                { label: 'Outcome', value: study.outcome },
+              ].filter((item) => item.value)
+
+              /*
+                The last cell absorbs whatever columns are left over.
+
+                The grid is a fixed four across, and `outcome` is optional — so
+                a study without one used to leave a quarter of the row empty
+                while `Owned`, much the longest value of the four, wrapped to
+                five lines in a narrow column beside the gap. MoonPay is the
+                case. Widening the whole grid instead (three columns for three
+                items) is worse: it gives `Period` a third of the row to hold
+                four characters.
+
+                Keyed by count rather than computed, because Tailwind scans for
+                complete class strings — `lg:col-span-${n}` compiles to nothing.
+                Each entry is what the LAST cell spans: at the two-column
+                breakpoint it only needs widening when an odd count leaves it
+                alone on its final row, and `col-span-2` carries up to `lg`
+                unless a `lg:` span overrides it.
+              */
+              const LAST_SPAN: Record<number, string> = {
+                1: 'col-span-2 lg:col-span-4',
+                2: 'lg:col-span-3',
+                3: 'col-span-2',
+                4: '',
+              }
+
+              return items.map((item, i) => (
                 /*
                   `border-l` on every cell except the first in its row, rather
                   than `divide-x`: the grid wraps to two columns below `lg`, and
@@ -533,7 +558,9 @@ export default function CaseStudyTemplate({ study }: { study: CaseStudy }) {
                   key={item.label}
                   className={`border-border py-8 pr-6 lg:py-10 ${
                     i % 2 === 1 ? 'border-l pl-6' : ''
-                  } lg:border-l lg:pl-8 lg:first:border-l-0 lg:first:pl-0`}
+                  } lg:border-l lg:pl-8 lg:first:border-l-0 lg:first:pl-0 ${
+                    i === items.length - 1 ? LAST_SPAN[items.length] : ''
+                  }`}
                 >
                   <dt className="font-mono text-xs tracking-wide text-muted-dark">{item.label}</dt>
                   <dd
@@ -544,7 +571,8 @@ export default function CaseStudyTemplate({ study }: { study: CaseStudy }) {
                     {item.value}
                   </dd>
                 </div>
-              ))}
+              ))
+            })()}
           </dl>
 
         </section>
