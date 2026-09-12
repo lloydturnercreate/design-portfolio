@@ -758,6 +758,7 @@ export const moonit: CaseStudy = {
         {
           src: '/projects/moonit/card-annotated.png',
           alt: 'A single Moonit token card annotated with callouts — key metrics at top level, quick-buy button for instant purchases, copy and share links for organic traffic',
+          caption: 'Key metrics, one-tap buy, and share links — everything on the card, nothing behind a tap.',
         },
       ],
     },
@@ -900,6 +901,7 @@ export const phuture: CaseStudy = {
             {
               src: '/projects/phuture/phuture-1.avif',
               alt: 'The index product page — one buy panel, performance and returns below',
+              caption: 'One panel, one action. Performance and returns sit below the fold until you ask for them.',
             },
           ],
         },
