@@ -1358,7 +1358,7 @@ const WARBLE_SITE = 'https://warbleton.vercel.app'
 export const warble: CaseStudy = {
   slug: 'warble',
   name: 'Warble',
-  claim: 'A generative ringtone maker',
+  claim: 'Warble WB-32: Digital Groovebox',
   role: 'Designed and built solo',
   period: '2025 — ongoing',
   scope: 'Concept, interface, audio engine and export. Two builds, and a fork chasing harmony',
@@ -1369,20 +1369,22 @@ export const warble: CaseStudy = {
     { label: 'Play v2 (2026)', href: WARBLE_SITE },
     { label: 'Play v1 (2025)', href: `${WARBLE_SITE}/v1` },
   ],
-  // 1778×2000, composed to the card's 8:9 with the wordmark under the app.
-  // `app.jpg` is still the study's `lead` — it is the same interface, shot for a
-  // wide slot instead of this one.
-  cover: '/projects/warble/card.png',
+  // 1776×2000, the card's 8:9: the worn wordmark over v2, with the hero recording
+  // composited onto the still of the app so the app plays. H.264, no audio.
+  cover: '/projects/warble/card.mp4',
 
+  // A screen recording of v2, the WB-32 groovebox, playing a Random draw.
+  // Captured as VP9 WebM; re-encoded to H.264 at 2560 wide and 60fps, because
+  // Safari's WebM support is patchy and this is the first thing the page shows.
   lead: {
-    src: '/projects/warble/app.jpg',
-    alt: 'The Warble interface: instrument and scale pickers, a step sequencer, and the transport mid-playback',
+    src: '/projects/warble/hero.mp4',
+    alt: 'Warble v2, the WB-32 groovebox, playing: notes lighting across the step sequencer screen beside its layers, voices and transport',
   },
 
   meta: {
-    title: 'Warble — a ringtone you made yourself',
+    title: 'Warble WB-32: Digital Groovebox',
     description:
-      'A tool for making ringtones in the Apple house style, personal to you. It grew into a game music generator somewhere along the way.',
+      'A groovebox that writes short game music, in key, from one button. It started as a way to make your own ringtone in the Apple house style.',
     keywords: [
       'Web Audio API',
       'generative audio',
@@ -1402,7 +1404,7 @@ export const warble: CaseStudy = {
         'I wanted a tool that made something with the depth and whimsy of Apple\u2019s ringtones, fun to play with and easy enough that anyone could make their own. The eight rows are scale degrees instead of a chromatic keyboard, so there is no wrong note to place. That constraint lets two minutes of fiddling produce something you would set as your ringtone.',
         'It has kept growing since, through layers. I used v1 to make the one on my phone. v2 has far more in it: struck-bar voices with their own overtones instead of plain oscillators, three parts instead of one, repeats that develop rather than repeat. Somewhere in all of that, it stopped making ringtones.',
         'The Random button produces short game music now. The Mario and Zelda register. I did not aim at that, and no single change caused it: notes locked to a scale so nothing can clash, short bright percussion that holds up at speed, phrases that state an idea and then answer it. Each went in for its own unrelated reason. Together they are the conditions for a game loop, which makes the output reproducible rather than a lucky seed. The thirty-second cap and the WAV export are the only parts still about ringtones.',
-        'I am still building it.',
+        'WIP',
       ],
     },
   ],
