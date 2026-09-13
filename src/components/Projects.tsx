@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { flowItems } from '@/content/flow'
 import { useFrameReveal } from '@/lib/reveal'
 
+const isVideo = (src: string) => /\.(mp4|webm|mov)$/i.test(src)
+
 /**
  * Selected work, as a typographic index.
  *
@@ -204,7 +206,11 @@ export default function Projects() {
               */}
               {item.cover && (
                 <span className="relative hidden h-16 w-24 shrink-0 overflow-hidden rounded max-md:block">
-                  <Image src={item.cover} alt="" fill sizes="96px" className="object-cover" />
+                  {isVideo(item.cover) ? (
+                    <video src={item.cover} muted loop autoPlay playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
+                  ) : (
+                    <Image src={item.cover} alt="" fill sizes="96px" className="object-cover" />
+                  )}
                 </span>
               )}
 
@@ -286,13 +292,17 @@ export default function Projects() {
             style={{ background: `linear-gradient(160deg, ${item.color}22, transparent 60%)` }}
           >
             {item.cover ? (
-              <Image
-                src={item.cover}
-                alt=""
-                fill
-                sizes="15vw"
-                className="object-cover"
-              />
+              isVideo(item.cover) ? (
+                <video src={item.cover} muted loop autoPlay playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
+              ) : (
+                <Image
+                  src={item.cover}
+                  alt=""
+                  fill
+                  sizes="15vw"
+                  className="object-cover"
+                />
+              )
             ) : (
               /*
                 Unreached as of 2026-08-15: every entry has cover art, Phasmatic

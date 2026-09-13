@@ -1281,13 +1281,7 @@ export const phasmatic: CaseStudy = {
   outcome: '15+ effects. The field behind this page is one of them.',
   color: '#5566ff',
   fieldHue: 0,
-  // 1778×2000 — drawn to the card's 8:9 rather than cropped into it, which only
-  // this and Warble are. The wordmark sits across the plume, so unlike every
-  // other cover it names itself: the one entry whose art would otherwise be an
-  // abstract glow with nothing identifying it. It ends the tinted-name
-  // placeholder in `Projects.tsx`, which now has no entry left to catch; keep
-  // the branch anyway, for the next project added without art.
-  cover: '/projects/phasmatic/card-2.png',
+  cover: '/projects/phasmatic/card.webm',
   next: 'moonit',
   live: { label: 'Open Phasmatic', href: 'https://phasmatic.vercel.app' },
 
