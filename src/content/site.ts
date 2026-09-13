@@ -19,7 +19,7 @@
  * four sentences.
  *
  * The test for new copy is whether it was written to impress an employer or to
- * interest a collaborator. `sections.work.intro` failed it and was rewritten;
+ * interest a collaborator. The work index intro failed it and was rewritten;
  * `hero.credibility` was rewritten on the same grounds and put back, because it
  * simply read better — see its note. Not every line has to do the repositioning.
  *
@@ -107,25 +107,6 @@ export const site = {
     ],
   },
 
-  sections: {
-    work: {
-      label: 'Work',
-      heading: 'Selected work',
-      // Rewritten 2026-08-16 with the audience. It read "Product design
-      // leadership on interfaces where the stakes are legible in the numbers",
-      // which is two employer words ("leadership") and one shareholder one
-      // ("the numbers") on the line introducing the work — written to be
-      // assessed rather than to be read by someone deciding whether to make
-      // something together. This says what the list actually is.
-      intro: 'Some of it made on my own, some with teams. Most of it I built as well as designed.',
-    },
-    built: {
-      label: 'Built',
-      heading: 'Built and shipped',
-      intro: 'Things I designed and built myself, mostly at night.',
-    },
-  },
-
   // "Built" is gone as a destination: client work and solo work are one track
   // now, so a separate anchor would point at the middle of the same section.
   nav: [
@@ -156,9 +137,5 @@ export const site = {
     // the whole positioning. It labels the address rather than instructing.
     eyebrow: 'Best reached by email',
     cvHref: '/resume/Lloyd Turner _ Product Designer.pdf',
-    // No "newsletter", no subscriber count, no cadence there is no intention of
-    // keeping. It sits under the address because anyone who came here to make
-    // contact is already done a line above.
-    subscribe: 'Occasional notes on what I’m building',
   },
 } as const

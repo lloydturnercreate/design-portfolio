@@ -42,7 +42,5 @@ rewriting it for him.
 and is the only thing linking to the frozen 2025 build at `/v1` — which is why `live` takes a
 list.
 
-**Dead but kept on purpose**: `/api/subscribe` (working code, no form renders),
-`site.contact.subscribe` and `site.sections` (unread copy), the `moonpay` scaffold in
-`case-studies.ts`, and the `COVERS` map in `content/flow.ts` (reachable only via
-`builtProjects`, which is empty).
+**Unreachable on purpose**: the `moonpay` study in `case-studies.ts` (unlisted) and
+`builtProjects` (empty, entries parked to return).

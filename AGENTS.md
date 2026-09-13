@@ -10,9 +10,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 Personal portfolio. **The deployed site**, live at lloydturner.co.uk.
 
-Strategy, copy rationale and what's next: `~/Documents/AI/rebirth/portfolio/PORTFOLIO_PLAN.md`.
-Read it before changing content or positioning; the wording is deliberate and most of it is
-load-bearing. **The About block is Lloyd's own writing — do not rewrite it for him.**
+Copy rationale lives in the doc comments in `src/content/`. Read them before changing content
+or positioning; the wording is deliberate and most of it is load-bearing. **The About block is
+Lloyd's own writing — do not rewrite it for him.**
 
 ## The idea
 
@@ -107,8 +107,7 @@ one-line change that moves nothing around it. `moonpay` is currently entirely th
 **`content/built.ts` exports an empty array, deliberately.** Solo work is not a section
 below the client work — it is on the same track, and the `role` line ("Designed and built
 solo" where an employed study says "Head of Design") carries the distinction. Three entries
-are parked to return; see its own note. Consequence: the `COVERS` map in `flow.ts` is only
-reachable through `builtProjects`, so it is dead code, as is `site.sections`.
+are parked to return; see its own note. A returning row takes its art from its own `cover`.
 
 ## Media
 
@@ -255,8 +254,5 @@ effect looks frozen, canvases render blank, and it is indistinguishable from a r
 whole debugging pass once went into a defect that did not exist. Dispatching `resize`
 re-poses things, which is the quickest way to tell the two apart.
 
-**The email signup was removed on request** — `Subscribe.tsx` is deleted and nothing renders
-a form. `/api/subscribe` and its `BUTTONDOWN_API_KEY` handling were left in place: working,
-tested integration code that costs nothing to keep. Its copy string,
-`site.contact.subscribe`, is also still in `site.ts` and read by nothing. Delete both if the
-list is never coming back.
+**The email signup was removed on request**, along with `/api/subscribe` and its copy. The
+Buttondown integration is in git history if a list ever comes back.

@@ -5,6 +5,8 @@ export interface BuiltProject {
   /** Short qualifier shown under the name — the proof, not a category. */
   note?: string
   href?: string
+  /** Cover art path. Without one the row renders a placeholder card. */
+  cover?: string
   /** Drives the card's accent. */
   color: string
   year: string
