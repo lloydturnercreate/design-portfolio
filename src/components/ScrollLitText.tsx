@@ -38,6 +38,11 @@ const LIT = [244, 244, 244]
 const ENTER = 0.82
 const SETTLE = 0.3
 
+/** Characters the HDR overshoot decays over. Shorter = sharper flash. */
+const SHINE = 10
+/** Peak brightness above 1.0 (0.5 = display-p3 ~1.44, visibly bright without hostile). */
+const SHINE_PEAK = 0.5
+
 interface Props {
   text: string
   className?: string
@@ -59,10 +64,27 @@ export default function ScrollLitText({ text, className, as = 'p' }: Props) {
     const chars = Array.from(block.querySelectorAll<HTMLElement>('[data-lit]'))
     if (chars.length === 0) return
 
+    const hdr =
+      window.matchMedia('(dynamic-range: high)').matches &&
+      CSS.supports('color', 'color(display-p3 1 1 1)')
+
     const paint = (lit: number) => {
-      const r = Math.round(DIM[0] + (LIT[0] - DIM[0]) * lit)
-      const g = Math.round(DIM[1] + (LIT[1] - DIM[1]) * lit)
-      const b = Math.round(DIM[2] + (LIT[2] - DIM[2]) * lit)
+      if (lit <= 1) {
+        const r = Math.round(DIM[0] + (LIT[0] - DIM[0]) * lit)
+        const g = Math.round(DIM[1] + (LIT[1] - DIM[1]) * lit)
+        const b = Math.round(DIM[2] + (LIT[2] - DIM[2]) * lit)
+        return `rgb(${r}, ${g}, ${b})`
+      }
+      if (hdr) {
+        const r = (LIT[0] / 255) * lit
+        const g = (LIT[1] / 255) * lit
+        const b = (LIT[2] / 255) * lit
+        return `color(display-p3 ${r.toFixed(3)} ${g.toFixed(3)} ${b.toFixed(3)})`
+      }
+      const t = Math.min(1, (lit - 1) / SHINE_PEAK)
+      const r = Math.round(LIT[0] + (255 - LIT[0]) * t)
+      const g = Math.round(LIT[1] + (255 - LIT[1]) * t)
+      const b = Math.round(LIT[2] + (255 - LIT[2]) * t)
       return `rgb(${r}, ${g}, ${b})`
     }
 
@@ -108,12 +130,19 @@ export default function ScrollLitText({ text, className, as = 'p' }: Props) {
 
       const progress = Math.max(positional, tail)
 
-      // The front runs past the end by SOFT characters so the last character
-      // reaches full brightness rather than stopping part-lit.
-      const front = progress * (chars.length + SOFT)
+      const front = progress * (chars.length + SOFT + SHINE)
 
       for (let i = 0; i < chars.length; i++) {
-        const lit = Math.min(1, Math.max(0, (front - i) / SOFT))
+        const t = (front - i) / SOFT
+        let lit
+        if (t <= 0) {
+          lit = 0
+        } else if (t <= 1) {
+          lit = t
+        } else {
+          const decay = Math.min(1, (t - 1) * SOFT / SHINE)
+          lit = 1 + SHINE_PEAK * (1 - decay) * (1 - decay)
+        }
         chars[i].style.color = paint(lit)
       }
     }
