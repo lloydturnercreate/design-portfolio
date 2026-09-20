@@ -29,17 +29,18 @@
 export const site = {
   name: 'Lloyd Turner',
   /*
-    **Temporary, and known to be wrong.** `lloyd@lloydturner.co.uk` is the address
-    this should be and the domain is owned — the mailbox just is not set up yet,
-    and a contact address that bounces is worse than an unpolished one that works.
-    A live.co.uk address on a site arguing craft undercuts it, so this is the
-    first thing to change once the mailbox exists. One line, and the close, the
-    `mailto` and the metadata all derive from it.
+    The working address. `lloyd@lloydturner.co.uk` is still the one this should
+    eventually be — the domain is owned, the mailbox is not set up — but a
+    live.co.uk address on a site arguing craft undercut it, and this one is both
+    real and already where everything else reaches him. One line, and the close,
+    the `mailto` and the metadata all derive from it.
 
-    Same length as the intended address, 23 characters, so the measured ratio the
-    close is sized from still holds — see the note on the address in AGENTS.md.
+    **27 characters, against the 23 of the two addresses before it.** The close is
+    sized from a measured ratio, so the `vw` steps in `Footer.tsx` were re-measured
+    when this changed — see the note there and in AGENTS.md. Change the address
+    again and they need re-measuring again.
   */
-  email: 'lloyd.turner@live.co.uk',
+  email: 'lloydturnercreate@gmail.com',
   // www is the host Vercel serves; the apex redirects to it.
   domain: 'https://www.lloydturner.co.uk',
 
@@ -137,6 +138,6 @@ export const site = {
     // has to read the same to a hiring manager as it does to a client, which is
     // the whole positioning. It labels the address rather than instructing.
     eyebrow: 'Best reached by email',
-    cvHref: '/resume/Lloyd Turner _ Product Designer.pdf',
+    cvHref: '/resume/Lloyd Turner - Product Designer - CV.pdf',
   },
 } as const

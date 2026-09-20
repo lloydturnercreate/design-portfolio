@@ -236,11 +236,13 @@ Each has a comment at the site explaining it. They look wrong and are not.
 - **`useFrameReveal` must not be used in the closing block**, for the same reason: it maps
   opacity from distance to the viewport centre, and nothing in the last screen can be
   scrolled to the centre. Every row would sit permanently faded.
-- **The address is sized from a measured ratio.** It renders 10.41× its own font-size wide,
-  which is where 6.6vw / 5.2vw / 4.2vw comes from — it clears the padding at 320px, the
-  narrowest viewport worth serving. Re-measure if the address changes length, with a `Range`
-  over the text rather than the element's rect: the paragraph is a block, so its rect is the
-  container's width, not the type's.
+- **The address is sized from a measured ratio.** The current address renders 13.06× its own
+  font-size wide, which is where 5.2vw / 4.6vw / 4.2vw comes from — the base step is what
+  clears the padding at 320px, the narrowest viewport worth serving. Only that step is
+  constrained; sm and lg have room to spare, which is why lg stays at 4.2vw and keeps
+  matching the hero. Re-measure if the address changes length, with a `Range` over the text
+  rather than the element's rect: the paragraph is a block, so its rect is the container's
+  width, not the type's. (The previous 23-character address measured 10.14×.)
 - **`ScrollLitText` writes `color` inline on every character**, so any colour-driven effect
   on the type it wraps is overridden silently. The address's hover fringe is `text-shadow`
   and nothing else for that reason — it inherits, and nothing else on the page touches it.

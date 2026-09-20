@@ -89,15 +89,24 @@ export default function Footer() {
           className="link-reveal group mt-6 inline-flex items-baseline gap-3 border-b border-border pb-3 [--link-reveal-offset:-1px] lg:mt-8 lg:gap-5"
         >
           {/*
-            Measured, for the same reason the old wordmark was: this string
-            renders 10.41× its own font-size wide, so at 6.6vw it needs 69vw and
-            still clears the horizontal padding at 320px — the narrowest viewport
-            worth serving. The lg step matches the hero's 4.25vw almost exactly,
+            Measured, for the same reason the old wordmark was. The current
+            address renders **13.06× its own font-size** wide — measured with a
+            `Range` over the text, not the element's rect, since the paragraph is
+            a block and its rect is the container's width.
+
+            At 320px the row has 320 − 48 (px-6) − 12 (gap-3) − ~13 (the arrow)
+            ≈ 247px to play with, so the base step is 5.2vw: 16.6px of type,
+            217px of address, clearing by about the same margin the old 23-char
+            address did at 6.6vw.
+
+            **Only the base step is constrained.** sm and lg have room to spare —
+            at lg the address needs 55vw of a viewport that is at least 1024px —
+            so the lg step stays at 4.2vw and keeps matching the hero's 4.25vw,
             which is the point of the bookend. Re-measure if the address changes.
           */}
           <ScrollLitText
             text={site.email}
-            className="text-[6.6vw] font-medium leading-[1.05] tracking-[-0.04em] whitespace-nowrap sm:text-[5.2vw] lg:text-[4.2vw]"
+            className="text-[5.2vw] font-medium leading-[1.05] tracking-[-0.04em] whitespace-nowrap sm:text-[4.6vw] lg:text-[4.2vw]"
           />
 
           <span
