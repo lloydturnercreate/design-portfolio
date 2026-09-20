@@ -1261,9 +1261,15 @@ export const sukiyaki: CaseStudy = {
  * already appears in the product's own embed example. Change `live.href` when it
  * does.
  *
- * **One paragraph, not chapters.** It is live and still moving, so a structured
+ * **One chapter, not chapters.** It is live and still moving, so a structured
  * retrospective would be writing a conclusion for something that has not
  * reached one. What it is, why the built part is any good, and a link out.
+ *
+ * **The three example sites carry the argument, so the prose stays short.**
+ * Added 2026-09-20. A gallery of effects proves only that effects exist; a
+ * fictional brand built as a working page proves one is doing a job. They run
+ * uncaptioned and full width, in the order Nereid, Sylva, Avenor — all three
+ * on request, and all three explained on the figure block itself.
  *
  * **The hero is a hand-captured video**, and had to be. The effects are WebGL
  * canvases and cannot be captured from an automated browser — a headless or
@@ -1337,6 +1343,65 @@ export const phasmatic: CaseStudy = {
         'Static pages are no longer enough, but developing and implementing real interaction — shaders, particle fields, responsive motion — these take time, consideration, and a lot of code.',
         'Phasmatic is a free, growing library of interactive effects that drop into any HTML page with one script tag. No build tools, no framework, no dependencies.',
         'Every effect is designed to sit behind your content, not fight it. Ambient enough for a hero background, responsive enough to follow a cursor.',
+      ],
+    },
+
+    /*
+      The three example sites, captured 2026-09-20. Each is a 10s clip of the
+      middle of a longer recording: 2560x1480, h264, 30fps, no audio, per the
+      encode rules in AGENTS.md.
+
+      **Uncaptioned, on request.** Every other figure on the site carries one —
+      see the note at the top of this file for why. These three are the
+      exception: the pages speak for themselves and a caption under each read as
+      three explanations of the same idea. `caption: ''` is the deliberate
+      opt-out rather than a missing string, and `FigureItem` drops the element
+      entirely when it is empty, so there is no dead space under the video.
+
+      **Full width and one at a time, not paired.** A pair renders at roughly
+      630px each, and these are whole web pages with headline type in frame —
+      at half width the type is unreadable and the figure stops being evidence
+      of anything. The rule of thumb is that a screen recording of a page needs
+      the page's own width.
+
+      **Avenor runs last, on request.** It is the densest of the three — a real
+      product interface rather than a marketing page — so it closes the sequence
+      instead of opening it.
+
+      **Sylva is encoded at CRF 26 where the others are at 20.** It runs Dappled
+      with `grain: 0.08`, and per-frame noise gives the codec nothing to
+      predict, so identical settings made it five times the size of its
+      siblings. The fine grain is softer here than on the live site; the
+      gradients are not.
+    */
+    {
+      kind: 'figure',
+      figures: [
+        {
+          src: '/projects/phasmatic/nereid.mp4',
+          alt: 'The Nereid site: a large headline over a dark tilted globe, with a ribbon of light crossing it',
+          caption: '',
+        },
+      ],
+    },
+    {
+      kind: 'figure',
+      figures: [
+        {
+          src: '/projects/phasmatic/sylva.mp4',
+          alt: 'The Sylva site: a bottle of face oil on a pale plinth under moving leaf shadow',
+          caption: '',
+        },
+      ],
+    },
+    {
+      kind: 'figure',
+      figures: [
+        {
+          src: '/projects/phasmatic/avenor.mp4',
+          alt: 'The Avenor site: bold white type beside an iridescent Liquid Metal form on near-black',
+          caption: '',
+        },
       ],
     },
   ],

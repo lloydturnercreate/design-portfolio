@@ -136,6 +136,19 @@ Every hero and figure goes through `components/project/Media.tsx`, which resolve
   and the browser keeps serving the old one through ordinary reloads — clearing Next's cache
   does nothing, because the stale copy is in the browser. **Rename the file.** Raw files in
   `public/` revalidate normally, so video is not affected.
+- **Keep a figure video to about 10 seconds, and never ship the capture.** Screen recordings
+  come off the machine at 120fps and tens of Mbps — Phasmatic's three examples arrived at
+  504MB for three clips. Encode, then delete the source from `public/`, because everything
+  under it deploys.
+- **Grain in the subject is what actually costs bitrate.** Phasmatic's Sylva example runs the
+  Dappled effect with `grain: 0.08`, and per-frame noise gives the codec nothing to predict:
+  identical settings to its siblings put it five times their size. CRF 26 is the compromise
+  there — the fine grain goes, the gradients stay clean. Judge this per asset rather than
+  lowering CRF across the board.
+- **TODO — lazy-load video in `Media`.** There is no `IntersectionObserver` on the `<video>`
+  branch, so every clip on a study fetches at page load; the Phasmatic page is now four.
+  `loading="lazy"` does not exist for video, so this needs a real observer flipping `src` (or
+  a `<source>`) when the figure approaches the viewport. Helps every study, not just that one.
 
 ## House rules
 

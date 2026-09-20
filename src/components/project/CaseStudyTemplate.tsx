@@ -129,13 +129,22 @@ function FigureItem({
         <Placeholder figure={figure} color={color} />
       )}
 
-      <figcaption
-        className={`mt-4 text-sm text-muted-dark text-pretty ${
-          frame === 'column' ? 'max-w-[52ch]' : 'max-w-[64ch]'
-        }`}
-      >
-        {figure.caption}
-      </figcaption>
+      {/*
+        An empty caption renders nothing at all, rather than an empty element
+        with `mt-4` under the picture. The lead has always passed `caption: ''`
+        — it is a hero, not evidence — and the Phasmatic examples now do too, on
+        request. Captions stay required in the type so writing one remains the
+        default and omitting one has to be spelled out.
+      */}
+      {figure.caption ? (
+        <figcaption
+          className={`mt-4 text-sm text-muted-dark text-pretty ${
+            frame === 'column' ? 'max-w-[52ch]' : 'max-w-[64ch]'
+          }`}
+        >
+          {figure.caption}
+        </figcaption>
+      ) : null}
     </figure>
   )
 }
