@@ -40,7 +40,8 @@ export const site = {
     close is sized from still holds — see the note on the address in AGENTS.md.
   */
   email: 'lloyd.turner@live.co.uk',
-  domain: 'https://lloydturner.co.uk',
+  // www is the host Vercel serves; the apex redirects to it.
+  domain: 'https://www.lloydturner.co.uk',
 
   hero: {
     // Line 2 is the claim, line 3 is the credibility. No employer in the
